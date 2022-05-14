@@ -1,0 +1,67 @@
+plugins {
+    id 'com.android.application'
+    id 'kotlin-android'
+//    id 'com.google.gms.google-services'
+    id 'dagger.hilt.android.plugin'
+}
+
+android {
+    compileSdkVersion(31)
+    compileSdk 31
+    buildToolsVersion "30.0.3"
+
+    defaultConfig {
+        applicationId "com.goen.daiku"
+        minSdkVersion 21
+        targetSdkVersion 31
+        versionCode 1
+        versionName "1.0"
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+
+        buildConfigField('String', 'FIREBASE_PROJECT_ID', '"' + System.getenv("FIREBASE_PROJECT_ID") + '"')
+        buildConfigField('String', 'FIREBASE_APPLICATION_ID', '"' + System.getenv("FIREBASE_APPLICATION_ID") + '"')
+        buildConfigField('String', 'FIREBASE_API_KEY', '"' + System.getenv("FIREBASE_API_KEY") + '"')
+    }
+
+    buildFeatures {
+        // Enables Jetpack Compose for this module
+        compose true
+    }
+
+    buildTypes {
+        release {
+            debuggable true
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    kotlinOptions {
+        jvmTarget = '1.8'
+        useIR = true
+    }
+
+    composeOptions {
+        kotlinCompilerVersion '1.5.31'
+        kotlinCompilerExtensionVersion '1.0.5'
+    }
+}
+
+dependencies {
+    implementation project(":auth")
+    implementation project(":home")
+    implementation project(":goal")
+    implementation project(":domain")
+    implementation project(":account")
+    implementation project(":process")
+    implementation project(":processHistory")
+    implementation project(":favorite")
+    implementation 'com.google.firebase:firebase-auth'
+    implementation 'com.google.firebase:firebase-auth-ktx:21.0.1'
+
+}

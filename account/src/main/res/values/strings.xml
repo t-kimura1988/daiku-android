@@ -1,0 +1,15 @@
+<resources>
+    <string name="account_tab_name">アカウント</string>
+    <string name="account_edit_button">アカウント更新</string>
+    <string name="account_create_tab_name">アカウント登録</string>
+    <string name="account_update_tab_name">アカウント更新</string>
+    <string name="account_logout_button">ログアウト</string>
+    <string name="account_delete_button">アカウント削除</string>
+    <string name="term_search_button">検索条件:期間</string>
+    <string name="account_sub_tab_goal_button">目標</string>
+    <string name="account_save_button">保存</string>
+    <string name="account_failure_message_text">処理に失敗しました。もう一度入力してください。</string>
+    <string name="account_success_message_text">処理に成功しました。</string>
+    <string name="account_failure_retry_button">やり直し</string>
+    <string name="goal_delete_confirm_message_text">アカウントを削除します。アカウントの削除と同時に作成した目標も削除されますのでご注意ください。</string>
+</resources>

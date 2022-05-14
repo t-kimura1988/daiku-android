@@ -1,0 +1,11 @@
+include ':app'
+rootProject.name = "daiku"
+include ':auth'
+include ':home'
+include ':domain'
+include ':utils'
+include ':account'
+include ':goal'
+include ':process'
+include ':processHistory'
+include ':favorite'

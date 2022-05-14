@@ -1,0 +1,20 @@
+<resources>
+    <string name="goal_detail_tab_name">目標</string>
+    <string name="goal_create_tab_name">目標作成</string>
+    <string name="goal_update_tab_name">目標作成</string>
+    <string name="goal_archive_detail_tab_name">目標達成詳細</string>
+    <string name="goal_process_add_button_name">プロセス追加</string>
+    <string name="goal_edit_button_name">変更</string>
+    <string name="goal_archive_button_name">目標達成</string>
+    <string name="goal_archive_update_button_name">目標達成更新</string>
+    <string name="goal_archive_updating_button_name">目標達成取消</string>
+    <string name="goal_archive_tab_name">達成登録</string>
+    <string name="goal_archive_update_tab_name">達成更新</string>
+    <string name="goal_detail_purpose_label">【目的】</string>
+    <string name="goal_detail_aim_label">【実現方法】</string>
+    <string name="goal_detail_due_date_label">【期限】</string>
+    <string name="goal_save_button">保存</string>
+    <string name="goal_failure_message_text">処理に失敗しました。もう一度入力してください。</string>
+    <string name="goal_success_message_text">処理に成功しました。</string>
+    <string name="goal_failure_retry_button">やり直し</string>
+</resources>
