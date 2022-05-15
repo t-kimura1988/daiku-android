@@ -40,7 +40,6 @@ jobs:
         echo KEY_ALIAS=${{ secrets.KEY_ALIAS_DEV }} >> $GITHUB_ENV
         echo KEYSTORE_PASSWORD=${{ secrets.KEYSTORE_PASSWORD_DEV }} >> $GITHUB_ENV
         echo KEY_PASSWORD=${{ secrets.KEY_PASSWORD_DEV }} >> $GITHUB_ENV
-        echo ENV=${{ secrets.KEY_PASSWORD_DEV }} >> $GITHUB_ENV
         echo TF_VAR_ENV=dev >> $GITHUB_ENV
 
     - name: Grant execute permission for gradlew
@@ -55,7 +54,7 @@ jobs:
           export KEY_ALIAS="${{ env.KEY_ALIAS }}"
           export KEY_PASSWORD="${{ env.KEY_PASSWORD }}"
         fi
-        ./gradlew build
+        ./gradlew build :app:assembleDevRelease
       env:
         BASE_URL: ${{ env.BASE_URL }}
 

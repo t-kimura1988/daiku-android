@@ -29,13 +29,53 @@ android {
         compose true
     }
 
-    buildTypes {
-        release {
-            debuggable true
-            minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+    signingConfigs {
+        dev {
+            storeFile rootProject.file('dev-release.keystore')
+            storePassword System.getenv('KEYSTORE_PASSWORD')
+            keyAlias System.getenv('KEY_ALIAS')
+            keyPassword System.getenv('KEY_PASSWORD')
+        }
+        prd {
+            storeFile rootProject.file('prd-release.keystore')
+            storePassword System.getenv('KEYSTORE_PASSWORD')
+            keyAlias System.getenv('KEY_ALIAS')
+            keyPassword System.getenv('KEY_PASSWORD')
         }
     }
+
+    buildTypes {
+
+        debug {
+            jniDebuggable true
+            minifyEnabled false
+            shrinkResources false
+        }
+        release {
+            minifyEnabled true
+            shrinkResources true
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.txt'
+        }
+    }
+
+    productFlavors {
+        flavorDimensions "env"
+        dev {
+            if (rootProject.file('dev-release.keystore').exists()) {
+                signingConfig signingConfigs.dev
+            }
+            dimension "env"
+
+        }
+        prd {
+            if (rootProject.file('prd-release.keystore').exists()) {
+                signingConfig signingConfigs.prd
+            }
+            dimension "env"
+
+        }
+    }
+
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
