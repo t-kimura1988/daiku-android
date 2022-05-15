@@ -1,28 +1,28 @@
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
-signingConfigs {
-    debug {
-        storeFile rootProject.file('dev-release.keystore')
-        storePassword System.getenv('KEYSTORE_PASSWORD')
-        keyAlias System.getenv('KEY_ALIAS')
-        keyPassword System.getenv('KEY_PASSWORD')
-    }
-    release {
-        storeFile rootProject.file('prd-release.keystore')
-        storePassword System.getenv('KEYSTORE_PASSWORD')
-        keyAlias System.getenv('KEY_ALIAS')
-        keyPassword System.getenv('KEY_PASSWORD')
-    }
-}
-buildTypes {
-    debug {
-        signingConfig signingConfigs.debug
-    }
-    release {
-        if (rootProject.file('release.keystore').exists()) {
-            signingConfig signingConfigs.release
-        }
-    }
-}
+//signingConfigs {
+//    debug {
+//        storeFile rootProject.file('dev-release.keystore')
+//        storePassword System.getenv('KEYSTORE_PASSWORD')
+//        keyAlias System.getenv('KEY_ALIAS')
+//        keyPassword System.getenv('KEY_PASSWORD')
+//    }
+//    release {
+//        storeFile rootProject.file('prd-release.keystore')
+//        storePassword System.getenv('KEYSTORE_PASSWORD')
+//        keyAlias System.getenv('KEY_ALIAS')
+//        keyPassword System.getenv('KEY_PASSWORD')
+//    }
+//}
+//buildTypes {
+//    debug {
+//        signingConfig signingConfigs.debug
+//    }
+//    release {
+//        if (rootProject.file('release.keystore').exists()) {
+//            signingConfig signingConfigs.release
+//        }
+//    }
+//}
 buildscript {
     ext.kotlin_version = "1.5.31"
     ext.androidx_ui_version = "1.0.0-alpha10"
