@@ -1,6 +1,5 @@
 package com.goen.goal.view_model
 
-import android.util.Log
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
@@ -12,7 +11,6 @@ import com.goen.utils.entity.FormObj
 import com.goen.utils.extentions.toLocalDateParse
 import com.goen.utils.validate.BaseValidate
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.InternalCoroutinesApi
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import org.threeten.bp.LocalDate
@@ -127,7 +125,6 @@ class GoalCreateViewModel @Inject constructor(
     }
 
     fun init() {
-        Log.println(Log.INFO, "c", "init!!!!!")
         input.titleM.value = FormObj(value = "", error = "")
         input.purposeM.value = FormObj(value = "", error = "")
         input.aimM.value = FormObj(value = "", error = "")
