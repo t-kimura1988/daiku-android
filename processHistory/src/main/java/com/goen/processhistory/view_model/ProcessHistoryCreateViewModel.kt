@@ -5,9 +5,7 @@ import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import androidx.lifecycle.viewmodel.compose.viewModel
 import com.goen.domain.model.param.processHistory.ProcessHistoryUpdateParameter
-import com.goen.domain.repository.GoalRepository
 import com.goen.domain.repository.ProcessHistoryRepository
 import com.goen.utils.entity.FormObj
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -31,8 +29,12 @@ class ProcessHistoryCreateViewModel @Inject constructor(
 
     val priorityOptions = mapOf(0 to "低", 1 to "中", 2 to "高", 3 to "優先的")
 
+    init {
+        init()
+    }
+
     fun changeComment(item: String) {
-        input.commentM.value = input.commentM.value.copy(item)
+        input.commentM.value = input.commentM.value.copy(value = item, isError = false)
     }
 
     fun changeStatus(item: Int) {
@@ -83,7 +85,7 @@ class ProcessHistoryCreateViewModel @Inject constructor(
     }
 
     fun init() {
-        input.commentM.value = FormObj(value = "", error = "", isError = true)
+        input.commentM.value = FormObj(value = "", error = "", isError = false)
     }
 }
 
