@@ -1,27 +1,23 @@
 package com.goen.process.ui
 
-import android.util.Log
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.Color.Companion.Red
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
+import com.goen.process.R
 import com.goen.process.ui.comp.ProcessDetailCompose
 import com.goen.process.ui.comp.ProcessHistoryListItem
 import com.goen.process.view_model.ProcessDetailViewModel
-import com.goen.process.R
 import com.goen.utils.compose.DaikuAppTheme
 
 @Composable
@@ -32,13 +28,13 @@ fun ProcessDetailPage(
     navController: NavHostController,
     gotoProcessHistoryCreate: (process: Int, status: Int, priority: Int) -> Unit,
     updateComment: (processHistoryId: Int, goalCreateDate: String) -> Unit,
-    processUpdate: (processId: Int, goalId: Int, createDate: String) -> Unit
+    processUpdate: (processId: Int, goalId: Int, createDate: String) -> Unit,
+    processStatusUpdate: (process: Int, status: Int, priority: Int) -> Unit
 ) {
     
     var processDetailVM: ProcessDetailViewModel = hiltViewModel()
     
     LaunchedEffect(key1 = processDetailVM.processDetailResult, block =  {
-        Log.println(Log.INFO, "uuuuu", "iiiiiii")
         processDetailVM.getDetail(processId = processId, goalCreateDate = goalCreateDate)
         processDetailVM.getProcessHistory(processId = processId)
     })
@@ -64,7 +60,9 @@ fun ProcessDetailPage(
                 }
                 item {
                     ProcessDetailCompose(
-                        processDetail = processDetailVM.processDetailResult.value.processDetail)
+                        processDetail = processDetailVM.processDetailResult.value.processDetail,
+                        processStatusUpdate = processStatusUpdate
+                    )
                 }
 
                 items(processDetailVM.processHistoryList.value.processHistoryList) {item ->

@@ -15,25 +15,24 @@ import androidx.compose.ui.platform.SoftwareKeyboardController
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
-import com.goen.processhistory.param.ProcessHistoryCreateDisplayParam
+import com.goen.processhistory.param.ProcessHistoryUpdateStatusDisplayParam
 import com.goen.processhistory.ui.comp.processDialog
-import com.goen.processhistory.view_model.ProcessHistoryCreateViewModel
+import com.goen.processhistory.view_model.ProcessHistoryUpdateStatusViewModel
 import com.goen.utils.compose.DaikuAppTheme
 import com.google.accompanist.insets.navigationBarsWithImePadding
 import com.google.accompanist.insets.statusBarsPadding
 
 @OptIn(ExperimentalComposeUiApi::class)
 @Composable
-fun ProcessHistoryCreatePage(
+fun ProcessHistoryUpdateStatusPage(
     navHostController: NavHostController,
-    input: ProcessHistoryCreateDisplayParam,
+    input: ProcessHistoryUpdateStatusDisplayParam,
 ) {
 
     val keyboardController: SoftwareKeyboardController? = LocalSoftwareKeyboardController.current
-    var viewModel: ProcessHistoryCreateViewModel = hiltViewModel()
+    var viewModel: ProcessHistoryUpdateStatusViewModel = hiltViewModel()
 
-    viewModel.changeStatus(input.status)
-    viewModel.changePriority(input.priority)
+    viewModel.initStatus(input.status, input.priority)
 
     DaikuAppTheme() {
 
@@ -90,7 +89,7 @@ fun ProcessHistoryCreatePage(
 @OptIn(ExperimentalComposeUiApi::class)
 @Composable
 private fun _topbar(
-    viewModel: ProcessHistoryCreateViewModel,
+    viewModel: ProcessHistoryUpdateStatusViewModel,
     keyboardController: SoftwareKeyboardController?,
     navHostController: NavHostController,
     processId: Int
@@ -99,12 +98,12 @@ private fun _topbar(
     TopAppBar(
         title = {
             Text(
-                text = "プロセスコメント",
+                text = "ステータス変更",
                 color = DaikuAppTheme.colors.topAppBarTitle) },
         actions = {
             TextButton(
                 onClick = {
-                    viewModel.create(processId = processId)
+                    viewModel.updateStatus(processId = processId)
                     if(!viewModel.loading.value) {
                         if(viewModel.success.value) {
 
@@ -120,7 +119,6 @@ private fun _topbar(
         },
         navigationIcon = {
             IconButton(onClick = {
-                viewModel.init()
                 keyboardController!!.hide()
                 navHostController.popBackStack() })
             {
@@ -137,7 +135,7 @@ private fun _topbar(
 
 @Composable
 private fun _form(
-    viewModel: ProcessHistoryCreateViewModel
+    viewModel: ProcessHistoryUpdateStatusViewModel
 ) {
     val scrollState = rememberScrollState()
     Box(modifier = Modifier
@@ -154,24 +152,6 @@ private fun _form(
             verticalArrangement = Arrangement.Center,
 
             ) {
-            OutlinedTextField(
-                value = viewModel.input.comment,
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(8.dp),
-                onValueChange = { viewModel.changeComment(it) },
-                label = { Text("コメントを入力") },
-                singleLine = false,
-                isError = viewModel.input.isCommentError
-            )
-            if (viewModel.input.isCommentError) {
-                Text(
-                    text = viewModel.input.commentError!!,
-                    color = MaterialTheme.colors.error,
-                    style = MaterialTheme.typography.caption,
-                    modifier = Modifier.padding(start = 16.dp)
-                )
-            }
             // ステータス
             processDialog(
                 changeDialog = {flg ->
@@ -200,3 +180,4 @@ private fun _form(
         }
     }
 }
+

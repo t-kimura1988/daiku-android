@@ -3,10 +3,7 @@ package com.goen.domain.datasource.impl
 import android.util.Log
 import com.goen.domain.datasource.ProcessHistoryDatasource
 import com.goen.domain.entity.ErrorResponse
-import com.goen.domain.model.param.processHistory.ProcessHistoryDetailParameter
-import com.goen.domain.model.param.processHistory.ProcessHistoryListParameter
-import com.goen.domain.model.param.processHistory.ProcessHistoryUpdateCommentParameter
-import com.goen.domain.model.param.processHistory.ProcessHistoryUpdateParameter
+import com.goen.domain.model.param.processHistory.*
 import com.goen.domain.model.result.process.ProcessHistoryResult
 import com.goen.domain.service.ProcessHistoryService
 import com.goen.utils.exception.ApiException
@@ -55,6 +52,17 @@ class ProcessHistoryDatasourceImpl @Inject constructor(
         var result = service.updateComment(parameter = parameter)
         if(result.isSuccessful) {
             Log.println(Log.INFO, "success", "Process comment update成功")
+            return result.body()!!
+        }
+        var errRes = Gson().fromJson<ErrorResponse>(result.errorBody()?.toString(), ErrorResponse::class.java)
+        throw ApiException(result.code(), "apiERROR", errRes.errorCd)
+    }
+
+    override suspend fun processHistoryUpdateStatus(parameter: ProcessHistoryUpdateStatusParameter) {
+        Log.println(Log.INFO, "update", "update process-history status service!!!")
+        var result = service.updateStatus(parameter = parameter)
+        if(result.isSuccessful) {
+            Log.println(Log.INFO, "success", "Process status update成功")
             return result.body()!!
         }
         var errRes = Gson().fromJson<ErrorResponse>(result.errorBody()?.toString(), ErrorResponse::class.java)

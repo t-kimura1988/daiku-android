@@ -16,5 +16,9 @@ class ProcessHistoryNavAction(
         navController.navigate("process-history/create/$processId")
     }
 
+    val updateStatusPage: (Int, Int, Int) -> Unit = {processId: Int, status: Int, priority: Int ->
+        navController.navigate("process-history/update/status/$processId/$status/$priority")
+    }
+
     val close: () -> Unit = {navController.popBackStack()}
 }
