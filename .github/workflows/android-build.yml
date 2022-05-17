@@ -30,6 +30,9 @@ jobs:
         echo KEYSTORE_PASSWORD=${{ secrets.KEYSTORE_PASSWORD_PRD }} >> $GITHUB_ENV
         echo KEY_PASSWORD=${{ secrets.KEY_PASSWORD_PRD }} >> $GITHUB_ENV
         echo TF_VAR_ENV=prd >> $GITHUB_ENV
+        echo FIREBASE_API_KEY=${{ secrets.FIREBASE_API_KEY_PRD}} >> $GITHUB_ENV
+        echo FIREBASE_APPLICATION_ID=${{ secrets.FIREBASE_APPLICATION_ID_PRD}} >> $GITHUB_ENV
+        echo FIREBASE_PROJECT_ID=${{ secrets.FIREBASE_PROJECT_ID_PRD}} >> $GITHUB_ENV
 
     - name: Android ENV Develop
       id: android_env_dev
@@ -41,6 +44,9 @@ jobs:
         echo KEYSTORE_PASSWORD=${{ secrets.KEYSTORE_PASSWORD_DEV }} >> $GITHUB_ENV
         echo KEY_PASSWORD=${{ secrets.KEY_PASSWORD_DEV }} >> $GITHUB_ENV
         echo TF_VAR_ENV=dev >> $GITHUB_ENV
+        echo FIREBASE_API_KEY=${{ secrets.FIREBASE_API_KEY_DEV}} >> $GITHUB_ENV
+        echo FIREBASE_APPLICATION_ID=${{ secrets.FIREBASE_APPLICATION_ID_DEV}} >> $GITHUB_ENV
+        echo FIREBASE_PROJECT_ID=${{ secrets.FIREBASE_PROJECT_ID_DEV}} >> $GITHUB_ENV
 
     - name: Grant execute permission for gradlew
       run: chmod +x gradlew
@@ -55,8 +61,6 @@ jobs:
           export KEY_PASSWORD="${{ env.KEY_PASSWORD }}"
         fi
         ./gradlew build :app:assembleDevRelease
-      env:
-        BASE_URL: ${{ env.BASE_URL }}
 
     - name: APK Download
       if: (contains(toJSON(github.ref), 'develop') || contains(toJSON(github.ref), 'master')) && github.event_name == 'push'
