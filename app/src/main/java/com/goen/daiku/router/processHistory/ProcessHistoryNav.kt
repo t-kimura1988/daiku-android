@@ -4,12 +4,12 @@ import android.util.Log
 import androidx.navigation.*
 import androidx.navigation.compose.composable
 import com.goen.daiku.router.nav.ProcessHistoryNavAction
-import com.goen.daiku.router.nav.ProcessNavAction
-import com.goen.process.ui.ProcessDetailPage
 import com.goen.processhistory.param.ProcessHistoryCreateDisplayParam
 import com.goen.processhistory.param.ProcessHistoryUpdateCommentDisplayParam
+import com.goen.processhistory.param.ProcessHistoryUpdateStatusDisplayParam
 import com.goen.processhistory.ui.ProcessHistoryCreatePage
 import com.goen.processhistory.ui.ProcessHistoryUpdateCommentPage
+import com.goen.processhistory.ui.ProcessHistoryUpdateStatusPage
 
 fun NavGraphBuilder.processHistoryNav(
     action: ProcessHistoryNavAction,
@@ -64,6 +64,32 @@ fun NavGraphBuilder.processHistoryNav(
                     goalCreateDate = args.arguments!!.getString("goalCreateDate")!!
                 ),
                 close = action.close
+            )
+        }
+
+        composable(
+            "process-history/update/status/{processId}/{status}/{priority}",
+            arguments = listOf(
+                navArgument("processId") {
+                    type = NavType.IntType
+                },
+                navArgument("status") {
+                    type = NavType.IntType
+                },
+                navArgument("priority") {
+                    type = NavType.IntType
+                }
+            )
+        ) {backStackEntry ->
+            Log.println(Log.INFO, "Router", "process-history update status compose router")
+            var args = requireNotNull(backStackEntry)
+            ProcessHistoryUpdateStatusPage(
+                input = ProcessHistoryUpdateStatusDisplayParam(
+                    processId = args.arguments!!.getInt("processId"),
+                    status = args.arguments!!.getInt("status"),
+                    priority = args.arguments!!.getInt("priority")
+                ),
+                navHostController = navController
             )
         }
     }

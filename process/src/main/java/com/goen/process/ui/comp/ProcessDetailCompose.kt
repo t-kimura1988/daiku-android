@@ -2,6 +2,7 @@ package com.goen.process.ui.comp
 
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Divider
@@ -18,11 +19,11 @@ import androidx.compose.ui.unit.sp
 import com.goen.domain.enums.Priority
 import com.goen.domain.enums.ProcessStatus
 import com.goen.domain.model.result.process.ProcessResult
-import com.goen.process.view_model.ProcessDetailViewModel
 
 @Composable
 fun ProcessDetailCompose(
-    processDetail: ProcessResult
+    processDetail: ProcessResult,
+    processStatusUpdate: (process: Int, status: Int, priority: Int) -> Unit
 ) {
     Column(
         modifier = Modifier.padding(8.dp)
@@ -41,10 +42,15 @@ fun ProcessDetailCompose(
                 .fillMaxSize()
         )
         Divider()
-        status(
-            status = processDetail.processStatus,
-            priorityValue = processDetail.priority
-        )
+        Box(
+            modifier = Modifier.clickable {
+                processStatusUpdate(processDetail.id, processDetail.processStatus.toInt(), processDetail.priority.toInt()) }
+        ) {
+            status(
+                status = processDetail.processStatus,
+                priorityValue = processDetail.priority
+            )
+        }
 
     }
 

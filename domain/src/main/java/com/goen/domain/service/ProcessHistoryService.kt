@@ -1,11 +1,10 @@
 package com.goen.domain.service
 
 import com.goen.domain.interceptor.AuthorizationInterceptor
-import com.goen.domain.model.param.process.ProcessCreateParameter
 import com.goen.domain.model.param.processHistory.ProcessHistoryUpdateCommentParameter
 import com.goen.domain.model.param.processHistory.ProcessHistoryUpdateParameter
+import com.goen.domain.model.param.processHistory.ProcessHistoryUpdateStatusParameter
 import com.goen.domain.model.result.process.ProcessHistoryResult
-import com.goen.domain.model.result.process.ProcessResult
 import retrofit2.Response
 import retrofit2.http.*
 
@@ -26,4 +25,8 @@ interface ProcessHistoryService {
     @POST("api/process-history/update/comment")
     @Headers(AuthorizationInterceptor.placeholder)
     suspend fun updateComment(@Body parameter: ProcessHistoryUpdateCommentParameter): Response<Unit>
+
+    @POST("api/process-history/update/status")
+    @Headers(AuthorizationInterceptor.placeholder)
+    suspend fun updateStatus(@Body parameter: ProcessHistoryUpdateStatusParameter): Response<Unit>
 }

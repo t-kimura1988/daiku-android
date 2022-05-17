@@ -39,7 +39,8 @@ fun NavGraphBuilder.processNav(
                 gotoProcessHistoryCreate = actionHistory.gotoProcessHistoryCreatePage,
                 updateComment = actionHistory.updateComment,
                 processUpdate = action.gotoProcessUpdatePage,
-                goalId = args.arguments!!.getInt("goalId")
+                goalId = args.arguments!!.getInt("goalId"),
+                processStatusUpdate = actionHistory.updateStatusPage
             )
         }
 

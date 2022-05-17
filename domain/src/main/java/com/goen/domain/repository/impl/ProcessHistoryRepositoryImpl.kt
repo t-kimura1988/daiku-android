@@ -1,24 +1,15 @@
 package com.goen.domain.repository.impl
 
-import com.goen.domain.datasource.ProcessDatasource
 import com.goen.domain.datasource.ProcessHistoryDatasource
-import com.goen.domain.model.param.process.ProcessCreateParameter
-import com.goen.domain.model.param.process.ProcessDetailParameter
-import com.goen.domain.model.param.process.ProcessListParameter
-import com.goen.domain.model.param.processHistory.ProcessHistoryDetailParameter
-import com.goen.domain.model.param.processHistory.ProcessHistoryListParameter
-import com.goen.domain.model.param.processHistory.ProcessHistoryUpdateCommentParameter
-import com.goen.domain.model.param.processHistory.ProcessHistoryUpdateParameter
+import com.goen.domain.model.param.processHistory.*
 import com.goen.domain.model.result.process.ProcessHistoryResult
-import com.goen.domain.model.result.process.ProcessResult
 import com.goen.domain.repository.ProcessHistoryRepository
-import com.goen.domain.repository.ProcessRepository
 import com.goen.utils.exception.ApiException
 import com.goen.utils.extentions.setEvent
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOn
-import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
 class ProcessHistoryRepositoryImpl @Inject constructor(
@@ -66,6 +57,17 @@ class ProcessHistoryRepositoryImpl @Inject constructor(
     ): Flow<Unit> {
         return flow {
             emit(datasource.processHistoryUpdateComment(parameter = param))
+        }.setEvent(onStart, onError, onComplete).flowOn(Dispatchers.IO)
+    }
+
+    override fun updateStatus(
+        param: ProcessHistoryUpdateStatusParameter,
+        onStart: () -> Unit,
+        onComplete: () -> Unit,
+        onError: (e: ApiException) -> Unit
+    ): Flow<Unit> {
+        return flow {
+            emit(datasource.processHistoryUpdateStatus(parameter = param))
         }.setEvent(onStart, onError, onComplete).flowOn(Dispatchers.IO)
     }
 
