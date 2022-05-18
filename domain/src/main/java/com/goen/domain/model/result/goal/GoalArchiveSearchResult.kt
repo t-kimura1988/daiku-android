@@ -1,12 +1,11 @@
 package com.goen.domain.model.result.goal
 
 import com.google.gson.annotations.SerializedName
-import org.threeten.bp.LocalDate
-import org.threeten.bp.format.DateTimeFormatter
-import java.util.*
 
 data class GoalArchiveSearchResult(
+    @SerializedName("id")
     var id: Int = 0,
+    @SerializedName("goal_id")
     var goalId: Int = 0,
     @SerializedName("goal_create_date")
     var goalCreateDate: String = "",
