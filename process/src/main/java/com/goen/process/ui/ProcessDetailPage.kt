@@ -68,7 +68,8 @@ fun ProcessDetailPage(
                 items(processDetailVM.processHistoryList.value.processHistoryList) {item ->
                     ProcessHistoryListItem(
                         item = item,
-                        commentAddPage = updateComment
+                        commentAddPage = updateComment,
+                        goalCreatedDate = goalCreateDate
                     )
                 }
             }

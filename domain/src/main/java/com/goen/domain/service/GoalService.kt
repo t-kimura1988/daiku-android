@@ -4,10 +4,10 @@ import com.goen.domain.interceptor.AuthorizationInterceptor
 import com.goen.domain.model.param.goal.GoalArchiveCreateParameter
 import com.goen.domain.model.param.goal.GoalCreateParameter
 import com.goen.domain.model.param.goal.GoalDetailParameter
-import com.goen.domain.model.param.goal.GoalDetailResult
 import com.goen.domain.model.result.GoalSearchResult
 import com.goen.domain.model.result.goal.GoalArchiveDetailResult
 import com.goen.domain.model.result.goal.GoalArchiveSearchResult
+import com.goen.domain.model.result.goal.GoalDetailResult
 import retrofit2.Response
 import retrofit2.http.*
 

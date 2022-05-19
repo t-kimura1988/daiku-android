@@ -7,14 +7,17 @@ import com.goen.domain.model.param.goal.*
 import com.goen.domain.model.result.GoalSearchResult
 import com.goen.domain.model.result.goal.GoalArchiveDetailResult
 import com.goen.domain.model.result.goal.GoalArchiveSearchResult
+import com.goen.domain.model.result.goal.GoalDetailResult
 import com.goen.domain.service.GoalService
 import com.goen.utils.exception.ApiException
-import com.google.gson.Gson
+import com.squareup.moshi.JsonAdapter
+import com.squareup.moshi.Moshi
 import javax.inject.Inject
 
 class GoalDatasourceImpl @Inject constructor(
     private val service: GoalService
 ): GoalDatasource {
+    var moshi: Moshi = Moshi.Builder().build()
     override suspend fun createGoal(parameter: GoalCreateParameter) {
         var result = service.createGoal(parameter)
 
@@ -22,9 +25,10 @@ class GoalDatasourceImpl @Inject constructor(
             Log.println(Log.INFO, "success", "目標作成に成功")
             return
         }
-        var errRes = Gson().fromJson<ErrorResponse>(result.errorBody()?.toString(), ErrorResponse::class.java)
+        var jsonAdapter: JsonAdapter<ErrorResponse> = moshi.adapter(ErrorResponse::class.java)
+        var errRes = jsonAdapter.fromJson(result.errorBody()?.string())
 
-        throw ApiException(result.code(), "apiERROR", errRes.errorCd)
+        throw ApiException(result.code(), "apiERROR", errRes!!.errorCd)
     }
 
     override suspend fun updateGoal(parameter: GoalCreateParameter) {
@@ -34,9 +38,10 @@ class GoalDatasourceImpl @Inject constructor(
             Log.println(Log.INFO, "success", "目標作成に成功")
             return
         }
-        var errRes = Gson().fromJson<ErrorResponse>(result.errorBody()?.toString(), ErrorResponse::class.java)
+        var jsonAdapter: JsonAdapter<ErrorResponse> = moshi.adapter(ErrorResponse::class.java)
+        var errRes = jsonAdapter.fromJson(result.errorBody()?.string())
 
-        throw ApiException(result.code(), "apiERROR", errRes.errorCd)
+        throw ApiException(result.code(), "apiERROR", errRes!!.errorCd)
     }
 
     override suspend fun searchGoal(parameter: GoalSearchParameter): List<GoalSearchResult> {
@@ -45,9 +50,10 @@ class GoalDatasourceImpl @Inject constructor(
             Log.println(Log.INFO, "success", "目標の取得に成功")
             return result.body()!!
         }
-        var errRes = Gson().fromJson<ErrorResponse>(result.errorBody()?.toString(), ErrorResponse::class.java)
+        var jsonAdapter: JsonAdapter<ErrorResponse> = moshi.adapter(ErrorResponse::class.java)
+        var errRes = jsonAdapter.fromJson(result.errorBody()?.string())
 
-        throw ApiException(result.code(), "apiERROR", errRes.errorCd)
+        throw ApiException(result.code(), "apiERROR", errRes!!.errorCd)
     }
 
     override suspend fun searchGoalArchive(parameter: GoalArchiveSearchParameter): List<GoalArchiveSearchResult> {
@@ -55,9 +61,10 @@ class GoalDatasourceImpl @Inject constructor(
         if(result.isSuccessful) {
             return result.body()!!
         }
-        var errRes = Gson().fromJson<ErrorResponse>(result.errorBody()?.toString(), ErrorResponse::class.java)
+        var jsonAdapter: JsonAdapter<ErrorResponse> = moshi.adapter(ErrorResponse::class.java)
+        var errRes = jsonAdapter.fromJson(result.errorBody()?.string())
 
-        throw ApiException(result.code(), "apiERROR", errRes.errorCd)
+        throw ApiException(result.code(), "apiERROR", errRes!!.errorCd)
     }
 
     override suspend fun getGoalDetail(parameter: GoalDetailParameter): GoalDetailResult {
@@ -66,9 +73,10 @@ class GoalDatasourceImpl @Inject constructor(
             Log.println(Log.INFO, "success", "目標の詳細情報取得に成功")
             return result.body()!!
         }
-        var errRes = Gson().fromJson<ErrorResponse>(result.errorBody()?.toString(), ErrorResponse::class.java)
+        var jsonAdapter: JsonAdapter<ErrorResponse> = moshi.adapter(ErrorResponse::class.java)
+        var errRes = jsonAdapter.fromJson(result.errorBody()?.string())
 
-        throw ApiException(result.code(), "apiERROR", errRes.errorCd)
+        throw ApiException(result.code(), "apiERROR", errRes!!.errorCd)
     }
 
     override suspend fun createGoalArchive(param: GoalArchiveCreateParameter) {
@@ -78,9 +86,10 @@ class GoalDatasourceImpl @Inject constructor(
             Log.println(Log.INFO, "success", "達成作成に成功")
             return
         }
-        var errRes = Gson().fromJson<ErrorResponse>(result.errorBody()?.toString(), ErrorResponse::class.java)
+        var jsonAdapter: JsonAdapter<ErrorResponse> = moshi.adapter(ErrorResponse::class.java)
+        var errRes = jsonAdapter.fromJson(result.errorBody()?.string())
 
-        throw ApiException(result.code(), "apiERROR", errRes.errorCd)
+        throw ApiException(result.code(), "apiERROR", errRes!!.errorCd)
     }
 
     override suspend fun updateGoalArchive(param: GoalArchiveCreateParameter) {
@@ -90,9 +99,10 @@ class GoalDatasourceImpl @Inject constructor(
             Log.println(Log.INFO, "success", "達成更新に成功")
             return
         }
-        var errRes = Gson().fromJson<ErrorResponse>(result.errorBody()?.toString(), ErrorResponse::class.java)
+        var jsonAdapter: JsonAdapter<ErrorResponse> = moshi.adapter(ErrorResponse::class.java)
+        var errRes = jsonAdapter.fromJson(result.errorBody()?.string())
 
-        throw ApiException(result.code(), "apiERROR", errRes.errorCd)
+        throw ApiException(result.code(), "apiERROR", errRes!!.errorCd)
     }
 
     override suspend fun getGoalArchiveDetail(parameter: GoalArchiveDetailParameter): GoalArchiveDetailResult {
@@ -100,9 +110,10 @@ class GoalDatasourceImpl @Inject constructor(
         if(result.isSuccessful) {
             return result.body()!!
         }
-        var errRes = Gson().fromJson<ErrorResponse>(result.errorBody()?.toString(), ErrorResponse::class.java)
+        var jsonAdapter: JsonAdapter<ErrorResponse> = moshi.adapter(ErrorResponse::class.java)
+        var errRes = jsonAdapter.fromJson(result.errorBody()?.string())
 
-        throw ApiException(result.code(), "apiERROR", errRes.errorCd)
+        throw ApiException(result.code(), "apiERROR", errRes!!.errorCd)
     }
 
     override suspend fun getArchiveUpdateDisp(parameter: GoalArchiveDetailParameter): GoalArchiveSearchResult {
@@ -110,9 +121,10 @@ class GoalDatasourceImpl @Inject constructor(
         if(result.isSuccessful) {
             return result.body()!!
         }
-        var errRes = Gson().fromJson<ErrorResponse>(result.errorBody()?.toString(), ErrorResponse::class.java)
+        var jsonAdapter: JsonAdapter<ErrorResponse> = moshi.adapter(ErrorResponse::class.java)
+        var errRes = jsonAdapter.fromJson(result.errorBody()?.string())
 
-        throw ApiException(result.code(), "apiERROR", errRes.errorCd)
+        throw ApiException(result.code(), "apiERROR", errRes!!.errorCd)
     }
 
     override suspend fun updatingFlg(parameter: GoalDetailParameter): GoalDetailResult {
@@ -120,8 +132,9 @@ class GoalDatasourceImpl @Inject constructor(
         if(result.isSuccessful) {
             return result.body()!!
         }
-        var errRes = Gson().fromJson<ErrorResponse>(result.errorBody()?.toString(), ErrorResponse::class.java)
+        var jsonAdapter: JsonAdapter<ErrorResponse> = moshi.adapter(ErrorResponse::class.java)
+        var errRes = jsonAdapter.fromJson(result.errorBody()?.string())
 
-        throw ApiException(result.code(), "apiERROR", errRes.errorCd)
+        throw ApiException(result.code(), "apiERROR", errRes!!.errorCd)
     }
 }

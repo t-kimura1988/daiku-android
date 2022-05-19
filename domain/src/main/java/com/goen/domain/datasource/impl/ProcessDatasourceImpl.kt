@@ -9,21 +9,23 @@ import com.goen.domain.model.param.process.ProcessListParameter
 import com.goen.domain.model.result.process.ProcessResult
 import com.goen.domain.service.ProcessService
 import com.goen.utils.exception.ApiException
-import com.google.gson.Gson
+import com.squareup.moshi.JsonAdapter
+import com.squareup.moshi.Moshi
 import javax.inject.Inject
 
 class ProcessDatasourceImpl @Inject constructor(
     private val service: ProcessService
 ): ProcessDatasource {
+    var moshi: Moshi = Moshi.Builder().build()
 
     override suspend fun processList(parameter: ProcessListParameter): List<ProcessResult> {
         var result = service.list(goalId = parameter.goalId, createDate = parameter.createDate)
         if(result.isSuccessful) {
             return result.body()!!
         }
-        var errRes = Gson().fromJson<ErrorResponse>(result.errorBody()?.toString(), ErrorResponse::class.java)
-
-        throw ApiException(result.code(), "apiERROR", errRes.errorCd)
+        var jsonAdapter: JsonAdapter<ErrorResponse> = moshi.adapter(ErrorResponse::class.java)
+        var errRes = jsonAdapter.fromJson(result.errorBody()?.string())
+        throw ApiException(result.code(), "apiERROR", errRes!!.errorCd)
     }
 
     override suspend fun processCreate(parameter: ProcessCreateParameter) {
@@ -31,8 +33,9 @@ class ProcessDatasourceImpl @Inject constructor(
         if(result.isSuccessful) {
             return result.body()!!
         }
-        var errRes = Gson().fromJson<ErrorResponse>(result.errorBody()?.toString(), ErrorResponse::class.java)
-        throw ApiException(result.code(), "apiERROR", errRes.errorCd)
+        var jsonAdapter: JsonAdapter<ErrorResponse> = moshi.adapter(ErrorResponse::class.java)
+        var errRes = jsonAdapter.fromJson(result.errorBody()?.string())
+        throw ApiException(result.code(), "apiERROR", errRes!!.errorCd)
     }
 
     override suspend fun processUpdate(parameter: ProcessCreateParameter) {
@@ -40,8 +43,9 @@ class ProcessDatasourceImpl @Inject constructor(
         if(result.isSuccessful) {
             return result.body()!!
         }
-        var errRes = Gson().fromJson<ErrorResponse>(result.errorBody()?.toString(), ErrorResponse::class.java)
-        throw ApiException(result.code(), "apiERROR", errRes.errorCd)
+        var jsonAdapter: JsonAdapter<ErrorResponse> = moshi.adapter(ErrorResponse::class.java)
+        var errRes = jsonAdapter.fromJson(result.errorBody()?.string())
+        throw ApiException(result.code(), "apiERROR", errRes!!.errorCd)
     }
 
     override suspend fun processDetail(parameter: ProcessDetailParameter): ProcessResult {
@@ -50,8 +54,9 @@ class ProcessDatasourceImpl @Inject constructor(
             Log.println(Log.INFO, "success", "Processの作成成功")
             return result.body()!!
         }
-        var errRes = Gson().fromJson<ErrorResponse>(result.errorBody()?.toString(), ErrorResponse::class.java)
-        throw ApiException(result.code(), "process detail exception", errRes.errorCd)
+        var jsonAdapter: JsonAdapter<ErrorResponse> = moshi.adapter(ErrorResponse::class.java)
+        var errRes = jsonAdapter.fromJson(result.errorBody()?.string())
+        throw ApiException(result.code(), "process detail exception", errRes!!.errorCd)
 
     }
 }

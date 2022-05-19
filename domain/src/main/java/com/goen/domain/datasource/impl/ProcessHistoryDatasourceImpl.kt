@@ -7,12 +7,14 @@ import com.goen.domain.model.param.processHistory.*
 import com.goen.domain.model.result.process.ProcessHistoryResult
 import com.goen.domain.service.ProcessHistoryService
 import com.goen.utils.exception.ApiException
-import com.google.gson.Gson
+import com.squareup.moshi.JsonAdapter
+import com.squareup.moshi.Moshi
 import javax.inject.Inject
 
 class ProcessHistoryDatasourceImpl @Inject constructor(
     private val service: ProcessHistoryService
 ): ProcessHistoryDatasource {
+    var moshi: Moshi = Moshi.Builder().build()
 
     override suspend fun processHistoryList(parameter: ProcessHistoryListParameter): List<ProcessHistoryResult> {
         var result = service.list(processId = parameter.processId)
@@ -21,8 +23,9 @@ class ProcessHistoryDatasourceImpl @Inject constructor(
             return result.body()!!
         }
 
-        var errRes = Gson().fromJson<ErrorResponse>(result.errorBody()?.toString(), ErrorResponse::class.java)
-        throw ApiException(result.code(), "apiERROR", errRes.errorCd)
+        var jsonAdapter: JsonAdapter<ErrorResponse> = moshi.adapter(ErrorResponse::class.java)
+        var errRes = jsonAdapter.fromJson(result.errorBody()?.string())
+        throw ApiException(result.code(), "apiERROR", errRes!!.errorCd)
     }
 
     override suspend fun processHistoryDetail(parameter: ProcessHistoryDetailParameter): ProcessHistoryResult {
@@ -31,9 +34,10 @@ class ProcessHistoryDatasourceImpl @Inject constructor(
             Log.println(Log.INFO, "success", "Process Historyの取得に成功")
             return result.body()!!
         }
-        var errRes = Gson().fromJson<ErrorResponse>(result.errorBody()?.toString(), ErrorResponse::class.java)
+        var jsonAdapter: JsonAdapter<ErrorResponse> = moshi.adapter(ErrorResponse::class.java)
+        var errRes = jsonAdapter.fromJson(result.errorBody()?.string())
 
-        throw ApiException(result.code(), "apiERROR", errRes.errorCd)
+        throw ApiException(result.code(), "apiERROR", errRes!!.errorCd)
     }
 
     override suspend fun processHistoryCreate(parameter: ProcessHistoryUpdateParameter) {
@@ -43,8 +47,9 @@ class ProcessHistoryDatasourceImpl @Inject constructor(
             Log.println(Log.INFO, "success", "ProcessHistoryの更新成功")
             return result.body()!!
         }
-        var errRes = Gson().fromJson<ErrorResponse>(result.errorBody()?.toString(), ErrorResponse::class.java)
-        throw ApiException(result.code(), "apiERROR", errRes.errorCd)
+        var jsonAdapter: JsonAdapter<ErrorResponse> = moshi.adapter(ErrorResponse::class.java)
+        var errRes = jsonAdapter.fromJson(result.errorBody()?.string())
+        throw ApiException(result.code(), "apiERROR", errRes!!.errorCd)
     }
 
     override suspend fun processHistoryUpdateComment(parameter: ProcessHistoryUpdateCommentParameter) {
@@ -54,8 +59,9 @@ class ProcessHistoryDatasourceImpl @Inject constructor(
             Log.println(Log.INFO, "success", "Process comment update成功")
             return result.body()!!
         }
-        var errRes = Gson().fromJson<ErrorResponse>(result.errorBody()?.toString(), ErrorResponse::class.java)
-        throw ApiException(result.code(), "apiERROR", errRes.errorCd)
+        var jsonAdapter: JsonAdapter<ErrorResponse> = moshi.adapter(ErrorResponse::class.java)
+        var errRes = jsonAdapter.fromJson(result.errorBody()?.string())
+        throw ApiException(result.code(), "apiERROR", errRes!!.errorCd)
     }
 
     override suspend fun processHistoryUpdateStatus(parameter: ProcessHistoryUpdateStatusParameter) {
@@ -65,7 +71,8 @@ class ProcessHistoryDatasourceImpl @Inject constructor(
             Log.println(Log.INFO, "success", "Process status update成功")
             return result.body()!!
         }
-        var errRes = Gson().fromJson<ErrorResponse>(result.errorBody()?.toString(), ErrorResponse::class.java)
-        throw ApiException(result.code(), "apiERROR", errRes.errorCd)
+        var jsonAdapter: JsonAdapter<ErrorResponse> = moshi.adapter(ErrorResponse::class.java)
+        var errRes = jsonAdapter.fromJson(result.errorBody()?.string())
+        throw ApiException(result.code(), "apiERROR", errRes!!.errorCd)
     }
 }
