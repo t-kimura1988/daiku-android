@@ -42,7 +42,7 @@ class AccountRepositoryImpl @Inject constructor(
             try {
                 emit(accountDatasource.createAccount(parameter = parameter))
             } catch (e: Exception) {
-                Log.e("UserRepository", "getUser error", e)
+                Log.e("UserRepository", "create account error", e)
             }
         }.setEvent(onStart, onError, onComplate).flowOn(Dispatchers.IO)
     }
@@ -57,7 +57,7 @@ class AccountRepositoryImpl @Inject constructor(
             try {
                 emit(accountDatasource.updateAccount(parameter = param))
             } catch (e: Exception) {
-                Log.e("UserRepository", "getUser error", e)
+                Log.e("UserRepository", "update account error", e)
             }
         }.setEvent(onStart, onError, onComplate).flowOn(Dispatchers.IO)
     }
@@ -71,7 +71,7 @@ class AccountRepositoryImpl @Inject constructor(
             try {
                 emit(accountDatasource.getAccount())
             } catch (e: Exception) {
-                Log.e("UserRepository", "getUser error", e)
+                Log.e("UserRepository", "get account info error", e)
             }
         }.setEvent(onStart, onError, onComplate).flowOn(Dispatchers.IO)
     }
@@ -103,7 +103,7 @@ class AccountRepositoryImpl @Inject constructor(
             try {
                 emit(accountDatasource.deleteAccount())
             } catch (e: Exception) {
-                Log.e("UserRepository", "getUser error", e)
+                Log.e("UserRepository", "delete account error", e)
             }
         }.setEvent(onStart, onError, onComplate).flowOn(Dispatchers.IO)
 

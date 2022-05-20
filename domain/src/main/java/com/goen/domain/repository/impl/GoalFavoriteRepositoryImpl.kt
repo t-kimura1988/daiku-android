@@ -9,9 +9,9 @@ import com.goen.domain.repository.GoalFavoriteRepository
 import com.goen.utils.exception.ApiException
 import com.goen.utils.extentions.setEvent
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOn
-import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
 class GoalFavoriteRepositoryImpl @Inject constructor(
@@ -28,7 +28,7 @@ class GoalFavoriteRepositoryImpl @Inject constructor(
             try {
                 emit(goalFavoriteDatasource.changeGoalFavorite(param))
             } catch (e: Exception) {
-                Log.e("UserRepository", "getUser error", e)
+                Log.e("GoalFavoriteRepository", "create goal error!!!", e)
             }
         }.setEvent(onStart, onError, onComplate).flowOn(Dispatchers.IO)
     }
