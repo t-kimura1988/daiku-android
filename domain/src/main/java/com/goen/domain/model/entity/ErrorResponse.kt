@@ -5,12 +5,12 @@ import com.squareup.moshi.JsonClass
 
 @JsonClass(generateAdapter = true)
 data class ErrorResponse(
-    @Json(name = "code")
+    @field:Json(name = "code")
     var code: Int,
 
-    @Json(name = "message")
+    @field:Json(name = "message")
     var message: String,
 
-    @Json(name = "error_cd")
+    @field:Json(name = "error_cd")
     var errorCd: String
 )

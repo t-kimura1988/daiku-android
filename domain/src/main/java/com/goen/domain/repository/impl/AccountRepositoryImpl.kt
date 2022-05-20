@@ -10,9 +10,9 @@ import com.goen.utils.extentions.setEvent
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOn
-import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
 class AccountRepositoryImpl @Inject constructor(
@@ -27,7 +27,7 @@ class AccountRepositoryImpl @Inject constructor(
             try {
                 emit(accountDatasource.isExistAccount())
             } catch (e: Exception) {
-                Log.e("UserRepository", "getUser error", e)
+                Log.e("UserRepository", "is account error!!!", e)
             }
         }.setEvent(onStart, onError, onComplate).flowOn(Dispatchers.IO)
     }
