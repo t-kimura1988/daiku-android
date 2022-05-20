@@ -23,10 +23,12 @@ class AccountDatasourceImpl @Inject constructor(
     override suspend fun isExistAccount(): Account? {
         var result = accountService.getAccount()
 
+        Log.i("AccountDatasource0", result.body().toString())
         if(result.isSuccessful) {
+            Log.i("AccountDatasource1", result.body().toString())
             return result.body()
         }
-        Log.println(Log.INFO, "AccountDatasource", result.body().toString())
+        Log.i("AccountDatasource2", result.body().toString())
 
         var jsonAdapter: JsonAdapter<ErrorResponse> = moshi.adapter(ErrorResponse::class.java)
         var errRes = jsonAdapter.fromJson(result.errorBody()?.string())
