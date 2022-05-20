@@ -27,7 +27,7 @@ class AccountRepositoryImpl @Inject constructor(
             try {
                 emit(accountDatasource.isExistAccount())
             } catch (e: Exception) {
-                Log.e("UserRepository", "is account error!!!", e)
+                Log.e("UserRepository", "is account error!!!" + e.message)
             }
         }.setEvent(onStart, onError, onComplate).flowOn(Dispatchers.IO)
     }
