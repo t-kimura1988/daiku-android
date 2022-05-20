@@ -26,6 +26,7 @@ class AccountDatasourceImpl @Inject constructor(
         if(result.isSuccessful) {
             return result.body()
         }
+        Log.println(Log.INFO, "AccountDatasource", result.body().toString())
 
         var jsonAdapter: JsonAdapter<ErrorResponse> = moshi.adapter(ErrorResponse::class.java)
         var errRes = jsonAdapter.fromJson(result.errorBody()?.string())
