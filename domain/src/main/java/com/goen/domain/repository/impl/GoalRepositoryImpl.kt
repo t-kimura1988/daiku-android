@@ -11,9 +11,9 @@ import com.goen.domain.repository.GoalRepository
 import com.goen.utils.exception.ApiException
 import com.goen.utils.extentions.setEvent
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOn
-import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
 class GoalRepositoryImpl @Inject constructor(
@@ -29,7 +29,7 @@ class GoalRepositoryImpl @Inject constructor(
             try {
                 emit(goalDatasource.createGoal(param))
             } catch (e: Exception) {
-                Log.e("UserRepository", "getUser error", e)
+                Log.e("GoalRepository", "create goal error", e)
             }
         }.setEvent(onStart, onError, onComplate).flowOn(Dispatchers.IO)
     }
@@ -44,7 +44,7 @@ class GoalRepositoryImpl @Inject constructor(
             try {
                 emit(goalDatasource.updateGoal(param))
             } catch (e: Exception) {
-                Log.e("UserRepository", "getUser error", e)
+                Log.e("GoalRepository", "update goal error", e)
             }
         }.setEvent(onStart, onError, onComplate).flowOn(Dispatchers.IO)
     }
@@ -92,7 +92,7 @@ class GoalRepositoryImpl @Inject constructor(
             try {
                 emit(goalDatasource.createGoalArchive(param))
             } catch (e: Exception) {
-                Log.e("UserRepository", "getUser error", e)
+                Log.e("GoalRepository", "create goal archive error", e)
             }
         }.setEvent(onStart, onError, onComplate).flowOn(Dispatchers.IO)
     }
@@ -107,7 +107,7 @@ class GoalRepositoryImpl @Inject constructor(
             try {
                 emit(goalDatasource.updateGoalArchive(param))
             } catch (e: Exception) {
-                Log.e("UserRepository", "getUser error", e)
+                Log.e("GoalRepository", "update goal archive error", e)
             }
         }.setEvent(onStart, onError, onComplate).flowOn(Dispatchers.IO)
     }
@@ -122,7 +122,7 @@ class GoalRepositoryImpl @Inject constructor(
             try {
                 emit(goalDatasource.getGoalArchiveDetail(param))
             } catch (e: Exception) {
-                Log.e("UserRepository", "getUser error", e)
+                Log.e("GoalRepository", "get goal archive detail error", e)
             }
         }.setEvent(onStart, onError, onComplate).flowOn(Dispatchers.IO)
     }
@@ -137,7 +137,7 @@ class GoalRepositoryImpl @Inject constructor(
             try {
                 emit(goalDatasource.getArchiveUpdateDisp(param))
             } catch (e: Exception) {
-                Log.e("UserRepository", "getUser error", e)
+                Log.e("GoalRepository", "get archive update disp error", e)
             }
         }.setEvent(onStart, onError, onComplate).flowOn(Dispatchers.IO)
     }
@@ -152,7 +152,7 @@ class GoalRepositoryImpl @Inject constructor(
             try {
                 emit(goalDatasource.updatingFlg(param))
             } catch (e: Exception) {
-                Log.e("UserRepository", "getUser error", e)
+                Log.e("GoalRepository", "updating flg error", e)
             }
         }.setEvent(onStart, onError, onComplate).flowOn(Dispatchers.IO)
     }
