@@ -21,6 +21,7 @@ class AccountDatasourceImpl @Inject constructor(
         .add(KotlinJsonAdapterFactory())
         .build()
     override suspend fun isExistAccount(): Account? {
+        Log.i("AccountAAAAAAA", "this is wrong....")
         var result = accountService.getAccount()
 
         Log.i("AccountDatasource0", result.body().toString())
