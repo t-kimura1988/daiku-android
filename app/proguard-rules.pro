@@ -12,7 +12,7 @@
 -keep @com.squareup.moshi.JsonQualifier interface *
 -dontwarn org.jetbrains.annotations.**
 -keep class kotlin.Metadata { *; }
--keepclassmembers class kotlin.Metadata {
+-keep class kotlin.Metadata {
     public <methods>;
 }
 
