@@ -2,7 +2,7 @@ package com.goen.domain.datasource.impl
 
 import android.util.Log
 import com.goen.domain.datasource.GoalFavoriteDatasource
-import com.goen.domain.entity.ErrorResponse
+import com.goen.domain.model.entity.ErrorResponse
 import com.goen.domain.model.param.goalFavorite.FavoriteGoalSearchParameter
 import com.goen.domain.model.param.goalFavorite.GoalFavoriteCreateParameter
 import com.goen.domain.model.result.goal_favorite.GoalFavoriteSearchResult

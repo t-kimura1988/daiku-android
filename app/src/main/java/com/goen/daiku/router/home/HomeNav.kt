@@ -11,7 +11,7 @@ import com.goen.account.ui.AccountDetailMainCompose
 import com.goen.daiku.router.nav.AccountNavAction
 import com.goen.daiku.router.nav.GoalNavAction
 import com.goen.daiku.router.nav.HomeNavAction
-import com.goen.domain.entity.Account
+import com.goen.domain.model.entity.Account
 import com.goen.favorite.ui.FavoriteMainPage
 import com.goen.goal.ui.GoalArchiveDetailMainCompose
 import com.goen.goal.ui.goalCreateCompose

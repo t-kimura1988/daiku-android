@@ -1,6 +1,6 @@
 package com.goen.domain.datasource
 
-import com.goen.domain.entity.Account
+import com.goen.domain.model.entity.Account
 import com.goen.domain.model.param.account.AccountCreateParameter
 
 interface AccountDatasource {

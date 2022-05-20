@@ -2,7 +2,7 @@ package com.goen.domain.datasource.impl
 
 import android.util.Log
 import com.goen.domain.datasource.ProcessDatasource
-import com.goen.domain.entity.ErrorResponse
+import com.goen.domain.model.entity.ErrorResponse
 import com.goen.domain.model.param.process.ProcessCreateParameter
 import com.goen.domain.model.param.process.ProcessDetailParameter
 import com.goen.domain.model.param.process.ProcessListParameter

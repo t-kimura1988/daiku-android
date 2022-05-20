@@ -2,8 +2,8 @@ package com.goen.domain.datasource.impl
 
 import android.util.Log
 import com.goen.domain.datasource.AccountDatasource
-import com.goen.domain.entity.Account
-import com.goen.domain.entity.ErrorResponse
+import com.goen.domain.model.entity.Account
+import com.goen.domain.model.entity.ErrorResponse
 import com.goen.domain.model.param.account.AccountCreateParameter
 import com.goen.domain.service.AccountService
 import com.goen.utils.exception.NotFoundException
