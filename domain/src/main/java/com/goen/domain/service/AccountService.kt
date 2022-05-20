@@ -1,6 +1,6 @@
 package com.goen.domain.service
 
-import com.goen.domain.entity.Account
+import com.goen.domain.model.entity.Account
 import com.goen.domain.interceptor.AuthorizationInterceptor
 import com.goen.domain.model.param.account.AccountCreateParameter
 import retrofit2.Response

@@ -8,12 +8,10 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.hilt.navigation.compose.hiltViewModel
-import com.goen.domain.entity.Account
+import com.goen.domain.model.entity.Account
 import com.goen.home.R
 import com.goen.home.ui.comp.GoalArchiveListItemCompose
 import com.goen.home.view_model.HomeMainViewModel

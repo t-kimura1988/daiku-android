@@ -1,14 +1,12 @@
 package com.goen.account.view_model
 
-import android.content.Context
 import android.util.Log
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
-import androidx.compose.ui.platform.LocalContext
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.goen.domain.entity.Account
-import com.goen.domain.entity.Goal
+import com.goen.domain.model.entity.Account
+import com.goen.domain.model.entity.Goal
 import com.goen.domain.model.param.goal.GoalSearchParameter
 import com.goen.domain.model.param.goalFavorite.GoalFavoriteCreateParameter
 import com.goen.domain.model.result.GoalSearchResult

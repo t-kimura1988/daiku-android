@@ -1,18 +1,12 @@
 package com.goen.domain.repository.impl
 
-import android.content.Context
 import android.util.Log
 import com.goen.domain.datasource.AccountDatasource
-import com.goen.domain.entity.Account
+import com.goen.domain.model.entity.Account
 import com.goen.domain.model.param.account.AccountCreateParameter
 import com.goen.domain.repository.AccountRepository
 import com.goen.utils.exception.ApiException
 import com.goen.utils.extentions.setEvent
-import com.google.android.gms.auth.api.signin.GoogleSignIn
-import com.google.android.gms.auth.api.signin.GoogleSignInAccount
-import com.google.android.gms.auth.api.signin.GoogleSignInResult
-import com.google.firebase.auth.GoogleAuthCredential
-import com.google.firebase.auth.GoogleAuthProvider
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 import kotlinx.coroutines.Dispatchers

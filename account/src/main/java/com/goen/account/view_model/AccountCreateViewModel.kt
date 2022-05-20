@@ -5,9 +5,8 @@ import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import androidx.lifecycle.viewmodel.compose.viewModel
 import com.goen.auth.presentation.view_model.AccountExistViewModel
-import com.goen.domain.entity.Account
+import com.goen.domain.model.entity.Account
 import com.goen.domain.model.param.account.AccountCreateParameter
 import com.goen.domain.repository.AccountRepository
 import com.goen.utils.entity.FormObj

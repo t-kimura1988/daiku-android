@@ -2,7 +2,7 @@ package com.goen.domain.datasource.impl
 
 import android.util.Log
 import com.goen.domain.datasource.GoalDatasource
-import com.goen.domain.entity.ErrorResponse
+import com.goen.domain.model.entity.ErrorResponse
 import com.goen.domain.model.param.goal.*
 import com.goen.domain.model.result.GoalSearchResult
 import com.goen.domain.model.result.goal.GoalArchiveDetailResult

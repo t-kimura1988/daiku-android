@@ -1,23 +1,19 @@
 package com.goen.account.ui
 
-import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
-import androidx.compose.foundation.selection.selectable
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -30,7 +26,7 @@ import com.goen.account.ui.comp.accountTopBar
 import com.goen.account.ui.comp.detail.accountDetailGoalSearchItemCompose
 import com.goen.account.ui.comp.detail.termSearchDialog
 import com.goen.account.view_model.AccountDetailViewModel
-import com.goen.domain.entity.Account
+import com.goen.domain.model.entity.Account
 import com.goen.utils.compose.DaikuAppTheme
 import kotlinx.coroutines.launch
 import org.threeten.bp.LocalDate
