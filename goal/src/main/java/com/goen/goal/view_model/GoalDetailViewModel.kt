@@ -6,8 +6,8 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.goen.domain.model.param.goal.GoalDetailParameter
-import com.goen.domain.model.param.goal.GoalDetailResult
 import com.goen.domain.model.param.process.ProcessListParameter
+import com.goen.domain.model.result.goal.GoalDetailResult
 import com.goen.domain.model.result.process.ProcessResult
 import com.goen.domain.repository.GoalRepository
 import com.goen.domain.repository.ProcessRepository

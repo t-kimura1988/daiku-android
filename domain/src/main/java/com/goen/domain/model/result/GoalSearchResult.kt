@@ -1,30 +1,30 @@
 package com.goen.domain.model.result
 
-import com.google.gson.annotations.SerializedName
+import com.squareup.moshi.Json
+import com.squareup.moshi.JsonClass
 import org.threeten.bp.LocalDate
 import org.threeten.bp.format.DateTimeFormatter
-import java.util.*
 
+@JsonClass(generateAdapter = true)
 data class GoalSearchResult(
-    @SerializedName("id")
+    @Json(name ="id")
     var id: Int = 0,
-    @SerializedName("create_date")
+    @Json(name = "create_date")
     var createDateString: String = "",
-    @SerializedName("title")
+    @Json(name ="title")
     var title: String = "",
-    @SerializedName("created_account_family_name")
+    @Json(name = "created_account_family_name")
     var createdAccountFamilyName: String = "",
-    @SerializedName("created_account_given_name")
+    @Json(name = "created_account_given_name")
     var createdAccountGivenName: String = "",
-    @SerializedName("created_account_img")
-    var createdAccountImg: String = "",
-    @SerializedName("purpose")
+    @Json(name = "created_account_img")
+    var createdAccountImg: String? = "",
+    @Json(name = "purpose")
     var purpose: String = "",
-    @SerializedName("aim")
+    @Json(name = "aim")
     var aim: String = "",
-    var gStartDate: Date? = null,
-    var gEndDate: Date? = null,
-    var favoriteId: Int = 0
+    @Json(name = "favorite_id")
+    var favoriteId: Int? = 0
 ) {
     val accountName: String get() = this.createdAccountFamilyName + " " + this.createdAccountGivenName
 
@@ -38,5 +38,17 @@ data class GoalSearchResult(
         var formatter = DateTimeFormatter.ofPattern("yyyy年MM月dd日")
 
         return data.format(formatter)
+    }
+
+    fun isFavorite(): Boolean {
+        if(favoriteId == null) {
+            return false
+        }
+
+        if(favoriteId!! == 0) {
+            return false
+        }
+
+        return true
     }
 }

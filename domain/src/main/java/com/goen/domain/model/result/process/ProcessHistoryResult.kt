@@ -1,29 +1,48 @@
 package com.goen.domain.model.result.process
 
-import com.google.gson.annotations.SerializedName
+import com.squareup.moshi.Json
+import com.squareup.moshi.JsonClass
 import org.threeten.bp.LocalDate
 import org.threeten.bp.format.DateTimeFormatter
 
+@JsonClass(generateAdapter = true)
 data class ProcessHistoryResult(
+    @Json(name = "id")
     var id: Int = 0,
-    @SerializedName("goal_create_date")
+    @Json(name = "create_date_string")
     var createDateString: String = "",
-    var title: String = "",
+    @Json(name = "title")
+    var title: String? = "",
+    @Json(name = "family_name")
     var familyName: String = "",
+    @Json(name = "given_name")
     var givenName: String = "",
+    @Json(name = "user_image")
     var userImage: String = "",
+    @Json(name = "nick_name")
     var nickName: String = "",
-    var beforeTitle: String = "",
-    var beforeBody: String = "",
-    var beforePriority: String = "",
+    @Json(name = "before_title")
+    var beforeTitle: String? = "",
+    @Json(name = "before_body")
+    var beforeBody: String? = "",
+    @Json(name = "before_priority")
+    var beforePriority: String? = "",
+    @Json(name = "priority")
     var priority: String = "",
-    var beforeProcessStatus: String = "",
+    @Json(name = "before_process_status")
+    var beforeProcessStatus: String? = "",
+    @Json(name = "process_status")
     var processStatus: String = "",
-    var comment: String = "",
-    var beforeProcessStartDate: String = "",
-    var processStartDate: String = "",
-    var beforeProcessEndDate: String = "",
-    var processEndDate: String = "",
+    @Json(name = "comment")
+    var comment: String? = "",
+    @Json(name = "before_process_start_date")
+    var beforeProcessStartDate: String? = "",
+    @Json(name = "process_start_date")
+    var processStartDate: String? = "",
+    @Json(name = "before_process_end_date")
+    var beforeProcessEndDate: String? = "",
+    @Json(name = "process_end_date")
+    var processEndDate: String? = "",
 ) {
     val accountName: String get() = this.familyName + " " + this.givenName
 
@@ -38,4 +57,6 @@ data class ProcessHistoryResult(
 
         return data.format(formatter)
     }
+
+    val getComment: String get() = if(comment == null) "" else comment!!
 }

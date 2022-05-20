@@ -1,13 +1,16 @@
 package com.goen.domain.entity
 
-import com.google.gson.annotations.SerializedName
+import com.squareup.moshi.Json
+import com.squareup.moshi.JsonClass
 
+@JsonClass(generateAdapter = true)
 data class ErrorResponse(
-    @SerializedName("code")
+    @Json(name = "code")
     var code: Int,
 
-    @SerializedName("message")
+    @Json(name = "message")
     var message: String,
 
+    @Json(name = "error_cd")
     var errorCd: String
 )

@@ -4,6 +4,7 @@ import com.goen.domain.model.param.goal.*
 import com.goen.domain.model.result.GoalSearchResult
 import com.goen.domain.model.result.goal.GoalArchiveDetailResult
 import com.goen.domain.model.result.goal.GoalArchiveSearchResult
+import com.goen.domain.model.result.goal.GoalDetailResult
 import com.goen.utils.exception.ApiException
 import kotlinx.coroutines.flow.Flow
 

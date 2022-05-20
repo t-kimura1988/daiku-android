@@ -1,19 +1,21 @@
 package com.goen.domain.entity
 
-import com.google.gson.annotations.SerializedName
+import com.squareup.moshi.Json
+import com.squareup.moshi.JsonClass
 
+@JsonClass(generateAdapter = true)
 data class Account(
-    @SerializedName("id")
+    @Json(name = "id")
     var id: Int = 0,
-    @SerializedName("uid")
+    @Json(name = "uid")
     var uid: String = "",
-    @SerializedName("family_name")
+    @Json(name = "family_name")
     var familyName: String = "",
-    @SerializedName("given_name")
+    @Json(name = "given_name")
     var givenName: String = "",
-    @SerializedName("nick_name")
+    @Json(name = "nick_name")
     var nickName: String = "",
-    @SerializedName("user_image")
+    @Json(name = "user_image")
     var userImage: String? = ""
 ) {
     val accountName: String get() = "$familyName $givenName"
