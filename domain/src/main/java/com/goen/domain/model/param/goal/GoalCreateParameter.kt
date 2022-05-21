@@ -1,12 +1,14 @@
 package com.goen.domain.model.param.goal
 
-import org.threeten.bp.LocalDate
+import com.squareup.moshi.Json
+import com.squareup.moshi.JsonClass
 
+@JsonClass(generateAdapter = true)
 data class GoalCreateParameter (
-    var goalId: Int? = null,
-    var createDate: String? = null,
-    var title: String,
-    var purpose: String,
-    var aim: String,
-    var dueDate: String
+    @Json(name = "goal_id") var goalId: Int? = null,
+    @Json(name = "create_date") var createDate: String? = null,
+    @Json(name = "title") var title: String,
+    @Json(name = "purpose") var purpose: String,
+    @Json(name = "aim") var aim: String,
+    @Json(name = "due_date") var dueDate: String
 )
