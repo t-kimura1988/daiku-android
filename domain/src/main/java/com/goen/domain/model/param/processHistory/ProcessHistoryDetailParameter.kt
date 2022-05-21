@@ -1,8 +1,10 @@
 package com.goen.domain.model.param.processHistory
 
-import java.time.LocalDate
+import com.squareup.moshi.Json
+import com.squareup.moshi.JsonClass
 
+@JsonClass(generateAdapter = true)
 data class ProcessHistoryDetailParameter (
-    var processHistoryId: Int,
-    var goalCreatedDate: String,
+    @Json(name = "process_history_id") var processHistoryId: Int,
+    @Json(name = "goal_created_date") var goalCreatedDate: String,
 )

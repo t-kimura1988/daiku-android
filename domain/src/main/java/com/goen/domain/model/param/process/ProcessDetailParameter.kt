@@ -1,9 +1,11 @@
 package com.goen.domain.model.param.process
 
-import java.util.*
+import com.squareup.moshi.Json
+import com.squareup.moshi.JsonClass
 
 
+@JsonClass(generateAdapter = true)
 data class ProcessDetailParameter (
-    var processId: Int,
-    var goalCreateDate: String
+    @Json(name = "process_id") var processId: Int,
+    @Json(name = "goal_create_date") var goalCreateDate: String
 )
