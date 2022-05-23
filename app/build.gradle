@@ -23,6 +23,8 @@ android {
         buildConfigField('String', 'FIREBASE_PROJECT_ID', '"' + System.getenv("FIREBASE_PROJECT_ID") + '"')
         buildConfigField('String', 'FIREBASE_APPLICATION_ID', '"' + System.getenv("FIREBASE_APPLICATION_ID") + '"')
         buildConfigField('String', 'FIREBASE_API_KEY', '"' + System.getenv("FIREBASE_API_KEY") + '"')
+
+        resValue "string", "app_name", "Daiku"
     }
 
     buildFeatures {
@@ -66,6 +68,7 @@ android {
                 signingConfig signingConfigs.dev
             }
             dimension "env"
+            resValue "string", "app_name", "Daiku_dev"
 
         }
         prd {
@@ -90,6 +93,15 @@ android {
     composeOptions {
         kotlinCompilerVersion '1.5.31'
         kotlinCompilerExtensionVersion '1.0.5'
+    }
+    namespace 'com.goen.daiku'
+
+    lint {
+        baseline = file("lint-baseline.xml")
+    }
+
+    lintOptions {
+        disable "JvmStaticProvidesInObjectDetector", "FieldSiteTargetOnQualifierAnnotation", "ModuleCompanionObjects", "ModuleCompanionObjectsNotInModuleParent"
     }
 }
 

@@ -41,6 +41,10 @@ android {
         // Enables Jetpack Compose for this module
         compose true
     }
+    namespace 'com.goen.utils'
+    lint {
+        baseline = file("lint-baseline.xml")
+    }
 }
 
 dependencies {

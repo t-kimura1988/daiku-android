@@ -54,7 +54,7 @@ fun ProcessHistoryListItem(
                 }
                 if(item.beforeTitle != null) {
                     Text(
-                        text = "タイトル変更",
+                        text = "タイトル変更: ${item.beforeTitle}",
                         color = Color.Gray
                     )
                 }

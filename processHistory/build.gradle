@@ -39,6 +39,10 @@ android {
         kotlinCompilerVersion '1.5.31'
         kotlinCompilerExtensionVersion '1.0.5'
     }
+    namespace 'com.goen.processhistory'
+    lint {
+        baseline = file("lint-baseline.xml")
+    }
 }
 
 dependencies {
