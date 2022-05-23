@@ -5,16 +5,12 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.*
-import androidx.compose.material.R
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Menu
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -49,7 +45,7 @@ fun SignInCompose(onSignIn: () -> Unit) {
 
     Scaffold(
         scaffoldState = scaffoldState,
-        topBar = { signInTopBar(onClickMenu = clickMenu) },
+        topBar = { SignInTopBar(onClickMenu = clickMenu) },
         drawerContent = {
             drawerContent(
                 clickMenu = clickMenuItem
@@ -65,7 +61,7 @@ fun SignInCompose(onSignIn: () -> Unit) {
 }
 
 @Composable
-fun signInTopBar(onClickMenu: () -> Unit) {
+fun SignInTopBar(onClickMenu: () -> Unit) {
     TopAppBar(
         title = {
             Text(
