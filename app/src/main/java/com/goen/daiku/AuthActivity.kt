@@ -35,7 +35,7 @@ class AuthActivity(
 
         val account = task.getResult(ApiException::class.java)!!
 
-        firebaseAuthWithGoogle(account.idToken)
+        firebaseAuthWithGoogle(account.idToken!!)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {

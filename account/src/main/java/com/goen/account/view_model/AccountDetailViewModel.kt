@@ -82,7 +82,7 @@ class AccountDetailViewModel @Inject constructor(
                 onComplate = {}
             )
                 .collect { it: Unit ->
-                    Log.println(Log.INFO, "accountDetail", "create favorite")
+                    Log.println(Log.INFO, "accountDetail", "create favorite: $it")
                 }
         }
     }

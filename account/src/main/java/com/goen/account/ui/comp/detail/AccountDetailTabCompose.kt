@@ -13,7 +13,7 @@ import com.goen.account.view_model.AccountDetailViewModel
 import com.goen.utils.compose.DaikuAppTheme
 
 @Composable
-fun accountDetailTabCompose() {
+fun AccountDetailTabCompose() {
     val accountDetailViewModel: AccountDetailViewModel = hiltViewModel()
 
     TabRow(

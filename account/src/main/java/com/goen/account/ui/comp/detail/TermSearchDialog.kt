@@ -18,7 +18,7 @@ import com.goen.account.R
 
 
 @Composable
-fun termSearchDialog(
+fun TermSearchDialog(
     dialogFlg: Boolean,
     currentKey: Int,
     changeDialog: (flg: Boolean) -> Unit,

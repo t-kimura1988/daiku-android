@@ -109,8 +109,8 @@ class AccountCreateViewModel @Inject constructor(
                 })
                 .collect { account: Account? ->
                     input.familyNameM.value = input.familyNameM.value.copy(value = account!!.familyName, error = "")
-                    input.givenNameM.value = input.givenNameM.value.copy(value = account!!.givenName, error = "")
-                    input.nickNameM.value = input.nickNameM.value.copy(value = account!!.nickName, error = "")
+                    input.givenNameM.value = input.givenNameM.value.copy(value = account.givenName, error = "")
+                    input.nickNameM.value = input.nickNameM.value.copy(value = account.nickName, error = "")
                 }
         }
     }

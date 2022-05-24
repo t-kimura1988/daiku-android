@@ -10,6 +10,7 @@
         <entry key="app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml" value="0.1" />
         <entry key="auth/src/main/res/drawable/ic_btn_google_light_normal_ios.xml" value="0.1" />
         <entry key="auth/src/main/res/drawable/ic_delete.xml" value="0.1" />
+        <entry key="auth/src/main/res/drawable/ic_logout.xml" value="0.1" />
         <entry key="home/src/main/res/drawable/ic_home.xml" value="0.1" />
       </map>
     </option>

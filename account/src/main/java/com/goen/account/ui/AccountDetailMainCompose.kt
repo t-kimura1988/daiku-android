@@ -21,10 +21,10 @@ import coil.compose.rememberImagePainter
 import coil.transform.CircleCropTransformation
 import com.goen.account.R
 import com.goen.account.sealed.AccountMenu
-import com.goen.account.ui.comp.accountDetailTabCompose
-import com.goen.account.ui.comp.accountTopBar
-import com.goen.account.ui.comp.detail.accountDetailGoalSearchItemCompose
-import com.goen.account.ui.comp.detail.termSearchDialog
+import com.goen.account.ui.comp.AccountDetailTabCompose
+import com.goen.account.ui.comp.AccountTopBar
+import com.goen.account.ui.comp.detail.AccountDetailGoalSearchItemCompose
+import com.goen.account.ui.comp.detail.TermSearchDialog
 import com.goen.account.view_model.AccountDetailViewModel
 import com.goen.domain.model.entity.Account
 import com.goen.utils.compose.DaikuAppTheme
@@ -77,15 +77,15 @@ fun AccountDetailMainCompose(
         accountDetailVM.changeTermSearchKey(key)
     }
 
-    DaikuAppTheme() {
+    DaikuAppTheme {
         Scaffold(
             scaffoldState = scaffoldState,
             topBar = {
-                accountTopBar(onClickMenu = clickMenu)
+                AccountTopBar(onClickMenu = clickMenu)
             },
             bottomBar = {},
             drawerContent = {
-                drawerContent(
+                DrawerContent(
                     clickMenu = clickMenuItem
                 )
             }
@@ -95,27 +95,27 @@ fun AccountDetailMainCompose(
                 LazyColumn(
                 ) {
                     item {
-                        accountInfo(
-                            account = accountDetailVM.accountInfo.value.account!!,
+                        AccountInfo(
+                            account = accountDetailVM.accountInfo.value.account,
                             gotoEditAccountInfo = gotoEditAccountInfo
                         )
                     }
 
                     item {
-                        accountDetailTabCompose()
+                        AccountDetailTabCompose()
                     }
 
                     when(accountDetailVM.selectedTabIndex.value) {
                         0 -> {
                             item {
-                                termSearchDialog(
+                                TermSearchDialog(
                                     dialogFlg = accountDetailVM.termSearchDialogFlg.value,
                                     currentKey = LocalDate.now().year,
                                     changeKey = searchKeyChange,
                                     changeDialog = tapSearch)
                             }
                             items(accountDetailVM.goalList.value) {item ->
-                                accountDetailGoalSearchItemCompose(
+                                AccountDetailGoalSearchItemCompose(
                                     item = item,
                                     onClickItem = selectGoalDetail,
                                     clickFavorite = createFavorite
@@ -124,7 +124,7 @@ fun AccountDetailMainCompose(
 
                             if(accountDetailVM.goalList.value.size == accountDetailVM.input.pageCount) {
                                 item{
-                                    loadingIndicator(accountVm = accountDetailVM)
+                                    LoadingIndicator(accountVm = accountDetailVM)
                                 }
                             }
 
@@ -173,7 +173,7 @@ fun load(accountDetailVM: AccountDetailViewModel) {
 }
 
 @Composable
-fun accountInfo(
+fun AccountInfo(
     account: Account,
     gotoEditAccountInfo: () -> Unit
 ) {
@@ -216,11 +216,11 @@ fun accountInfo(
 }
 
 @Composable
-fun drawerContent(
+fun DrawerContent(
     clickMenu: (menu: AccountMenu) -> Unit
 ) {
 
-    var items = listOf(
+    val items = listOf(
         AccountMenu.Logout,
         AccountMenu.Delete
     )
@@ -252,7 +252,7 @@ fun drawerContent(
 }
 
 @Composable
-fun loadingIndicator(accountVm: AccountDetailViewModel) {
+fun LoadingIndicator(accountVm: AccountDetailViewModel) {
 
     TextButton(onClick = {
         accountVm.upPageCounter()

@@ -25,7 +25,7 @@ import com.goen.account.R
 import com.goen.domain.model.result.GoalSearchResult
 
 @Composable
-fun accountDetailGoalSearchItemCompose(
+fun AccountDetailGoalSearchItemCompose(
     item: GoalSearchResult,
     onClickItem: (goalId: Int, createDate: String) -> Unit,
     clickFavorite: (goalId: Int, createDate: String) -> Unit

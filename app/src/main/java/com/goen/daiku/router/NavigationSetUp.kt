@@ -25,7 +25,6 @@ fun NavigationSetUp(
         startDestination = "home"
     ){
         accountDetailNav(
-            accountAction = AccountNavAction(navController),
             navController = navController,
             goalAction = GoalNavAction(navController)
         )
@@ -39,8 +38,7 @@ fun NavigationSetUp(
         )
 
         goalNav(
-            navController = navController,
-            action = GoalNavAction(navController)
+            navController = navController
         )
 
         processNav(
