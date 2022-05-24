@@ -5,7 +5,6 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
-import androidx.compose.material.Button
 import androidx.compose.material.Scaffold
 import androidx.compose.material.Text
 import androidx.compose.material.TopAppBar
@@ -21,9 +20,8 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import coil.compose.rememberImagePainter
 import coil.transform.CircleCropTransformation
 import com.goen.domain.model.result.goal_favorite.GoalFavoriteSearchResult
-import com.goen.favorite.view_model.FavoriteGoalSearch
-import com.goen.favorite.view_model.FavoriteMainViewModel
 import com.goen.favorite.R
+import com.goen.favorite.view_model.FavoriteMainViewModel
 import com.goen.utils.compose.DaikuAppTheme
 
 @Composable
@@ -31,15 +29,15 @@ fun FavoriteMainPage(
     selectGoalDetail: (goalId: Int, createDate: String) -> Unit,
     innerPadding: PaddingValues
 ) {
-    var vm: FavoriteMainViewModel = hiltViewModel()
+    val vm: FavoriteMainViewModel = hiltViewModel()
     LaunchedEffect(key1 = vm.favoriteGoalList, block = {
         vm.getFavoriteGoalList()
     })
 
-    DaikuAppTheme() {
+    DaikuAppTheme {
         Scaffold(
             topBar = {
-                favoriteTopBar()
+                FavoriteTopBar()
             }
         ) {
             Box(modifier = Modifier.padding(innerPadding)) {
@@ -49,7 +47,7 @@ fun FavoriteMainPage(
                     ) {
 
                     items(vm.favoriteGoalList.value) {item ->
-                        goalFavoriteItem(
+                        GoalFavoriteItem(
                             item = item,
                             onClickItem = selectGoalDetail
                         )
@@ -61,7 +59,7 @@ fun FavoriteMainPage(
 }
 
 @Composable
-private fun favoriteTopBar() {
+private fun FavoriteTopBar() {
 
     TopAppBar(
         title = {
@@ -76,7 +74,7 @@ private fun favoriteTopBar() {
 }
 
 @Composable
-fun goalFavoriteItem(
+fun GoalFavoriteItem(
     item: GoalFavoriteSearchResult,
     onClickItem: (goalId: Int, createDate: String) -> Unit,
 ) {

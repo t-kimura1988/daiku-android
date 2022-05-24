@@ -15,10 +15,11 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import com.goen.goal.R
 import com.goen.goal.ui.compose.archive.GoalArchiveDetailCompose
+import com.goen.goal.ui.compose.detail.GoalDetailProcessItem
 import com.goen.goal.ui.compose.detail.goalDetailCompose
-import com.goen.goal.ui.compose.detail.goalDetailProcessItem
 import com.goen.goal.view_model.GoalArchiveDetailViewModel
 import com.goen.utils.compose.DaikuAppTheme
+import timber.log.Timber
 
 @Composable
 fun GoalArchiveDetailMainCompose(
@@ -29,25 +30,27 @@ fun GoalArchiveDetailMainCompose(
     loginAccountId: Int
 ) {
 
-    var vm: GoalArchiveDetailViewModel = hiltViewModel()
+    val vm: GoalArchiveDetailViewModel = hiltViewModel()
 
-    var moreText: MutableState<Boolean> = remember{ mutableStateOf(false) }
-    var line: Int = if(moreText.value)  Int.MAX_VALUE else 3
+    val moreText: MutableState<Boolean> = remember{ mutableStateOf(false) }
+    val line: Int = if(moreText.value)  Int.MAX_VALUE else 3
 
     LaunchedEffect(key1 = vm.goalArchiveDetail, block = {
         vm.callGoalArchiveDetail(archiveId = archiveId, archiveCreateDate = archiveCreateDate)
     })
 
-    val selectProcessItem: (Int, Int, String) -> Unit = {it1: Int, it2: Int, it3: String ->
+    val selectProcessItem: (Int, Int, String) -> Unit = {processId: Int, goalId: Int, goalCreateDate: String ->
+        Timber.i("processId: $processId")
+        Timber.i("goalId: $goalId")
+        Timber.i("goalCreateDate: $goalCreateDate")
         moreText.value = !moreText.value
     }
 
-    DaikuAppTheme() {
+    DaikuAppTheme {
         Scaffold(
             topBar = {
-                topBar(
-                    navController = navController,
-                    onClickItem = {  })
+                TopBar(
+                    navController = navController)
             }
         ) {
             LazyColumn(
@@ -69,7 +72,7 @@ fun GoalArchiveDetailMainCompose(
                     GoalArchiveDetailCompose(goalArchive = vm.goalArchiveDetail.value.goalArchiveInfo)
                 }
                 item {
-                    Column() {
+                    Column {
                         Text(
                             text = "やり遂げたいこと",
                             fontSize = 18.sp,
@@ -89,7 +92,7 @@ fun GoalArchiveDetailMainCompose(
                         )
                     }
                     items(vm.goalArchiveDetail.value.processInfo!!) {item ->
-                        goalDetailProcessItem(
+                        GoalDetailProcessItem(
                             processItem = item,
                             onClickItem = selectProcessItem,
                             line = line
@@ -110,9 +113,8 @@ fun GoalArchiveDetailMainCompose(
 }
 
 @Composable
-private fun topBar(
-    navController: NavHostController,
-    onClickItem: () -> Unit
+private fun TopBar(
+    navController: NavHostController
 ) {
     TopAppBar(
         title = {

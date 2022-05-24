@@ -48,6 +48,7 @@ class AuthActivity(
             .build()
         FirebaseApp.initializeApp(this, options)
         mAuth = Firebase.auth
+
     }
 
     private fun firebaseAuthWithGoogle(idToken: String){
@@ -64,7 +65,7 @@ class AuthActivity(
 
     var signIn: () -> Unit = {
         // Configure Google Sign In
-        Log.println(Log.INFO, "login", "whatwhatwhat")
+        Timber.i("Log IN :START")
         val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
             .requestIdToken("77378983566-3dfkmr9g87sd8qro8e0oib5r8qkmd747.apps.googleusercontent.com")
             .requestEmail()

@@ -14,7 +14,7 @@ import androidx.compose.ui.unit.dp
 
 
 @Composable
-fun processDialog(
+fun ProcessDialog(
     options: Map<Int, String>,
     key: Int,
     dialogFlg: Boolean,

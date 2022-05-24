@@ -17,7 +17,7 @@ import com.goen.goal.ui.GoalArchiveDetailMainCompose
 import com.goen.goal.ui.goalCreateCompose
 import com.goen.home.NavigationItem
 import com.goen.home.ui.HomeCompose
-import com.goen.home.ui.homeMainCompose
+import com.goen.home.ui.HomeMainCompose
 
 @ExperimentalMaterialApi
 @ExperimentalComposeUiApi
@@ -97,7 +97,7 @@ fun BottomNavigation(
 ) {
     NavHost(navController = navController, startDestination = NavigationItem.Home.route) {
         composable(NavigationItem.Home.route) {
-            homeMainCompose(
+            HomeMainCompose(
                 createGoalPage = homeNavAction.createGoal,
                 innerPadding = innerPadding,
                 gotoArchiveDetailPage = homeNavAction.gotoGoalArchiveDetail,

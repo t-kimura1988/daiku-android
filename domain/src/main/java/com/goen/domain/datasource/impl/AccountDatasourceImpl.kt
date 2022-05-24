@@ -10,6 +10,7 @@ import com.goen.utils.exception.NotFoundException
 import com.squareup.moshi.JsonAdapter
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
+import timber.log.Timber
 import javax.inject.Inject
 
 
@@ -21,15 +22,12 @@ class AccountDatasourceImpl @Inject constructor(
         .add(KotlinJsonAdapterFactory())
         .build()
     override suspend fun isExistAccount(): Account? {
-        Log.i("AccountAAAAAAA", "this is wrong....")
+        Timber.i("Account is EXISTING")
         var result = accountService.getAccount()
 
-        Log.i("AccountDatasource0", result.body().toString())
         if(result.isSuccessful) {
-            Log.i("AccountDatasource1", result.body().toString())
             return result.body()
         }
-        Log.i("AccountDatasource2", result.body().toString())
 
         var jsonAdapter: JsonAdapter<ErrorResponse> = moshi.adapter(ErrorResponse::class.java)
         var errRes = jsonAdapter.fromJson(result.errorBody()?.string())
@@ -88,8 +86,8 @@ class AccountDatasourceImpl @Inject constructor(
             return result.body()
         }
 
-        var jsonAdapter: JsonAdapter<ErrorResponse> = moshi.adapter(ErrorResponse::class.java)
-        var errRes = jsonAdapter.fromJson(result.errorBody()?.string())
+        val jsonAdapter: JsonAdapter<ErrorResponse> = moshi.adapter(ErrorResponse::class.java)
+        val errRes = jsonAdapter.fromJson(result.errorBody()?.string())
 
         throw NotFoundException(result.code(), "NotFoundAccount", errRes!!.errorCd)
     }

@@ -14,8 +14,8 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import com.goen.goal.R
+import com.goen.goal.ui.compose.detail.GoalDetailProcessItem
 import com.goen.goal.ui.compose.detail.goalDetailCompose
-import com.goen.goal.ui.compose.detail.goalDetailProcessItem
 import com.goen.goal.view_model.GoalDetailViewModel
 import com.goen.utils.compose.DaikuAppTheme
 
@@ -101,7 +101,7 @@ fun goalDetailMainCompose(
                     )
                 }
                 items(goalDetailViewModel.processListResultList.value.list) {item ->
-                    goalDetailProcessItem(
+                    GoalDetailProcessItem(
                         processItem = item,
                         onClickItem = selectProcessDetail
                     )

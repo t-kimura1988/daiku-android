@@ -1,8 +1,5 @@
 package com.goen.process.ui
 
-import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.selection.selectable
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.ExperimentalComposeUiApi
@@ -18,7 +15,7 @@ import com.goen.utils.compose.DaikuAppTheme
 
 @OptIn(ExperimentalComposeUiApi::class)
 @Composable
-fun processCreateCompose(
+fun ProcessCreateCompose(
     goalId: Int,
     goalCreateDate: String,
     navController: NavHostController

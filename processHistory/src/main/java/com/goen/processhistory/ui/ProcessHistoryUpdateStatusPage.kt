@@ -16,7 +16,7 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import com.goen.processhistory.param.ProcessHistoryUpdateStatusDisplayParam
-import com.goen.processhistory.ui.comp.processDialog
+import com.goen.processhistory.ui.comp.ProcessDialog
 import com.goen.processhistory.view_model.ProcessHistoryUpdateStatusViewModel
 import com.goen.utils.compose.DaikuAppTheme
 import com.google.accompanist.insets.navigationBarsWithImePadding
@@ -153,7 +153,7 @@ private fun _form(
 
             ) {
             // ステータス
-            processDialog(
+            ProcessDialog(
                 changeDialog = {flg ->
                     viewModel.changeStatusAlert(flg)
                 },
@@ -165,7 +165,7 @@ private fun _form(
                 }
             )
             // 優先度
-            processDialog(
+            ProcessDialog(
                 changeDialog = {flg ->
                     viewModel.changePriorityAlert(flg)
                 },
