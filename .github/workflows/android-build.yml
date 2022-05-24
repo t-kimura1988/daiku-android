@@ -75,4 +75,4 @@ jobs:
       uses: actions/upload-artifact@v3
       with:
         name: lint-result
-        path: /home/runner/work/daiku-android/daiku-android/auth/build/reports/lint-results-debug.html
+        path: /home/runner/work/daiku-android/daiku-android/auth/lint-baseline.xml
