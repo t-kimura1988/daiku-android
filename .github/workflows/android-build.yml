@@ -68,3 +68,11 @@ jobs:
       with:
         name: outputs
         path: app/build/outputs/
+
+
+    - name: APK Download Lint Result
+      if: (contains(toJSON(github.ref), 'develop') || contains(toJSON(github.ref), 'master')) && github.event_name == 'push'
+      uses: actions/upload-artifact@v3
+      with:
+        name: outputs
+        path: home/runner/work/daiku-android/daiku-android/auth/build/intermediates/lint_intermediate_text_report
