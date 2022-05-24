@@ -47,7 +47,7 @@ fun SignInCompose(onSignIn: () -> Unit) {
         scaffoldState = scaffoldState,
         topBar = { SignInTopBar(onClickMenu = clickMenu) },
         drawerContent = {
-            drawerContent(
+            DrawerContent(
                 clickMenu = clickMenuItem
             )
         })
@@ -77,11 +77,11 @@ fun SignInTopBar(onClickMenu: () -> Unit) {
 }
 
 @Composable
-fun drawerContent(
+fun DrawerContent(
     clickMenu: (menu: SignInMenu) -> Unit
 ) {
 
-    var items = listOf(
+    val items = listOf(
         SignInMenu.GoogleSignIn
     )
 
