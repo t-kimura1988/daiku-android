@@ -32,7 +32,6 @@ class FavoriteMainViewModel @Inject constructor(
                 Log.println(Log.ERROR, "accountDetail", error.errorBody)
             }
                 .collect { list: List<GoalFavoriteSearchResult> ->
-                    Log.println(Log.INFO, "accountDetail", list.toString())
                     favoriteGoalList.value = list
                 }
         }

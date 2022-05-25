@@ -58,11 +58,9 @@ class AccountDetailViewModel @Inject constructor(
                 param = input.param,
                 onStart = {},
                 onComplate = {},
-                onError = {error ->
-                    Log.println(Log.ERROR, "accountDetail", error.errorBody)
+                onError = {_ ->
                 })
                 .collect { list: List<GoalSearchResult> ->
-                    Log.println(Log.INFO, "accountDetail", list.toString())
                     goalList.value = list
                 }
 

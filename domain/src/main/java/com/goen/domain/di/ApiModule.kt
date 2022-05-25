@@ -51,7 +51,7 @@ object ApiModule {
         val logging = HttpLoggingInterceptor()
         val authorization = AuthorizationInterceptor()
 
-        logging.level = if (true) HttpLoggingInterceptor.Level.BODY else HttpLoggingInterceptor.Level.NONE
+        logging.level = if (BuildConfig.IS_DEV) HttpLoggingInterceptor.Level.BODY else HttpLoggingInterceptor.Level.NONE
         builder.addInterceptor(logging)
         builder.addInterceptor(authorization)
 
