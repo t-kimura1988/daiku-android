@@ -39,7 +39,7 @@ fun HomeMainCompose(
 
     DaikuAppTheme {
         Scaffold(
-            topBar = {topBar(
+            topBar = {TopBar(
                 createGoalPage = createGoalPage
             )}
         ) {
@@ -61,7 +61,7 @@ fun HomeMainCompose(
 }
 
 @Composable
-private fun topBar(
+private fun TopBar(
     createGoalPage: () -> Unit
 ) {
     TopAppBar(

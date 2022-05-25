@@ -4,7 +4,7 @@ import androidx.navigation.*
 import androidx.navigation.compose.composable
 import com.goen.account.ui.AccountUpdateCompose
 import com.goen.daiku.router.nav.GoalNavAction
-import com.goen.goal.ui.goalDetailMainCompose
+import com.goen.goal.ui.GoalDetailMainCompose
 
 fun NavGraphBuilder.accountDetailNav(
     goalAction: GoalNavAction,
@@ -27,7 +27,7 @@ fun NavGraphBuilder.accountDetailNav(
             )
         ) { backStackEntry ->
 
-            goalDetailMainCompose(
+            GoalDetailMainCompose(
                 goalId = backStackEntry.arguments!!.getInt("goalId"),
                 createDate = backStackEntry.arguments!!.getString("createDate")!!,
                 navController = navController,

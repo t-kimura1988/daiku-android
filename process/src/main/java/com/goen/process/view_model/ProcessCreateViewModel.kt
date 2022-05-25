@@ -1,6 +1,5 @@
 package com.goen.process.view_model
 
-import android.util.Log
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
@@ -101,7 +100,7 @@ class ProcessCreateViewModel @Inject constructor(
                     success.value = true
                 }
             )
-            .collect { it: Unit ->
+            .collect { _: Unit ->
             }
         }
     }
@@ -128,7 +127,7 @@ class ProcessCreateViewModel @Inject constructor(
                     success.value = true
                 }
             )
-                .collect { it: Unit ->
+                .collect { _: Unit ->
                 }
 
         }
@@ -143,8 +142,8 @@ data class ProcessCreateInput (
 ){
     val title: String get() = titleM.value.value!!
     val body: String get() = bodyM.value.value!!
-    val status: Int get() = statusOptionKey.value
-    val priority: Int get() = priorityOptionKey.value!!
+    private val status: Int get() = statusOptionKey.value
+    private val priority: Int get() = priorityOptionKey.value
 
     val titleError: String? get() = titleM.value.error
     val bodyError: String? get() = bodyM.value.error

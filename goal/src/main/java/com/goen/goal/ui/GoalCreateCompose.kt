@@ -1,31 +1,22 @@
 package com.goen.goal.ui
 
-import android.util.Log
-import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.ExperimentalComposeUiApi
-import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.goen.goal.R
 import com.goen.goal.ui.compose.edit.GoalEditForm
 import com.goen.goal.view_model.GoalCreateViewModel
 import com.goen.utils.compose.DaikuAppTheme
-import com.google.accompanist.insets.navigationBarsWithImePadding
-import com.google.accompanist.insets.statusBarsPadding
 
 @ExperimentalComposeUiApi
 @Composable
-fun goalCreateCompose(
+fun GoalCreateCompose(
     close: () -> Unit
 ) {
     var viewModel: GoalCreateViewModel = hiltViewModel()

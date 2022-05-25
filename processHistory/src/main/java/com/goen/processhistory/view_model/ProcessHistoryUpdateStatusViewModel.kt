@@ -70,7 +70,7 @@ class ProcessHistoryUpdateStatusViewModel @Inject constructor(
                           },
                 onStart = {loading.value = true}
             )
-                .collect { it: Unit ->
+                .collect { _: Unit ->
                     Log.println(Log.INFO, "success", "process-history staus update success!!")
                     loading.value = false
                     success.value = true

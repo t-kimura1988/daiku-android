@@ -32,7 +32,7 @@ fun ProcessCreateCompose(
     DaikuAppTheme() {
 
         Scaffold(
-            topBar = { topBar(viewModel = viewModel, createProcess =  createProcess) },
+            topBar = { TopBar(viewModel = viewModel, createProcess =  createProcess) },
             content = {
                 ProcessEditForm(viewModel = viewModel)
                 if(viewModel.failureFlg.value) {
@@ -75,7 +75,7 @@ fun ProcessCreateCompose(
 }
 
 @Composable
-private fun topBar(viewModel: ProcessCreateViewModel, createProcess: () -> Unit) {
+private fun TopBar(viewModel: ProcessCreateViewModel, createProcess: () -> Unit) {
 
     TopAppBar(
         title = { Text(

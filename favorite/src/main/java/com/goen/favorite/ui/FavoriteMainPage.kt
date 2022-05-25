@@ -23,6 +23,7 @@ import com.goen.domain.model.result.goal_favorite.GoalFavoriteSearchResult
 import com.goen.favorite.R
 import com.goen.favorite.view_model.FavoriteMainViewModel
 import com.goen.utils.compose.DaikuAppTheme
+import com.goen.utils.extentions.userImage
 
 @Composable
 fun FavoriteMainPage(
@@ -105,7 +106,7 @@ fun GoalFavoriteItem(
                 modifier = Modifier
                     .size(50.dp),
                 painter = rememberImagePainter(
-                    data = item.goalCreatedAccountImg ?: R.drawable.samurai,
+                    data = item.goalCreatedAccountImg.userImage(),
                     builder = {
                         placeholder(R.drawable.samurai)
                         transformations(CircleCropTransformation())

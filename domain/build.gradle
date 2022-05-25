@@ -43,9 +43,6 @@ android {
     productFlavors {
     }
     namespace 'com.goen.domain'
-    lint {
-        baseline = file("lint-baseline.xml")
-    }
 }
 
 dependencies {

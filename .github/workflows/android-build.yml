@@ -60,7 +60,7 @@ jobs:
           export KEY_ALIAS="${{ env.KEY_ALIAS }}"
           export KEY_PASSWORD="${{ env.KEY_PASSWORD }}"
         fi
-        ./gradlew build :app:assembleDevRelease
+        ./gradlew build :app:assembleDevRelease  -Dlint.baselines.continue=true
 
     - name: APK Download
       if: (contains(toJSON(github.ref), 'develop') || contains(toJSON(github.ref), 'master')) && github.event_name == 'push'

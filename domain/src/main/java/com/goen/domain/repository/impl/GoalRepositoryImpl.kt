@@ -1,6 +1,5 @@
 package com.goen.domain.repository.impl
 
-import android.util.Log
 import com.goen.domain.datasource.GoalDatasource
 import com.goen.domain.model.param.goal.*
 import com.goen.domain.model.result.GoalSearchResult
@@ -14,6 +13,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOn
+import timber.log.Timber
 import javax.inject.Inject
 
 class GoalRepositoryImpl @Inject constructor(
@@ -29,7 +29,7 @@ class GoalRepositoryImpl @Inject constructor(
             try {
                 emit(goalDatasource.createGoal(param))
             } catch (e: Exception) {
-                Log.e("GoalRepository", "create goal error", e)
+                Timber.e("create goal error: $e")
             }
         }.setEvent(onStart, onError, onComplate).flowOn(Dispatchers.IO)
     }
@@ -44,7 +44,7 @@ class GoalRepositoryImpl @Inject constructor(
             try {
                 emit(goalDatasource.updateGoal(param))
             } catch (e: Exception) {
-                Log.e("GoalRepository", "update goal error", e)
+                Timber.e("update goal error: $e")
             }
         }.setEvent(onStart, onError, onComplate).flowOn(Dispatchers.IO)
     }
@@ -92,7 +92,7 @@ class GoalRepositoryImpl @Inject constructor(
             try {
                 emit(goalDatasource.createGoalArchive(param))
             } catch (e: Exception) {
-                Log.e("GoalRepository", "create goal archive error", e)
+                Timber.e("create goal archive error: $e")
             }
         }.setEvent(onStart, onError, onComplate).flowOn(Dispatchers.IO)
     }
@@ -107,7 +107,7 @@ class GoalRepositoryImpl @Inject constructor(
             try {
                 emit(goalDatasource.updateGoalArchive(param))
             } catch (e: Exception) {
-                Log.e("GoalRepository", "update goal archive error", e)
+                Timber.e("update goal archive error: $e")
             }
         }.setEvent(onStart, onError, onComplate).flowOn(Dispatchers.IO)
     }
@@ -122,7 +122,7 @@ class GoalRepositoryImpl @Inject constructor(
             try {
                 emit(goalDatasource.getGoalArchiveDetail(param))
             } catch (e: Exception) {
-                Log.e("GoalRepository", "get goal archive detail error", e)
+                Timber.e("get goal archive detail error: $e")
             }
         }.setEvent(onStart, onError, onComplate).flowOn(Dispatchers.IO)
     }
@@ -137,7 +137,7 @@ class GoalRepositoryImpl @Inject constructor(
             try {
                 emit(goalDatasource.getArchiveUpdateDisp(param))
             } catch (e: Exception) {
-                Log.e("GoalRepository", "get archive update disp error", e)
+                Timber.e("get archive update display error: $e")
             }
         }.setEvent(onStart, onError, onComplate).flowOn(Dispatchers.IO)
     }
@@ -152,7 +152,7 @@ class GoalRepositoryImpl @Inject constructor(
             try {
                 emit(goalDatasource.updatingFlg(param))
             } catch (e: Exception) {
-                Log.e("GoalRepository", "updating flg error", e)
+                Timber.e("updating flg error: $e")
             }
         }.setEvent(onStart, onError, onComplate).flowOn(Dispatchers.IO)
     }

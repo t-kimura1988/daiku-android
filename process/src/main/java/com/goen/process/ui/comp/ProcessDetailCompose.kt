@@ -46,7 +46,7 @@ fun ProcessDetailCompose(
             modifier = Modifier.clickable {
                 processStatusUpdate(processDetail.id, processDetail.processStatus.toInt(), processDetail.priority.toInt()) }
         ) {
-            status(
+            Status(
                 status = processDetail.processStatus,
                 priorityValue = processDetail.priority
             )
@@ -60,12 +60,12 @@ fun ProcessDetailCompose(
 }
 
 @Composable
-fun status(
+fun Status(
     status: String,
     priorityValue: String
 ) {
-    var processStatus: ProcessStatus = ProcessStatus.of(status)
-    var priority: Priority = Priority.of(priorityValue)
+    val processStatus: ProcessStatus = ProcessStatus.of(status)
+    val priority: Priority = Priority.of(priorityValue)
     Row(
         modifier = Modifier
             .padding(8.dp)

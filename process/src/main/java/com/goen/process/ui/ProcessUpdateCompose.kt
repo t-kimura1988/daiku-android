@@ -1,8 +1,5 @@
 package com.goen.process.ui
 
-import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.selection.selectable
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -43,7 +40,7 @@ fun ProcessUpdateCompose(
 
     DaikuAppTheme() {
         Scaffold(
-            topBar = { topBar(viewModel = viewModel, createProcess =  updateProcess) },
+            topBar = { TopBar(viewModel = viewModel, createProcess =  updateProcess) },
             content = {
                 ProcessEditForm(viewModel = viewModel)
                 if(viewModel.failureFlg.value) {
@@ -86,7 +83,7 @@ fun ProcessUpdateCompose(
 }
 
 @Composable
-private fun topBar(viewModel: ProcessCreateViewModel, createProcess: () -> Unit) {
+private fun TopBar(viewModel: ProcessCreateViewModel, createProcess: () -> Unit) {
 
     TopAppBar(
         title = {

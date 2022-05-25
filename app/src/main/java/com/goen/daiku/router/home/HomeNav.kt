@@ -14,7 +14,7 @@ import com.goen.daiku.router.nav.HomeNavAction
 import com.goen.domain.model.entity.Account
 import com.goen.favorite.ui.FavoriteMainPage
 import com.goen.goal.ui.GoalArchiveDetailMainCompose
-import com.goen.goal.ui.goalCreateCompose
+import com.goen.goal.ui.GoalCreateCompose
 import com.goen.home.NavigationItem
 import com.goen.home.ui.HomeCompose
 import com.goen.home.ui.HomeMainCompose
@@ -52,7 +52,7 @@ fun NavGraphBuilder.homeNav(
         composable(
             "goal/create"
         ) {
-            goalCreateCompose(
+            GoalCreateCompose(
                 close = {navController.popBackStack()}
             )
         }

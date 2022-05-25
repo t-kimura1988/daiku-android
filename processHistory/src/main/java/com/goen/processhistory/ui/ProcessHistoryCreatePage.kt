@@ -30,16 +30,16 @@ fun ProcessHistoryCreatePage(
 ) {
 
     val keyboardController: SoftwareKeyboardController? = LocalSoftwareKeyboardController.current
-    var viewModel: ProcessHistoryCreateViewModel = hiltViewModel()
+    val viewModel: ProcessHistoryCreateViewModel = hiltViewModel()
 
     viewModel.changeStatus(input.status)
     viewModel.changePriority(input.priority)
 
-    DaikuAppTheme() {
+    DaikuAppTheme {
 
         Scaffold(
             topBar = {
-                _topbar(
+                TopBar(
                     viewModel = viewModel,
                     keyboardController = keyboardController,
                     navHostController = navHostController,
@@ -47,7 +47,7 @@ fun ProcessHistoryCreatePage(
                 )
             },
         ) {
-            _form(viewModel = viewModel)
+            Form(viewModel = viewModel)
             if(viewModel.errorDialog.value) {
                 AlertDialog(
                     onDismissRequest = {
@@ -89,7 +89,7 @@ fun ProcessHistoryCreatePage(
 
 @OptIn(ExperimentalComposeUiApi::class)
 @Composable
-private fun _topbar(
+private fun TopBar(
     viewModel: ProcessHistoryCreateViewModel,
     keyboardController: SoftwareKeyboardController?,
     navHostController: NavHostController,
@@ -136,7 +136,7 @@ private fun _topbar(
 }
 
 @Composable
-private fun _form(
+private fun Form(
     viewModel: ProcessHistoryCreateViewModel
 ) {
     val scrollState = rememberScrollState()

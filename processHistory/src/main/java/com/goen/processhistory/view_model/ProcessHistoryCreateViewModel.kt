@@ -72,8 +72,7 @@ class ProcessHistoryCreateViewModel @Inject constructor(
                           },
                 onStart = {loading.value = true}
             )
-                .collect { it: Unit ->
-                    Log.println(Log.INFO, "success", "process-history create success!!")
+                .collect { _: Unit ->
                     loading.value = false
                     success.value = true
                 }

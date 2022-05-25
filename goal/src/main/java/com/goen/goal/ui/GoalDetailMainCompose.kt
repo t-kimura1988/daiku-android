@@ -14,13 +14,13 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import com.goen.goal.R
+import com.goen.goal.ui.compose.detail.GoalDetailCompose
 import com.goen.goal.ui.compose.detail.GoalDetailProcessItem
-import com.goen.goal.ui.compose.detail.goalDetailCompose
 import com.goen.goal.view_model.GoalDetailViewModel
 import com.goen.utils.compose.DaikuAppTheme
 
 @Composable
-fun goalDetailMainCompose(
+fun GoalDetailMainCompose(
     goalId: Int,
     createDate: String,
     navController: NavHostController,
@@ -31,7 +31,7 @@ fun goalDetailMainCompose(
     goalArchiveUpdatePage: (Int, String) -> Unit,
 ) {
 
-    var goalDetailViewModel: GoalDetailViewModel = hiltViewModel()
+    val goalDetailViewModel: GoalDetailViewModel = hiltViewModel()
 
     LaunchedEffect(key1 = goalDetailViewModel.goalDetailResult, block = {
         load(viewModel = goalDetailViewModel, goalId = goalId, createDate = createDate)
@@ -40,7 +40,7 @@ fun goalDetailMainCompose(
     DaikuAppTheme {
         Scaffold(
             topBar = {
-                topbar(
+                TopBar(
                     navController = navController,
                     onClickItem = { gotoProcessCreate(goalId, createDate) },
                     isUpdating = goalDetailViewModel.goalDetailResult.value.goalDetail.isUpdating)
@@ -96,7 +96,7 @@ fun goalDetailMainCompose(
                     }
                 }
                 item {
-                    goalDetailCompose(
+                    GoalDetailCompose(
                         goalInfo = goalDetailViewModel.goalDetailResult.value.goalDetail
                     )
                 }
@@ -118,7 +118,7 @@ fun load(viewModel : GoalDetailViewModel, goalId: Int, createDate: String) {
 }
 
 @Composable
-private fun topbar(
+private fun TopBar(
     navController: NavHostController,
     onClickItem: () -> Unit,
     isUpdating: Boolean

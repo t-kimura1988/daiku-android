@@ -16,7 +16,7 @@ import androidx.navigation.NavHostController
 import com.goen.goal.R
 import com.goen.goal.ui.compose.archive.GoalArchiveDetailCompose
 import com.goen.goal.ui.compose.detail.GoalDetailProcessItem
-import com.goen.goal.ui.compose.detail.goalDetailCompose
+import com.goen.goal.ui.compose.detail.GoalDetailCompose
 import com.goen.goal.view_model.GoalArchiveDetailViewModel
 import com.goen.utils.compose.DaikuAppTheme
 import timber.log.Timber
@@ -78,7 +78,7 @@ fun GoalArchiveDetailMainCompose(
                             fontSize = 18.sp,
                             fontWeight = FontWeight.Bold
                         )
-                        goalDetailCompose(
+                        GoalDetailCompose(
                             goalInfo = vm.goalArchiveDetail.value.goalInfo
                         )
                     }

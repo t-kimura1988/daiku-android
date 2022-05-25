@@ -44,9 +44,11 @@ android {
         kotlinCompilerExtensionVersion '1.0.5'
     }
     namespace 'com.goen.auth'
+
     lint {
         baseline = file("lint-baseline.xml")
     }
+
 }
 
 dependencies {

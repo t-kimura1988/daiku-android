@@ -30,7 +30,7 @@ fun ProcessHistoryUpdateStatusPage(
 ) {
 
     val keyboardController: SoftwareKeyboardController? = LocalSoftwareKeyboardController.current
-    var viewModel: ProcessHistoryUpdateStatusViewModel = hiltViewModel()
+    val viewModel: ProcessHistoryUpdateStatusViewModel = hiltViewModel()
 
     viewModel.initStatus(input.status, input.priority)
 
@@ -38,7 +38,7 @@ fun ProcessHistoryUpdateStatusPage(
 
         Scaffold(
             topBar = {
-                _topbar(
+                TopBar(
                     viewModel = viewModel,
                     keyboardController = keyboardController,
                     navHostController = navHostController,
@@ -46,7 +46,7 @@ fun ProcessHistoryUpdateStatusPage(
                 )
             },
         ) {
-            _form(viewModel = viewModel)
+            Form(viewModel = viewModel)
             if(viewModel.errorDialog.value) {
                 AlertDialog(
                     onDismissRequest = {
@@ -88,7 +88,7 @@ fun ProcessHistoryUpdateStatusPage(
 
 @OptIn(ExperimentalComposeUiApi::class)
 @Composable
-private fun _topbar(
+private fun TopBar(
     viewModel: ProcessHistoryUpdateStatusViewModel,
     keyboardController: SoftwareKeyboardController?,
     navHostController: NavHostController,
@@ -134,7 +134,7 @@ private fun _topbar(
 }
 
 @Composable
-private fun _form(
+private fun Form(
     viewModel: ProcessHistoryUpdateStatusViewModel
 ) {
     val scrollState = rememberScrollState()

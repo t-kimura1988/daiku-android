@@ -43,7 +43,7 @@ fun ProcessDetailPage(
 
         Scaffold(
             topBar = {
-                topbar(
+                TopBar(
                     navController = navController,
                     onClickItem = { gotoProcessHistoryCreate(processId, processDetailVM.processDetailResult.value.processDetail.processStatus.toInt(), processDetailVM.processDetailResult.value.processDetail.priority.toInt()) })
             }
@@ -78,7 +78,7 @@ fun ProcessDetailPage(
 }
 
 @Composable
-private fun topbar(
+private fun TopBar(
     navController: NavHostController,
     onClickItem: () -> Unit
 ) {

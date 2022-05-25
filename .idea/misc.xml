@@ -12,6 +12,8 @@
         <entry key="auth/src/main/res/drawable/ic_delete.xml" value="0.1" />
         <entry key="auth/src/main/res/drawable/ic_logout.xml" value="0.1" />
         <entry key="home/src/main/res/drawable/ic_home.xml" value="0.1" />
+        <entry key="utils/src/main/res/drawable-anydpi/samurai.xml" value="0.1" />
+        <entry key="utils/src/main/res/mipmap-anydpi-v26/samurai_round.xml" value="0.1" />
       </map>
     </option>
   </component>

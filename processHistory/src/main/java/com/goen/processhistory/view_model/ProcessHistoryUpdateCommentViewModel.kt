@@ -5,12 +5,9 @@ import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import androidx.lifecycle.viewmodel.compose.viewModel
 import com.goen.domain.model.param.processHistory.ProcessHistoryDetailParameter
 import com.goen.domain.model.param.processHistory.ProcessHistoryUpdateCommentParameter
-import com.goen.domain.model.param.processHistory.ProcessHistoryUpdateParameter
 import com.goen.domain.model.result.process.ProcessHistoryResult
-import com.goen.domain.repository.GoalRepository
 import com.goen.domain.repository.ProcessHistoryRepository
 import com.goen.processhistory.param.ProcessHistoryUpdateCommentDisplayParam
 import com.goen.utils.entity.FormObj
@@ -61,7 +58,7 @@ class ProcessHistoryUpdateCommentViewModel @Inject constructor(
                 onComplete = {},
                 onError = {}
             )
-                .collect { it: Unit ->
+                .collect { _: Unit ->
                     Log.println(Log.INFO, "success", "process-history update comment success!!")
                 }
         }
