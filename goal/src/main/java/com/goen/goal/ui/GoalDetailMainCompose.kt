@@ -54,7 +54,7 @@ fun GoalDetailMainCompose(
                         modifier = Modifier.fillMaxWidth(),
                         horizontalArrangement = Arrangement.SpaceAround
                     ) {
-                        if(goalDetailViewModel.goalDetailResult.value.goalDetail.archiveId == 0) {
+                        if(goalDetailViewModel.goalDetailResult.value.goalDetail.archiveId == null) {
                             Box(
                                 modifier = Modifier.padding(8.dp)
                             ) {
