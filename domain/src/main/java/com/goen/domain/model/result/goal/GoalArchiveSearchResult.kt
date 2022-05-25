@@ -32,7 +32,7 @@ data class GoalArchiveSearchResult(
     @Json(name = "nick_name")
     var nickName: String = "",
     @Json(name = "user_image")
-    var userImage: String = "",
+    var userImage: String? = "",
     @Json(name = "process_count")
     var processCount: Int = 0
 ) {

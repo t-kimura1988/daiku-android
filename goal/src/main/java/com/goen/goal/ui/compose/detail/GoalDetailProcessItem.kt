@@ -35,7 +35,6 @@ fun GoalDetailProcessItem(
             if(processItem.processStatus != "") {
                 Surface(
                     color = processStatus.backgroundColor,
-                    contentColor = processStatus.backgroundColor,
                     shape = RoundedCornerShape(16.dp),
                     border = BorderStroke(
                         width = 1.dp,
@@ -57,7 +56,7 @@ fun GoalDetailProcessItem(
                     )
                 }
             }
-            Column() {
+            Column {
                 Text(
                     text = processItem.title,
                     fontWeight = FontWeight.Bold,
