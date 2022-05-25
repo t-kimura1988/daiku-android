@@ -33,6 +33,7 @@ jobs:
         echo FIREBASE_API_KEY=${{ secrets.FIREBASE_API_KEY_PRD}} >> $GITHUB_ENV
         echo FIREBASE_APPLICATION_ID=${{ secrets.FIREBASE_APPLICATION_ID_PRD}} >> $GITHUB_ENV
         echo FIREBASE_PROJECT_ID=${{ secrets.FIREBASE_PROJECT_ID_PRD}} >> $GITHUB_ENV
+        echo IS_DEV=false >> $GITHUB_ENV
 
     - name: Android ENV Develop
       id: android_env_dev
@@ -47,6 +48,7 @@ jobs:
         echo FIREBASE_API_KEY=${{ secrets.FIREBASE_API_KEY_DEV}} >> $GITHUB_ENV
         echo FIREBASE_APPLICATION_ID=${{ secrets.FIREBASE_APPLICATION_ID_DEV}} >> $GITHUB_ENV
         echo FIREBASE_PROJECT_ID=${{ secrets.FIREBASE_PROJECT_ID_DEV}} >> $GITHUB_ENV
+        echo IS_DEV=false >> $GITHUB_ENV
 
     - name: Grant execute permission for gradlew
       run: chmod +x gradlew
