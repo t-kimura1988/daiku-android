@@ -86,12 +86,16 @@ class AuthActivity(
         FirebaseAuth.getInstance().removeAuthStateListener(this)
     }
 
+    override fun onDestroy() {
+        super.onDestroy()
+        Timber.i("tjadjkajgdsljadfoifjushbvisdnlkf")
+    }
+
     @OptIn(
         ExperimentalComposeUiApi::class,
         ExperimentalMaterialApi::class
     )
     override fun onAuthStateChanged(fAuth: FirebaseAuth) {
-        Log.println(Log.INFO, "gggggg", fAuth.currentUser.toString())
         if (fAuth.currentUser == null ) {
             setContent { SignInCompose(onSignIn = {signIn()}) }
             return

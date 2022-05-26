@@ -1,6 +1,5 @@
 package com.goen.domain.interceptor
 
-import android.content.Context
 import android.util.Log
 import com.google.android.gms.tasks.Task
 import com.google.android.gms.tasks.Tasks
@@ -18,7 +17,6 @@ class AuthorizationInterceptor() : Interceptor {
     }
 
     override fun intercept(chain: Interceptor.Chain): Response {
-        Log.println(Log.INFO, "b", "authorization interceptor start!!!")
         val user: FirebaseUser? = FirebaseAuth.getInstance().currentUser
         if(user == null) {
             throw Exception("current user not logged in")
@@ -29,7 +27,10 @@ class AuthorizationInterceptor() : Interceptor {
         val request = chain.request()
         var newRequest =
             if (request.header(headerName) == headerValue)
-                request.newBuilder().header("Authorization", "Bearer $token").build()
+                request.newBuilder()
+                    .header("Authorization", "Bearer $token")
+                    .header("Cache-Control", "no-cache").build()
+
             else
                 request
         Log.println(Log.INFO, "b", "authorization interceptor end!!!")

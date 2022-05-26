@@ -61,7 +61,6 @@ class AccountCreateViewModel @Inject constructor(
 
     fun createAccount(accountVM: AccountExistViewModel) {
         viewModelScope.launch {
-            Log.println(Log.INFO, "create account", "account_create_view_model")
             accountRepository.createAccount(
                 param = input.parameter,
                 onStart = {
@@ -83,7 +82,6 @@ class AccountCreateViewModel @Inject constructor(
 
     fun updateAccount() {
         viewModelScope.launch {
-            Log.println(Log.INFO, "update account", "account_update_view_model")
             accountRepository.updateAccount(
                 param = input.parameter,
                 onStart = {

@@ -51,7 +51,6 @@ class ProcessDatasourceImpl @Inject constructor(
     override suspend fun processDetail(parameter: ProcessDetailParameter): ProcessResult {
         var result = service.processDetail(processId = parameter.processId)
         if(result.isSuccessful) {
-            Log.println(Log.INFO, "success", "Processの作成成功")
             return result.body()!!
         }
         var jsonAdapter: JsonAdapter<ErrorResponse> = moshi.adapter(ErrorResponse::class.java)

@@ -63,9 +63,7 @@ class ProcessHistoryCreateViewModel @Inject constructor(
                 param = input.toParam(
                     processId = processId
                 ),
-                onComplete = {
-                    Log.println(Log.INFO, "aaaaa", "bbbbbbbb4")
-                             },
+                onComplete = {},
                 onError = {
                     loading.value = false
                     errorDialog.value = true

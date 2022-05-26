@@ -1,6 +1,5 @@
 package com.goen.domain.datasource.impl
 
-import android.util.Log
 import com.goen.domain.datasource.ProcessHistoryDatasource
 import com.goen.domain.model.entity.ErrorResponse
 import com.goen.domain.model.param.processHistory.*
@@ -19,7 +18,6 @@ class ProcessHistoryDatasourceImpl @Inject constructor(
     override suspend fun processHistoryList(parameter: ProcessHistoryListParameter): List<ProcessHistoryResult> {
         var result = service.list(processId = parameter.processId)
         if(result.isSuccessful) {
-            Log.println(Log.INFO, "success", "Process Historyの取得に成功")
             return result.body()!!
         }
 
@@ -31,7 +29,6 @@ class ProcessHistoryDatasourceImpl @Inject constructor(
     override suspend fun processHistoryDetail(parameter: ProcessHistoryDetailParameter): ProcessHistoryResult {
         var result = service.detail(processId = parameter.processHistoryId, goalCreateDate = parameter.goalCreatedDate)
         if(result.isSuccessful) {
-            Log.println(Log.INFO, "success", "Process Historyの取得に成功")
             return result.body()!!
         }
         var jsonAdapter: JsonAdapter<ErrorResponse> = moshi.adapter(ErrorResponse::class.java)
@@ -41,10 +38,8 @@ class ProcessHistoryDatasourceImpl @Inject constructor(
     }
 
     override suspend fun processHistoryCreate(parameter: ProcessHistoryUpdateParameter) {
-        Log.println(Log.INFO, "update", "update process-history service!!!")
         var result = service.create(parameter = parameter)
         if(result.isSuccessful) {
-            Log.println(Log.INFO, "success", "ProcessHistoryの更新成功")
             return result.body()!!
         }
         var jsonAdapter: JsonAdapter<ErrorResponse> = moshi.adapter(ErrorResponse::class.java)
@@ -53,10 +48,8 @@ class ProcessHistoryDatasourceImpl @Inject constructor(
     }
 
     override suspend fun processHistoryUpdateComment(parameter: ProcessHistoryUpdateCommentParameter) {
-        Log.println(Log.INFO, "update", "update process-history service!!!")
         var result = service.updateComment(parameter = parameter)
         if(result.isSuccessful) {
-            Log.println(Log.INFO, "success", "Process comment update成功")
             return result.body()!!
         }
         var jsonAdapter: JsonAdapter<ErrorResponse> = moshi.adapter(ErrorResponse::class.java)
@@ -65,10 +58,8 @@ class ProcessHistoryDatasourceImpl @Inject constructor(
     }
 
     override suspend fun processHistoryUpdateStatus(parameter: ProcessHistoryUpdateStatusParameter) {
-        Log.println(Log.INFO, "update", "update process-history status service!!!")
         var result = service.updateStatus(parameter = parameter)
         if(result.isSuccessful) {
-            Log.println(Log.INFO, "success", "Process status update成功")
             return result.body()!!
         }
         var jsonAdapter: JsonAdapter<ErrorResponse> = moshi.adapter(ErrorResponse::class.java)

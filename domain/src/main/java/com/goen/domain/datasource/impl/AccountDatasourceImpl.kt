@@ -1,6 +1,5 @@
 package com.goen.domain.datasource.impl
 
-import android.util.Log
 import com.goen.domain.datasource.AccountDatasource
 import com.goen.domain.model.entity.Account
 import com.goen.domain.model.entity.ErrorResponse
@@ -31,8 +30,6 @@ class AccountDatasourceImpl @Inject constructor(
 
         var jsonAdapter: JsonAdapter<ErrorResponse> = moshi.adapter(ErrorResponse::class.java)
         var errRes = jsonAdapter.fromJson(result.errorBody()?.string())
-
-        Log.println(Log.INFO, "error", errRes.toString())
 
         throw NotFoundException(result.code(), "NotFoundAccount", errRes!!.errorCd)
     }
