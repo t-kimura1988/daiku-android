@@ -1,6 +1,5 @@
 package com.goen.daiku.router.process
 
-import android.util.Log
 import androidx.navigation.*
 import androidx.navigation.compose.composable
 import com.goen.daiku.router.nav.ProcessHistoryNavAction
@@ -58,7 +57,6 @@ fun NavGraphBuilder.processNav(
                 }
             )
         ) {backStackEntry ->
-            Log.println(Log.INFO, "Router", "process details compose router")
             var args = requireNotNull(backStackEntry)
             ProcessUpdateCompose(
                 goalId = args.arguments!!.getInt("goalId"),

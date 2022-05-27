@@ -1,20 +1,16 @@
 package com.goen.process.view_model
 
-import android.util.Log
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.goen.domain.model.param.process.ProcessCreateParameter
 import com.goen.domain.model.param.process.ProcessDetailParameter
 import com.goen.domain.model.param.processHistory.ProcessHistoryListParameter
 import com.goen.domain.model.result.process.ProcessHistoryResult
 import com.goen.domain.model.result.process.ProcessResult
 import com.goen.domain.repository.ProcessHistoryRepository
 import com.goen.domain.repository.ProcessRepository
-import com.goen.utils.entity.FormObj
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -32,11 +28,9 @@ class ProcessDetailViewModel @Inject constructor(
                 param = ProcessDetailParameter(processId = processId, goalCreateDate = goalCreateDate),
                 onStart = {},
                 onComplate = { },
-                onError = {error ->
-                    Log.println(Log.ERROR, "process detail error", error.errorBody)
+                onError = {_ ->
                 })
                 .collect { result: ProcessResult ->
-                    Log.println(Log.INFO, "a", "process detail success!!")
                     processDetailResult.value = processDetailResult.value.copy(processDetail = result)
                 }
         }
@@ -48,11 +42,9 @@ class ProcessDetailViewModel @Inject constructor(
                 param = ProcessHistoryListParameter(processId = processId),
                 onStart = {},
                 onComplete = {},
-                onError = {error ->
-                    Log.println(Log.ERROR, "process history", error.errorBody)
+                onError = {_ ->
                 }
             ).collect{ result: List<ProcessHistoryResult> ->
-                Log.println(Log.INFO, "ProcessHistory", result.toString())
                 processHistoryList.value = processHistoryList.value.copy(processHistoryList = result)
             }
         }

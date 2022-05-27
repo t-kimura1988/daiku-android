@@ -34,8 +34,6 @@ class GoalArchiveDetailViewModel @Inject constructor(
                 onError = {},
                 onComplate = {}
             ).collect {
-                Log.println(Log.INFO, "a", "bbbbbb")
-                Log.println(Log.INFO, "a", it.processInfo.toString())
                 goalArchiveDetail.value = goalArchiveDetail.value.copy(
                     goalArchiveInfo = it.goalArchiveInfo,
                     goalInfo = it.goalInfo,

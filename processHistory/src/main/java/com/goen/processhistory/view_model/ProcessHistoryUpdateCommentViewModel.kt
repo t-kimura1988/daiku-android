@@ -43,7 +43,6 @@ class ProcessHistoryUpdateCommentViewModel @Inject constructor(
                 onError = {}
             )
                 .collect { it: ProcessHistoryResult ->
-                    Log.println(Log.INFO, "success", "process-history detail success!!")
                     input.commentM.value = input.commentM.value.copy(value = it.comment, error = "", isError = false)
                 }
         }
@@ -59,7 +58,7 @@ class ProcessHistoryUpdateCommentViewModel @Inject constructor(
                 onError = {}
             )
                 .collect { _: Unit ->
-                    Log.println(Log.INFO, "success", "process-history update comment success!!")
+
                 }
         }
     }

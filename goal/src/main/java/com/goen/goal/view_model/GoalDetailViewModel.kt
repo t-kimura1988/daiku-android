@@ -1,6 +1,5 @@
 package com.goen.goal.view_model
 
-import android.util.Log
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
@@ -12,7 +11,6 @@ import com.goen.domain.model.result.process.ProcessResult
 import com.goen.domain.repository.GoalRepository
 import com.goen.domain.repository.ProcessRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -32,11 +30,10 @@ class GoalDetailViewModel @Inject constructor(
                 onComplate = {
                     load.value = false
                 },
-                onError = {error ->
-                    Log.println(Log.ERROR, "goal detail error", error.errorBody)
+                onError = {_ ->
+
                 })
                 .collect { result: GoalDetailResult ->
-                    Log.println(Log.INFO, "a", "goal detail success!!")
                     goalDetailResult.value = goalDetailResult.value.copy(goalDetail = result)
                 }
         }
@@ -48,11 +45,9 @@ class GoalDetailViewModel @Inject constructor(
                 param = ProcessListParameter(goalId = goalId, createDate = createDate),
                 onStart = {},
                 onComplate = { },
-                onError = {error ->
-                    Log.println(Log.ERROR, "goal detail error", error.errorBody)
+                onError = {_ ->
                 })
                 .collect { result: List<ProcessResult> ->
-                    Log.println(Log.INFO, "a", "goal detail success!!")
                     processListResultList.value = processListResultList.value.copy(list = result)
                 }
         }
@@ -66,11 +61,9 @@ class GoalDetailViewModel @Inject constructor(
                 onComplate = {
                     load.value = false
                 },
-                onError = {error ->
-                    Log.println(Log.ERROR, "goal archive error", error.errorBody)
+                onError = {_ ->
                 })
                 .collect { result: GoalDetailResult ->
-                    Log.println(Log.INFO, "a", "goal detail success!!")
                     goalDetailResult.value = goalDetailResult.value.copy(goalDetail = result)
                 }
         }

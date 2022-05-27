@@ -1,6 +1,5 @@
 package com.goen.processhistory.view_model
 
-import android.util.Log
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
@@ -8,7 +7,6 @@ import androidx.lifecycle.viewModelScope
 import com.goen.domain.model.param.processHistory.ProcessHistoryUpdateStatusParameter
 import com.goen.domain.repository.ProcessHistoryRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -71,7 +69,6 @@ class ProcessHistoryUpdateStatusViewModel @Inject constructor(
                 onStart = {loading.value = true}
             )
                 .collect { _: Unit ->
-                    Log.println(Log.INFO, "success", "process-history staus update success!!")
                     loading.value = false
                     success.value = true
                 }

@@ -40,7 +40,6 @@ class GoalFavoriteRepositoryImpl @Inject constructor(
         onComplate: () -> Unit,
         onError: (e: ApiException) -> Unit
     ): Flow<List<GoalFavoriteSearchResult>> {
-        Log.println(Log.INFO, "test", "call favorite goal list repository")
         return flow {
             emit(goalFavoriteDatasource.favoriteGoalSearch(parameter = param))
         }.setEvent(onStart, onError, onComplate).flowOn(Dispatchers.IO)

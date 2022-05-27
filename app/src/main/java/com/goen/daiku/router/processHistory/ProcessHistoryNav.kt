@@ -1,6 +1,5 @@
 package com.goen.daiku.router.processHistory
 
-import android.util.Log
 import androidx.navigation.*
 import androidx.navigation.compose.composable
 import com.goen.daiku.router.nav.ProcessHistoryNavAction
@@ -33,7 +32,6 @@ fun NavGraphBuilder.processHistoryNav(
                 }
             )
         ) {backStackEntry ->
-            Log.println(Log.INFO, "Router", "process-history create compose router")
             var args = requireNotNull(backStackEntry)
             ProcessHistoryCreatePage(
                 input = ProcessHistoryCreateDisplayParam(
@@ -56,7 +54,6 @@ fun NavGraphBuilder.processHistoryNav(
                 },
             )
         ) {backStackEntry ->
-            Log.println(Log.INFO, "Router", "process-history update comment router")
             var args = requireNotNull(backStackEntry)
             ProcessHistoryUpdateCommentPage(
                 input = ProcessHistoryUpdateCommentDisplayParam(
@@ -81,7 +78,6 @@ fun NavGraphBuilder.processHistoryNav(
                 }
             )
         ) {backStackEntry ->
-            Log.println(Log.INFO, "Router", "process-history update status compose router")
             var args = requireNotNull(backStackEntry)
             ProcessHistoryUpdateStatusPage(
                 input = ProcessHistoryUpdateStatusDisplayParam(

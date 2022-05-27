@@ -1,6 +1,5 @@
 package com.goen.domain.interceptor
 
-import android.util.Log
 import com.google.android.gms.tasks.Task
 import com.google.android.gms.tasks.Tasks
 import com.google.firebase.auth.FirebaseAuth
@@ -33,7 +32,6 @@ class AuthorizationInterceptor() : Interceptor {
 
             else
                 request
-        Log.println(Log.INFO, "b", "authorization interceptor end!!!")
         return chain.proceed(newRequest)
     }
 }

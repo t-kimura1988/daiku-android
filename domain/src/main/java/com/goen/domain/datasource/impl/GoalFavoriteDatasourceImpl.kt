@@ -23,7 +23,6 @@ class GoalFavoriteDatasourceImpl @Inject constructor(
     override suspend fun favoriteGoalSearch(parameter: FavoriteGoalSearchParameter): List<GoalFavoriteSearchResult> {
         var result = service.goalFavoriteList(year = parameter.year)
         if(result.isSuccessful) {
-            Log.println(Log.INFO, "success", "お気に入り目標の取得に成功")
             return result.body()!!
         }
         var jsonAdapter: JsonAdapter<ErrorResponse> = moshi.adapter(ErrorResponse::class.java)

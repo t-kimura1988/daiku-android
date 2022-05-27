@@ -102,7 +102,6 @@ fun DrawerContent(
                     .fillMaxWidth()
                     .padding(8.dp)
                     .clickable {
-                        Log.println(Log.INFO, "a", "a ccountmenu")
                         clickMenu(item)
                     },
                 verticalAlignment = Alignment.CenterVertically

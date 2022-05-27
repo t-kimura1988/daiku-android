@@ -14,7 +14,6 @@ import com.goen.domain.repository.AccountRepository
 import com.goen.domain.repository.GoalFavoriteRepository
 import com.goen.domain.repository.GoalRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -51,7 +50,6 @@ class AccountDetailViewModel @Inject constructor(
     }
 
     fun getGoalInfo() {
-        Log.println(Log.INFO, "a", "get account detail goal info")
         input.pageCountM.value = input.pageCountM.value + 20
         viewModelScope.launch {
             goalRepository.getGoal(
@@ -79,8 +77,7 @@ class AccountDetailViewModel @Inject constructor(
                 onStart = {},
                 onComplate = {}
             )
-                .collect { it: Unit ->
-                    Log.println(Log.INFO, "accountDetail", "create favorite: $it")
+                .collect { _: Unit ->
                 }
         }
     }
@@ -106,7 +103,7 @@ class AccountDetailViewModel @Inject constructor(
                     accountRepository.logout()
                 }
             ).collect {
-                Log.println(Log.INFO, "accountDetail", "create favorite")
+
             }
         }
     }

@@ -98,12 +98,10 @@ class AccountCreateViewModel @Inject constructor(
     }
     fun accountDetail() {
         viewModelScope.launch {
-            Log.println(Log.INFO, "update account", "account detail info to input form")
             accountRepository.getAccountInfo(
                 onStart = {},
                 onComplate = {},
-                onError = {error ->
-                    Log.println(Log.ERROR, "AccountExistViewModel", error.errorBody)
+                onError = {_ ->
                 })
                 .collect { account: Account? ->
                     input.familyNameM.value = input.familyNameM.value.copy(value = account!!.familyName, error = "")
@@ -114,7 +112,6 @@ class AccountCreateViewModel @Inject constructor(
     }
     private fun chkEnableButton(): Boolean {
 
-        Log.println(Log.INFO, "testtesttest", "ssssssss")
         return input.familyNameM.value.error == "" && input.givenNameM.value.error == "" && input.nickNameM.value.error == ""
     }
 }

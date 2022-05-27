@@ -42,7 +42,6 @@ class AccountExistViewModel @Inject constructor(
                 onError = {},
                 onComplate = {}
             ).collect { account: Account? ->
-                Log.println(Log.INFO, "a", account.toString())
                 accountState.value = accountState.value.copy(account = account, error = null)
 
             }

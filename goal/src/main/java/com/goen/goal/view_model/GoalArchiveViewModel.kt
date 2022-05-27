@@ -7,20 +7,11 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.goen.domain.model.param.goal.GoalArchiveCreateParameter
 import com.goen.domain.model.param.goal.GoalArchiveDetailParameter
-import com.goen.domain.model.param.goal.GoalCreateParameter
-import com.goen.domain.model.param.goal.GoalDetailParameter
-import com.goen.domain.model.result.goal.GoalArchiveDetailResult
 import com.goen.domain.model.result.goal.GoalArchiveSearchResult
 import com.goen.domain.repository.GoalRepository
 import com.goen.utils.entity.FormObj
-import com.goen.utils.extentions.toLocalDateParse
-import com.goen.utils.validate.BaseValidate
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.InternalCoroutinesApi
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
-import org.threeten.bp.LocalDate
-import org.threeten.bp.format.DateTimeFormatter
 import javax.inject.Inject
 
 @HiltViewModel
@@ -70,7 +61,6 @@ class GoalArchiveViewModel @Inject constructor(
                     errorDialog.value = true
                 }
             ).collect {
-                Log.println(Log.INFO, "success", "goal archive ")
                 success.value = true
             }
         }
@@ -91,7 +81,6 @@ class GoalArchiveViewModel @Inject constructor(
                     errorDialog.value = true
                 }
             ).collect {
-                Log.println(Log.INFO, "success", "goal archive ")
                 success.value = true
             }
         }

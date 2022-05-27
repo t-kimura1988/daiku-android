@@ -23,6 +23,7 @@ import coil.compose.rememberImagePainter
 import coil.transform.CircleCropTransformation
 import com.goen.account.R
 import com.goen.domain.model.result.GoalSearchResult
+import com.goen.utils.extentions.YYYYMMDD_JP
 
 @Composable
 fun AccountDetailGoalSearchItemCompose(
@@ -52,6 +53,14 @@ fun AccountDetailGoalSearchItemCompose(
                 fontSize = 23.sp,
                 fontWeight = FontWeight.Bold
             )
+            Row {
+                Text(
+                    text = "期間: ${item.dueDate.YYYYMMDD_JP()}まで",
+                    fontSize = 13.sp,
+                    color = Color.LightGray,
+                )
+
+            }
             Text(
                 text = item.purpose,
                 color = Color.Gray,

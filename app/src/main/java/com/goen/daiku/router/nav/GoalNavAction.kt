@@ -1,13 +1,11 @@
 package com.goen.daiku.router.nav
 
-import android.util.Log
 import androidx.navigation.NavHostController
 
 class GoalNavAction(
     navController: NavHostController
 ) {
     val selectedProcess: (Int, Int, String) -> Unit = { processId: Int, goalId: Int, goalCreateDate: String ->
-        Log.println(Log.INFO, "process", "process detail item")
         navController.navigate("process/detail/$processId/$goalId/$goalCreateDate")
     }
 

@@ -2,7 +2,6 @@ package com.goen.daiku
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.result.contract.ActivityResultContracts
@@ -57,8 +56,6 @@ class AuthActivity(
             .addOnCompleteListener(this) { task ->
                 if (task.isSuccessful) {
                     Timber.d("signInWithCredential:success")
-                } else {
-                    Log.println(Log.INFO,"user", task.exception.toString())
                 }
             }
     }

@@ -23,6 +23,8 @@ data class GoalSearchResult(
     var purpose: String = "",
     @Json(name = "aim")
     var aim: String = "",
+    @Json(name = "due_date")
+    var dueDate: String = "",
     @Json(name = "favorite_id")
     var favoriteId: Int? = 0
 ) {

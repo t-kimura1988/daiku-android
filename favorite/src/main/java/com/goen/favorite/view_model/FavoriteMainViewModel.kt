@@ -28,8 +28,8 @@ class FavoriteMainViewModel @Inject constructor(
                 param = input.param,
                 onStart = {},
                 onComplate = {}
-            ) { error ->
-                Log.println(Log.ERROR, "accountDetail", error.errorBody)
+            ) { _ ->
+
             }
                 .collect { list: List<GoalFavoriteSearchResult> ->
                     favoriteGoalList.value = list
