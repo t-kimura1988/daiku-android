@@ -7,6 +7,11 @@ import androidx.activity.compose.setContent
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.ui.ExperimentalComposeUiApi
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
+import androidx.navigation.compose.rememberNavController
+import androidx.navigation.navigation
+import com.goen.auth.presentation.ui.PrivacyPolicyCompose
 import com.goen.auth.presentation.ui.SignInCompose
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
@@ -27,6 +32,10 @@ class AuthActivity(
 ) : ComponentActivity(), FirebaseAuth.AuthStateListener {
     private lateinit var mAuth: FirebaseAuth
     private lateinit var googleSignInClient: GoogleSignInClient
+
+    private val googleSignInIdToken: String = BuildConfig.GOOGLE_SIGN_IN_ID_TOKEN
+
+    val appBaseUrl: String = com.goen.auth.BuildConfig.APP_BASE_URL
 
     private val authResultLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
         val data: Intent? = result.data
@@ -64,7 +73,7 @@ class AuthActivity(
         // Configure Google Sign In
         Timber.i("Log IN :START")
         val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-            .requestIdToken("77378983566-3dfkmr9g87sd8qro8e0oib5r8qkmd747.apps.googleusercontent.com")
+            .requestIdToken(googleSignInIdToken)
             .requestEmail()
             .build()
 
@@ -83,18 +92,51 @@ class AuthActivity(
         FirebaseAuth.getInstance().removeAuthStateListener(this)
     }
 
-    override fun onDestroy() {
-        super.onDestroy()
-        Timber.i("tjadjkajgdsljadfoifjushbvisdnlkf")
-    }
-
     @OptIn(
         ExperimentalComposeUiApi::class,
         ExperimentalMaterialApi::class
     )
     override fun onAuthStateChanged(fAuth: FirebaseAuth) {
         if (fAuth.currentUser == null ) {
-            setContent { SignInCompose(onSignIn = {signIn()}) }
+            setContent {
+                val navController = rememberNavController()
+                NavHost(
+                    navController = navController,
+                    startDestination = "auth"
+                ) {
+                    navigation(
+                        startDestination = "signIn",
+                        route = "auth"
+                    ) {
+                        composable(
+                            "signIn"
+                        ) {
+                            SignInCompose(
+                                onSignIn = {signIn()},
+                                navController = navController
+                            )
+                        }
+
+                        composable(
+                            "privacyPolicy"
+                        ) {
+                            PrivacyPolicyCompose(
+                                navController = navController,
+                                viewUrl = "${appBaseUrl}/privacy-policy"
+                            )
+                        }
+
+                        composable(
+                            "termsOfUse"
+                        ) {
+                            PrivacyPolicyCompose(
+                                navController = navController,
+                                viewUrl = "${appBaseUrl}/terms-of-use"
+                            )
+                        }
+                    }
+                }
+            }
             return
         }
 

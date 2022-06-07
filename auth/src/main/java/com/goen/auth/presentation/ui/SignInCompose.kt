@@ -1,6 +1,7 @@
 package com.goen.auth.presentation.ui
 
-import android.util.Log
+import android.webkit.WebView
+import android.webkit.WebViewClient
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
@@ -14,18 +15,25 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.compose.ui.viewinterop.AndroidView
+import androidx.navigation.NavHostController
 import coil.compose.rememberImagePainter
 import coil.transform.CircleCropTransformation
+import com.goen.auth.BuildConfig
 import com.goen.auth.presentation.SignInMenu
 import com.goen.utils.compose.DaikuAppTheme
 import kotlinx.coroutines.launch
 
 @Composable
-fun SignInCompose(onSignIn: () -> Unit) {
-
+fun SignInCompose(
+    onSignIn: () -> Unit,
+    navController: NavHostController
+) {
 
     val scaffoldState = rememberScaffoldState()
     val scope = rememberCoroutineScope()
+
+    val appBaseUrl: String = BuildConfig.APP_BASE_URL
 
     val clickMenu: () -> Unit = {
         scope.launch {
@@ -36,26 +44,39 @@ fun SignInCompose(onSignIn: () -> Unit) {
     }
 
     val clickMenuItem: (menu: SignInMenu) -> Unit = { menu: SignInMenu ->
+
         when(menu) {
             SignInMenu.GoogleSignIn->{
                 onSignIn()
             }
+            SignInMenu.PrivacyPolicy->{
+                navController.navigate("privacyPolicy")
+            }
+            SignInMenu.TermsOfUse->{
+                navController.navigate("termsOfUse")
+            }
         }
     }
 
-    Scaffold(
-        scaffoldState = scaffoldState,
-        topBar = { SignInTopBar(onClickMenu = clickMenu) },
-        drawerContent = {
-            DrawerContent(
-                clickMenu = clickMenuItem
+    DaikuAppTheme {
+        Scaffold(
+            scaffoldState = scaffoldState,
+            topBar = { SignInTopBar(onClickMenu = clickMenu) },
+            drawerContent = {
+                DrawerContent(
+                    clickMenu = clickMenuItem
+                )
+            })
+        {
+            AndroidView(
+                factory = ::WebView,
+                update = { webView ->
+                    webView.webViewClient = WebViewClient()
+                    var webViewSetting = webView.settings
+                    webViewSetting.javaScriptEnabled = true
+                    webView.loadUrl("${appBaseUrl}/unauth")
+                }
             )
-        })
-    {
-        Column(modifier = Modifier.padding(16.dp)) {
-            Button(onClick = onSignIn) {
-                Text(text = "Googleアカウントでログイン")
-            }
         }
     }
 }
@@ -82,7 +103,9 @@ fun DrawerContent(
 ) {
 
     val items = listOf(
-        SignInMenu.GoogleSignIn
+        SignInMenu.GoogleSignIn,
+        SignInMenu.PrivacyPolicy,
+        SignInMenu.TermsOfUse
     )
 
     Column(

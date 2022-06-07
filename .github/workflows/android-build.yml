@@ -25,6 +25,8 @@ jobs:
       if: contains(toJSON(github.ref), 'master')
       run: |
         echo BASE_URL='https://daiku-app.goenway.com/' >> $GITHUB_ENV
+        echo APP_BASE_URL='https://goenway.com' >> $GITHUB_ENV
+        echo GOOGLE_SIGN_IN_ID_TOKEN=${{ secrets.GOOGLE_SIGN_IN_ID_TOKEN_PRD }} >> $GITHUB_ENV
         echo KEYSTORE_BASE64=${{ secrets.KEYSTORE_BASE64_PRD }} >> $GITHUB_ENV
         echo KEY_ALIAS=${{ secrets.KEY_ALIAS_PRD }} >> $GITHUB_ENV
         echo KEYSTORE_PASSWORD=${{ secrets.KEYSTORE_PASSWORD_PRD }} >> $GITHUB_ENV
@@ -40,6 +42,8 @@ jobs:
       if: contains(toJSON(github.ref), 'develop') || contains(toJSON(github.ref), 'feature') || github.event_name == 'pull_request'
       run: |
         echo BASE_URL='https://daiku-app.dev.goenway.com/' >> $GITHUB_ENV
+        echo APP_BASE_URL='https://dev.goenway.com' >> $GITHUB_ENV
+        echo GOOGLE_SIGN_IN_ID_TOKEN=${{ secrets.GOOGLE_SIGN_IN_ID_TOKEN_DEV }} >> $GITHUB_ENV
         echo KEYSTORE_BASE64=${{ secrets.KEYSTORE_BASE64_DEV }} >> $GITHUB_ENV
         echo KEY_ALIAS=${{ secrets.KEY_ALIAS_DEV }} >> $GITHUB_ENV
         echo KEYSTORE_PASSWORD=${{ secrets.KEYSTORE_PASSWORD_DEV }} >> $GITHUB_ENV
