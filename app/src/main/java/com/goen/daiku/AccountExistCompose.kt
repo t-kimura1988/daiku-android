@@ -7,7 +7,6 @@ import androidx.compose.material.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.ExperimentalComposeUiApi
-import androidx.compose.ui.res.stringResource
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.compose.rememberNavController
 import com.goen.account.ui.AccountCreateCompose
@@ -52,7 +51,6 @@ fun AccountExistCompose(
 
 
     if(viewModel.accountState.value.isLoading) {
-        Text(text = viewModel.accountState.value.toString())
         return
     }
 
