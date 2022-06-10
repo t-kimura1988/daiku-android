@@ -129,18 +129,20 @@ fun DrawerContent(
                     },
                 verticalAlignment = Alignment.CenterVertically
             ) {
-                Image(
-                    modifier = Modifier
-                        .size(50.dp),
-                    painter = rememberImagePainter(
-                        data = item.icon,
-                        builder = {
-                            placeholder(item.icon)
-                            transformations(CircleCropTransformation())
-                        },
-                    ),
-                    contentDescription = item.title
-                )
+                if(item.icon != null) {
+                    Image(
+                        modifier = Modifier
+                            .size(50.dp),
+                        painter = rememberImagePainter(
+                            data = item.icon,
+                            builder = {
+                                placeholder(item.icon!!)
+                                transformations(CircleCropTransformation())
+                            },
+                        ),
+                        contentDescription = item.title,
+                    )
+                }
                 Text(
                     text = item.title,
                     fontSize = 16.sp,
