@@ -6,7 +6,8 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
-import androidx.compose.runtime.*
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
@@ -15,8 +16,8 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import com.goen.goal.R
 import com.goen.goal.ui.compose.archive.GoalArchiveDetailCompose
-import com.goen.goal.ui.compose.detail.GoalDetailProcessItem
 import com.goen.goal.ui.compose.detail.GoalDetailCompose
+import com.goen.goal.ui.compose.detail.GoalDetailProcessItem
 import com.goen.goal.view_model.GoalArchiveDetailViewModel
 import com.goen.utils.compose.DaikuAppTheme
 import timber.log.Timber
@@ -32,9 +33,6 @@ fun GoalArchiveDetailMainCompose(
 
     val vm: GoalArchiveDetailViewModel = hiltViewModel()
 
-    val moreText: MutableState<Boolean> = remember{ mutableStateOf(false) }
-    val line: Int = if(moreText.value)  Int.MAX_VALUE else 3
-
     LaunchedEffect(key1 = vm.goalArchiveDetail, block = {
         vm.callGoalArchiveDetail(archiveId = archiveId, archiveCreateDate = archiveCreateDate)
     })
@@ -43,7 +41,6 @@ fun GoalArchiveDetailMainCompose(
         Timber.i("processId: $processId")
         Timber.i("goalId: $goalId")
         Timber.i("goalCreateDate: $goalCreateDate")
-        moreText.value = !moreText.value
     }
 
     DaikuAppTheme {
@@ -95,7 +92,7 @@ fun GoalArchiveDetailMainCompose(
                         GoalDetailProcessItem(
                             processItem = item,
                             onClickItem = selectProcessItem,
-                            line = line
+                            line = Int.MAX_VALUE
                         )
                     }
                 } else {

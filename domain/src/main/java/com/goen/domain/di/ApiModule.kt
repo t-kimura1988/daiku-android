@@ -56,9 +56,9 @@ object ApiModule {
         builder.addInterceptor(logging)
         builder.addInterceptor(authorization)
 
-        builder.readTimeout(15, TimeUnit.SECONDS)
-        builder.writeTimeout(15, TimeUnit.SECONDS)
-        builder.connectTimeout(15, TimeUnit.SECONDS)
+        builder.readTimeout(0, TimeUnit.MILLISECONDS)
+        builder.writeTimeout(0, TimeUnit.MILLISECONDS)
+        builder.connectTimeout(0, TimeUnit.MILLISECONDS)
 
         return builder.build()
     }
