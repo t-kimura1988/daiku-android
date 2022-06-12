@@ -49,7 +49,7 @@ subprojects {
         androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
         testImplementation 'junit:junit:4.13.2'
 
-        implementation 'com.google.firebase:firebase-auth-ktx:21.0.4'
+        implementation 'com.google.firebase:firebase-auth-ktx:21.0.5'
         implementation 'com.google.android.gms:play-services-auth:20.2.0'
         implementation 'com.jakewharton.timber:timber:4.7.1'
 
