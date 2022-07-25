@@ -1,6 +1,5 @@
 package com.goen.account.view_model
 
-import android.util.Log
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
@@ -10,8 +9,8 @@ import com.goen.domain.model.entity.Account
 import com.goen.domain.model.param.account.AccountCreateParameter
 import com.goen.domain.repository.AccountRepository
 import com.goen.utils.entity.FormObj
+import com.goen.utils.validate.BaseValidate
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -27,32 +26,42 @@ class AccountCreateViewModel @Inject constructor(
     var loading: MutableState<Boolean> = mutableStateOf(false)
     var errorDialog: MutableState<Boolean> = mutableStateOf(false)
 
+    var validate: BaseValidate = BaseValidate()
+
     fun changeFamilyName(item: String) {
-        if(item == "") {
+        if(validate.require(item)) {
             input.familyNameM.value = input.familyNameM.value.copy(error = "氏名を入力してください")
-        } else {
-            input.familyNameM.value = input.familyNameM.value.copy(error = "")
+        }
+
+        if(validate.size(item = item, size = 100)) {
+            input.familyNameM.value = input.familyNameM.value.copy(error = "氏名は100文字で入力してください")
 
         }
-        input.familyNameM.value = input.familyNameM.value.copy(value  = item)
+        input.familyNameM.value = input.familyNameM.value.copy(value  = item, error = "")
     }
 
     fun changeGivenName(item: String) {
-        if(item == "") {
+        if(validate.require(item)) {
             input.givenNameM.value = input.givenNameM.value.copy(error = "名前を入力してください")
-        } else {
-            input.givenNameM.value = input.givenNameM.value.copy(error = "")
         }
-        input.givenNameM.value = input.givenNameM.value.copy(value = item)
+
+        if(validate.size(item = item, size = 100)) {
+            input.givenNameM.value = input.givenNameM.value.copy(error = "名前は100文字で入力してください")
+
+        }
+        input.givenNameM.value = input.givenNameM.value.copy(value = item, error = "")
     }
 
     fun changeNickName(item: String) {
-        if(item == "") {
+        if(validate.require(item)) {
             input.nickNameM.value = input.nickNameM.value.copy(error = "ニックネームを入力してください")
-        }else{
-            input.nickNameM.value = input.nickNameM.value.copy(error = "")
         }
-        input.nickNameM.value = input.nickNameM.value.copy(value  = item)
+
+        if(validate.size(item = item, size = 100)) {
+            input.nickNameM.value = input.nickNameM.value.copy(error = "ニックネームは100文字で入力してください")
+
+        }
+        input.nickNameM.value = input.nickNameM.value.copy(value  = item, error = "")
     }
 
     fun changeErrorDialog(flg: Boolean) {
