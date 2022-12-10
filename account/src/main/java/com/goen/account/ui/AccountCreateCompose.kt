@@ -27,8 +27,8 @@ fun AccountCreateCompose(
 
         Scaffold(
             topBar = { TopBar(viewModel = viewModel, accountVM = accountVM) }
-        ) {
-            AccountEditForm(viewModel = viewModel)
+        ) { padding ->
+            AccountEditForm(viewModel = viewModel, padding = padding)
             if(!viewModel.loading.value) {
 
                 if(viewModel.errorDialog.value){

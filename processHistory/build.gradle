@@ -4,13 +4,13 @@ plugins {
 }
 
 android {
-    compileSdkVersion(31)
-    compileSdk 31
+    compileSdkVersion(32)
+    compileSdk 32
     buildToolsVersion "30.0.3"
 
     defaultConfig {
         minSdk 21
-        targetSdk 31
+        targetSdk 32
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -32,12 +32,11 @@ android {
     }
     kotlinOptions {
         jvmTarget = '1.8'
-        useIR = true
     }
 
     composeOptions {
-        kotlinCompilerVersion '1.5.31'
-        kotlinCompilerExtensionVersion '1.0.5'
+        kotlinCompilerVersion '1.7.20'
+        kotlinCompilerExtensionVersion '1.3.2'
     }
     namespace 'com.goen.processhistory'
     lint {

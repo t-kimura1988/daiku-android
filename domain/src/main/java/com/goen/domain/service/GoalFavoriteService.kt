@@ -14,5 +14,5 @@ interface GoalFavoriteService {
 
     @GET("api/goal-favorite/search")
     @Headers(AuthorizationInterceptor.placeholder)
-    suspend fun goalFavoriteList(@Query("year") year: Int): Response<List<GoalFavoriteSearchResult>>
+    suspend fun goalFavoriteList(@Query("year") year: Int, @Query("page") page: Int): Response<List<GoalFavoriteSearchResult>>
 }

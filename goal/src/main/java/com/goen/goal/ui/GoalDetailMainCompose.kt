@@ -45,16 +45,18 @@ fun GoalDetailMainCompose(
                     onClickItem = { gotoProcessCreate(goalId, createDate) },
                     isUpdating = goalDetailViewModel.goalDetailResult.value.goalDetail.isUpdating)
             }
-        ) {
+        ) { padding ->
             LazyColumn(
-                modifier = Modifier.fillMaxSize(),
+                modifier = Modifier
+                    .fillMaxSize()
+                    .padding(padding),
             ) {
                 item {
                     Row(
                         modifier = Modifier.fillMaxWidth(),
                         horizontalArrangement = Arrangement.SpaceAround
                     ) {
-                        if(goalDetailViewModel.goalDetailResult.value.goalDetail.archiveId == null) {
+                        if(goalDetailViewModel.goalDetailResult.value.goalDetail.editable()) {
                             Box(
                                 modifier = Modifier.padding(8.dp)
                             ) {
@@ -70,25 +72,12 @@ fun GoalDetailMainCompose(
                                 }
                             }
                         } else {
-                            if(goalDetailViewModel.goalDetailResult.value.goalDetail.isUpdating) {
-                                Box(
-                                    modifier = Modifier.padding(8.dp)
-                                ) {
-                                    OutlinedButton(onClick = {
-                                        goalArchiveUpdatePage(
-                                            goalDetailViewModel.goalDetailResult.value.goalDetail.goalArchiveId(),
-                                            goalDetailViewModel.goalDetailResult.value.goalDetail.archivesCreateDate)
-                                    }) {
-                                        Text(stringResource(id = R.string.goal_archive_update_button_name))
-                                    }
-                                }
-                            }else {
-                                Box(
-                                    modifier = Modifier.padding(8.dp)
-                                ) {
-                                    OutlinedButton(onClick = { goalDetailViewModel.updatingFlg(goalId, createDate) }) {
-                                        Text(stringResource(id = R.string.goal_archive_updating_button_name))
-                                    }
+
+                            Box(
+                                modifier = Modifier.padding(8.dp)
+                            ) {
+                                OutlinedButton(onClick = { goalDetailViewModel.updatingFlg(goalId, createDate) }) {
+                                    Text(stringResource(id = R.string.goal_archive_updating_button_name))
                                 }
                             }
 

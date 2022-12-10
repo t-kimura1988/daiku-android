@@ -5,5 +5,6 @@ import com.squareup.moshi.JsonClass
 
 @JsonClass(generateAdapter = true)
 data class FavoriteGoalSearchParameter (
-    @Json(name = "year") var year: Int
+    @Json(name = "year") var year: Int,
+    @Json(name = "page") var page: Int
 )

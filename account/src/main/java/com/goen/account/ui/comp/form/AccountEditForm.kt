@@ -1,9 +1,6 @@
 package com.goen.account.ui.comp.form
 
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.MaterialTheme
@@ -19,10 +16,11 @@ import com.google.accompanist.insets.statusBarsPadding
 
 
 @Composable
-fun AccountEditForm(viewModel: AccountCreateViewModel) {
+fun AccountEditForm(viewModel: AccountCreateViewModel, padding: PaddingValues) {
     val scrollState = rememberScrollState()
     Column(
         modifier = Modifier
+            .padding(padding)
             .fillMaxSize()
             .verticalScroll(scrollState)
             .statusBarsPadding()

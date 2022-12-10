@@ -32,8 +32,8 @@ fun AccountUpdateCompose(
     DaikuAppTheme {
         Scaffold(
             topBar = { UpdateTopBar(viewModel = viewModel) }
-        ) {
-            AccountEditForm(viewModel = viewModel)
+        ) { padding ->
+            AccountEditForm(viewModel = viewModel, padding = padding)
             if(!viewModel.loading.value) {
 
                 if(viewModel.success.value) {

@@ -1,6 +1,5 @@
 package com.goen.daiku.router.nav
 
-import android.util.Log
 import androidx.navigation.NavHostController
 
 class HomeNavAction(
@@ -9,6 +8,10 @@ class HomeNavAction(
 
     val createGoal: () -> Unit = {
         navController.navigate("goal/create")
+    }
+
+    val createMakiPage: () -> Unit = {
+        navController.navigate("maki/create")
     }
 
     val gotoGoalArchiveDetail: (Int, String, Int) -> Unit = {archiveId: Int, archiveCreateDate: String, accountId: Int ->

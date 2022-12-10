@@ -42,7 +42,7 @@ class GoalDatasourceImpl @Inject constructor(
     }
 
     override suspend fun searchGoal(parameter: GoalSearchParameter): List<GoalSearchResult> {
-        var result = service.searchGoal(year = parameter.year, pageCount = parameter.pageCount)
+        var result = service.searchGoal(year = parameter.year, month = parameter.month, page = parameter.page)
         if(result.isSuccessful) {
             return result.body()!!
         }
@@ -53,7 +53,18 @@ class GoalDatasourceImpl @Inject constructor(
     }
 
     override suspend fun searchGoalArchive(parameter: GoalArchiveSearchParameter): List<GoalArchiveSearchResult> {
-        var result = service.searchGoalArchive(year = parameter.year, pageCount = parameter.pageCount)
+        var result = service.searchGoalArchive(year = parameter.year, month = parameter.month, page = parameter.page)
+        if(result.isSuccessful) {
+            return result.body()!!
+        }
+        var jsonAdapter: JsonAdapter<ErrorResponse> = moshi.adapter(ErrorResponse::class.java)
+        var errRes = jsonAdapter.fromJson(result.errorBody()?.string())
+
+        throw ApiException(result.code(), "apiERROR", errRes!!.errorCd)
+    }
+
+    override suspend fun searchMyGoalArchive(parameter: MyGoalArchiveSearchParameter): List<GoalArchiveSearchResult> {
+        var result = service.searchMyGoalArchive(year = parameter.year, month = parameter.month)
         if(result.isSuccessful) {
             return result.body()!!
         }
@@ -91,6 +102,17 @@ class GoalDatasourceImpl @Inject constructor(
 
         if(result.isSuccessful) {
             return
+        }
+        var jsonAdapter: JsonAdapter<ErrorResponse> = moshi.adapter(ErrorResponse::class.java)
+        var errRes = jsonAdapter.fromJson(result.errorBody()?.string())
+
+        throw ApiException(result.code(), "apiERROR", errRes!!.errorCd)
+    }
+
+    override suspend fun getMyGoalArchiveDetail(parameter: GoalArchiveDetailParameter): GoalArchiveDetailResult {
+        var result = service.getMyGoalArchiveDetail(archiveId = parameter.archiveId, createDate = parameter.archiveCreateDate)
+        if(result.isSuccessful) {
+            return result.body()!!
         }
         var jsonAdapter: JsonAdapter<ErrorResponse> = moshi.adapter(ErrorResponse::class.java)
         var errRes = jsonAdapter.fromJson(result.errorBody()?.string())

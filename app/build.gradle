@@ -7,14 +7,14 @@ plugins {
 }
 
 android {
-    compileSdkVersion(31)
-    compileSdk 31
+    compileSdkVersion(33)
+    compileSdk 33
     buildToolsVersion "30.0.3"
 
     defaultConfig {
         applicationId "com.goen.daiku"
         minSdkVersion 21
-        targetSdkVersion 31
+        targetSdkVersion 33
         versionCode 1
         versionName "1.0"
 
@@ -90,12 +90,11 @@ android {
 
     kotlinOptions {
         jvmTarget = '1.8'
-        useIR = true
     }
 
     composeOptions {
-        kotlinCompilerVersion '1.5.31'
-        kotlinCompilerExtensionVersion '1.0.5'
+        kotlinCompilerVersion '1.7.20'
+        kotlinCompilerExtensionVersion '1.3.2'
     }
     namespace 'com.goen.daiku'
 
@@ -120,6 +119,9 @@ dependencies {
     implementation project(":process")
     implementation project(":processHistory")
     implementation project(":favorite")
+    implementation project(":idea")
+    implementation project(":maki")
+    implementation project(":story")
     implementation 'com.google.firebase:firebase-auth'
     implementation 'com.google.firebase:firebase-auth-ktx:21.0.1'
 

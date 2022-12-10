@@ -1,5 +1,6 @@
 package com.goen.domain.model.result.goal
 
+import com.goen.domain.enums.GoalArchivePublishedLevel
 import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
 
@@ -37,4 +38,6 @@ data class GoalArchiveSearchResult(
     var processCount: Int = 0
 ) {
     val accountName: String get() = this.familyName + " " + this.givenName
+
+    val publishedLevel: GoalArchivePublishedLevel get() = GoalArchivePublishedLevel.of(publish)
 }

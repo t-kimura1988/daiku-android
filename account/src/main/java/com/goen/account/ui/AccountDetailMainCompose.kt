@@ -23,17 +23,23 @@ import com.goen.account.R
 import com.goen.account.sealed.AccountMenu
 import com.goen.account.ui.comp.AccountDetailTabCompose
 import com.goen.account.ui.comp.AccountTopBar
+import com.goen.account.ui.comp.detail.AccountDetailGoalArchiveSearchItemCompose
 import com.goen.account.ui.comp.detail.AccountDetailGoalSearchItemCompose
-import com.goen.account.ui.comp.detail.TermSearchDialog
+import com.goen.account.ui.comp.detail.AccountDetailIdeaSearchItemCompose
+import com.goen.account.ui.comp.detail.AccountDetailMakiSearchItemCompose
 import com.goen.account.view_model.AccountDetailViewModel
 import com.goen.domain.model.entity.Account
 import com.goen.utils.compose.DaikuAppTheme
+import com.goen.utils.compose.TermSearchDialog
 import kotlinx.coroutines.launch
 import org.threeten.bp.LocalDate
 
 @Composable
 fun AccountDetailMainCompose(
     selectGoalDetail: (goalId: Int, createDate: String) -> Unit,
+    selectGoalArchiveDetail: (archive: Int, archiveCreateDate: String, loginId: Int) -> Unit,
+    selectIdeaDetail: (storyId: Int, ideaId: Int) -> Unit,
+    selectMakiDetail: (makiId: Int) -> Unit,
     gotoEditAccountInfo: () -> Unit,
     innerPadding: PaddingValues
 ) {
@@ -72,9 +78,16 @@ fun AccountDetailMainCompose(
     val tapSearch: (flg: Boolean) -> Unit = {flg: Boolean ->
         accountDetailVM.changeTermSearchAlert(flg)
     }
+    val tapSearchArchive: (flg: Boolean) -> Unit = {flg: Boolean ->
+        accountDetailVM.changeTermSearchAlertArchive(flg)
+    }
 
-    val searchKeyChange: (key: Int) -> Unit = {key: Int ->
-        accountDetailVM.changeTermSearchKey(key)
+    val searchKeyChange: (year: Int, month: Int) -> Unit = {year: Int, month: Int ->
+        accountDetailVM.changeTermSearchKey(year = year, month = month)
+    }
+
+    val searchKeyChangeArchive: (year: Int, month: Int) -> Unit = {year: Int, month: Int ->
+        accountDetailVM.changeTermSearchKeyArchive(year = year, month = month)
     }
 
     DaikuAppTheme {
@@ -89,7 +102,7 @@ fun AccountDetailMainCompose(
                     clickMenu = clickMenuItem
                 )
             }
-        ) {
+        ) {padding ->
             Box(modifier = Modifier.padding(innerPadding)) {
 
                 LazyColumn(
@@ -105,14 +118,37 @@ fun AccountDetailMainCompose(
                         AccountDetailTabCompose()
                     }
 
+
                     when(accountDetailVM.selectedTabIndex.value) {
+
                         0 -> {
+                            // Idea
+                            items(accountDetailVM.ideaList.value) {item ->
+                                AccountDetailIdeaSearchItemCompose(
+                                    item = item,
+                                    onClickItem = selectIdeaDetail
+                                )
+                            }
+                        }
+
+                        1 -> {
+                            // Maki
+                            items(accountDetailVM.makiList.value) {item ->
+                                AccountDetailMakiSearchItemCompose(
+                                    item = item,
+                                    onClickItem = selectMakiDetail
+                                )
+                            }
+                        }
+                        2 -> {
                             item {
                                 TermSearchDialog(
                                     dialogFlg = accountDetailVM.termSearchDialogFlg.value,
                                     currentKey = LocalDate.now().year,
                                     changeKey = searchKeyChange,
-                                    changeDialog = tapSearch)
+                                    changeDialog = tapSearch,
+
+                                )
                             }
                             items(accountDetailVM.goalList.value) {item ->
                                 AccountDetailGoalSearchItemCompose(
@@ -122,12 +158,32 @@ fun AccountDetailMainCompose(
                                 )
                             }
 
-                            if(accountDetailVM.goalList.value.size == accountDetailVM.input.pageCount) {
+                            if(accountDetailVM.goalList.value.size == accountDetailVM.input.page) {
                                 item{
                                     LoadingIndicator(accountVm = accountDetailVM)
                                 }
                             }
 
+                        }
+
+
+                        3 -> {
+                            item {
+                                TermSearchDialog(
+                                    dialogFlg = accountDetailVM.termSearchArchiveDialogFlg.value,
+                                    currentKey = LocalDate.now().year,
+                                    changeKey = searchKeyChangeArchive,
+                                    changeDialog = tapSearchArchive,
+
+                                    )
+                            }
+                            items(accountDetailVM.myGoalArchiveList.value) {item ->
+                                AccountDetailGoalArchiveSearchItemCompose(
+                                    item = item,
+                                    onClickItem = selectGoalArchiveDetail,
+                                    loginId = accountDetailVM.accountInfo.value.account.id
+                                )
+                            }
                         }
 
                     }
@@ -169,7 +225,9 @@ fun AccountDetailMainCompose(
 fun load(accountDetailVM: AccountDetailViewModel) {
     accountDetailVM.getAccountDetail()
     accountDetailVM.getGoalInfo()
-
+    accountDetailVM.getMyIdeaList()
+    accountDetailVM.getMakiList()
+    accountDetailVM.getMyGoalArchive()
 }
 
 @Composable

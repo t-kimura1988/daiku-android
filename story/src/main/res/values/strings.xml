@@ -1,0 +1,9 @@
+<resources>
+    <string name="process_detail_tab_name">プロセス</string>
+    <string name="process_create_tab_name">プロセス作成</string>
+    <string name="process_edit_button_name">変更</string>
+    <string name="process_save_button">保存</string>
+    <string name="process_failure_message_text">処理に失敗しました。もう一度入力してください。</string>
+    <string name="process_success_message_text">処理に成功しました。</string>
+    <string name="process_failure_retry_button">やり直し</string>
+</resources>

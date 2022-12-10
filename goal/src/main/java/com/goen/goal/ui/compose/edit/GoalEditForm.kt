@@ -86,7 +86,7 @@ internal fun GoalEditForm(viewModel: GoalCreateViewModel) {
                 )
             }
             GoalTermDialog(
-                date = viewModel.input.dueDateM.value,
+                date = viewModel.input.dueDateM.value.date!!,
                 changeDialog = {flg ->
                     viewModel.changeTermDialog(flg)
                 },

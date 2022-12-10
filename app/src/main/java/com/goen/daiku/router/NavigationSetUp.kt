@@ -11,6 +11,7 @@ import com.goen.daiku.router.home.homeNav
 import com.goen.daiku.router.nav.*
 import com.goen.daiku.router.process.processNav
 import com.goen.daiku.router.processHistory.processHistoryNav
+import com.goen.daiku.router.story.storyNav
 import com.goen.domain.model.entity.Account
 
 @ExperimentalComposeUiApi
@@ -26,7 +27,9 @@ fun NavigationSetUp(
     ){
         accountDetailNav(
             navController = navController,
-            goalAction = GoalNavAction(navController)
+            goalAction = GoalNavAction(navController),
+            accountAction = AccountNavAction(navController),
+            storyAction = StoryNavAction(navController)
         )
 
         homeNav(
@@ -52,6 +55,9 @@ fun NavigationSetUp(
             action = ProcessHistoryNavAction(navController)
         )
 
+        storyNav(
+            navController = navController
+        )
 
     }
 }

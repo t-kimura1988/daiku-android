@@ -1,6 +1,5 @@
 package com.goen.goal.view_model
 
-import android.util.Log
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
@@ -9,7 +8,6 @@ import com.goen.domain.model.param.goal.GoalArchiveDetailParameter
 import com.goen.domain.model.result.goal.GoalArchiveDetailResult
 import com.goen.domain.repository.GoalRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 

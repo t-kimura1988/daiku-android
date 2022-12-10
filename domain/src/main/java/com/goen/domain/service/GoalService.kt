@@ -23,7 +23,7 @@ interface GoalService {
 
     @GET("api/goal/search")
     @Headers(AuthorizationInterceptor.placeholder)
-    suspend fun searchGoal(@Query("year") year: Int, @Query("pageCount") pageCount: Int): Response<List<GoalSearchResult>>
+    suspend fun searchGoal(@Query("year") year: Int,@Query("month") month: Int, @Query("page") page: Int): Response<List<GoalSearchResult>>
 
     @GET("api/goal/detail")
     @Headers(AuthorizationInterceptor.placeholder)
@@ -39,7 +39,15 @@ interface GoalService {
 
     @GET("api/goal/archive/search")
     @Headers(AuthorizationInterceptor.placeholder)
-    suspend fun searchGoalArchive(@Query("year") year: Int, @Query("pageCount") pageCount: Int): Response<List<GoalArchiveSearchResult>>
+    suspend fun searchGoalArchive(@Query("year") year: Int, @Query("page") page: Int, @Query("month") month: Int?): Response<List<GoalArchiveSearchResult>>
+
+    @GET("api/goal/my-archive/list")
+    @Headers(AuthorizationInterceptor.placeholder)
+    suspend fun searchMyGoalArchive(@Query("year") year: Int, @Query("month") month: Int?): Response<List<GoalArchiveSearchResult>>
+
+    @GET("api/goal/my-archive/detail")
+    @Headers(AuthorizationInterceptor.placeholder)
+    suspend fun getMyGoalArchiveDetail(@Query("archiveId") archiveId: Int, @Query("archiveCreateDate") createDate: String): Response<GoalArchiveDetailResult>
 
     @GET("api/goal/archive/detail")
     @Headers(AuthorizationInterceptor.placeholder)

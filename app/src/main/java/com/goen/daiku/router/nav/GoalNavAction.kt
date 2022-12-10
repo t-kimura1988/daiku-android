@@ -24,4 +24,5 @@ class GoalNavAction(
     val gotoGoalArchiveUpdatePage: (Int, String) -> Unit = {archiveId: Int, archiveCcreateDate: String ->
         navController.navigate("goal/update/archive/$archiveId/$archiveCcreateDate")
     }
+
 }

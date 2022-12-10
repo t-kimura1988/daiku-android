@@ -17,8 +17,11 @@
             <option value="$PROJECT_DIR$/favorite" />
             <option value="$PROJECT_DIR$/goal" />
             <option value="$PROJECT_DIR$/home" />
+            <option value="$PROJECT_DIR$/idea" />
+            <option value="$PROJECT_DIR$/maki" />
             <option value="$PROJECT_DIR$/process" />
             <option value="$PROJECT_DIR$/processHistory" />
+            <option value="$PROJECT_DIR$/story" />
             <option value="$PROJECT_DIR$/utils" />
           </set>
         </option>

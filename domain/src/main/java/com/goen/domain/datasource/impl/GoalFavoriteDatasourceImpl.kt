@@ -1,6 +1,5 @@
 package com.goen.domain.datasource.impl
 
-import android.util.Log
 import com.goen.domain.datasource.GoalFavoriteDatasource
 import com.goen.domain.model.entity.ErrorResponse
 import com.goen.domain.model.param.goalFavorite.FavoriteGoalSearchParameter
@@ -21,7 +20,7 @@ class GoalFavoriteDatasourceImpl @Inject constructor(
     }
 
     override suspend fun favoriteGoalSearch(parameter: FavoriteGoalSearchParameter): List<GoalFavoriteSearchResult> {
-        var result = service.goalFavoriteList(year = parameter.year)
+        var result = service.goalFavoriteList(year = parameter.year, page = parameter.page)
         if(result.isSuccessful) {
             return result.body()!!
         }

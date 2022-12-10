@@ -36,6 +36,12 @@ interface GoalRepository {
         onComplate: () -> Unit,
         onError: (e: ApiException) ->Unit): Flow<List<GoalArchiveSearchResult>>
 
+    fun getMyGoalArchiveList(
+        param: MyGoalArchiveSearchParameter,
+        onStart: () -> Unit,
+        onComplate: () -> Unit,
+        onError: (e: ApiException) ->Unit): Flow<List<GoalArchiveSearchResult>>
+
     fun getGoalDetail(
         param: GoalDetailParameter,
         onStart: () -> Unit,
@@ -55,6 +61,12 @@ interface GoalRepository {
         onComplate: () -> Unit,
         onError: (e: ApiException) ->Unit
     ):Flow<Unit>
+
+    fun getMyGoalArchiveDetail(
+        param: GoalArchiveDetailParameter,
+        onStart: () -> Unit,
+        onComplate: () -> Unit,
+        onError: (e: ApiException) ->Unit): Flow<GoalArchiveDetailResult>
 
     fun getGoalArchiveDetail(
         param: GoalArchiveDetailParameter,

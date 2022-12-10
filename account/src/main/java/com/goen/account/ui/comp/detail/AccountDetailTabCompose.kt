@@ -25,7 +25,22 @@ fun AccountDetailTabCompose() {
         Tab(
             selected = accountDetailViewModel.selectedTabIndex.value == 0,
             onClick = { accountDetailViewModel.changeSelectedIndex(0) },
+            text = {Text(text = stringResource(id = R.string.account_sub_tab_idea_button))}
+        )
+        Tab(
+            selected = accountDetailViewModel.selectedTabIndex.value == 1,
+            onClick = { accountDetailViewModel.changeSelectedIndex(1) },
+            text = {Text(text = stringResource(id = R.string.account_sub_tab_maki_button))}
+        )
+        Tab(
+            selected = accountDetailViewModel.selectedTabIndex.value == 2,
+            onClick = { accountDetailViewModel.changeSelectedIndex(2) },
             text = {Text(text = stringResource(id = R.string.account_sub_tab_goal_button))}
+        )
+        Tab(
+            selected = accountDetailViewModel.selectedTabIndex.value == 3,
+            onClick = { accountDetailViewModel.changeSelectedIndex(3) },
+            text = {Text(text = stringResource(id = R.string.account_sub_tab_archive_button))}
         )
     }
 }

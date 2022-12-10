@@ -23,7 +23,7 @@ import coil.compose.rememberImagePainter
 import coil.transform.CircleCropTransformation
 import com.goen.account.R
 import com.goen.domain.model.result.GoalSearchResult
-import com.goen.utils.extentions.YYYYMMDD_JP
+import com.goen.utils.compose.GoalListItemComposable
 
 @Composable
 fun AccountDetailGoalSearchItemCompose(
@@ -45,28 +45,14 @@ fun AccountDetailGoalSearchItemCompose(
                 onClickItem(item.id, item.createDateString)
             })
     ) {
-        Column(
-            modifier = Modifier
-                .padding(8.dp)) {
-            Text(
-                text = item.title,
-                fontSize = 23.sp,
-                fontWeight = FontWeight.Bold
-            )
-            Row {
-                Text(
-                    text = "期間: ${item.dueDate.YYYYMMDD_JP()}まで",
-                    fontSize = 13.sp,
-                    color = Color.LightGray,
-                )
-
-            }
-            Text(
-                text = item.purpose,
-                color = Color.Gray,
-                fontSize = 15.sp
-            )
-        }
+        GoalListItemComposable(
+            goalTitle = item.title,
+            goalCreateDate = item.createDateString,
+            goalDueDate = item.dueDate,
+            goalPurpose = item.purpose,
+            isArchive = item.isArchive(),
+            makiSortNum = item.makiKeySortNum()
+        )
         Row(
             modifier = Modifier.fillMaxWidth(),
             horizontalArrangement = Arrangement.End

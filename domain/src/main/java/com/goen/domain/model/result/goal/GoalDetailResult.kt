@@ -45,4 +45,12 @@ data class GoalDetailResult(
 
         return archiveId!!
     }
+
+    fun editable(): Boolean {
+        if (updatingFlg == null) {
+            return true
+        }
+
+        return updatingFlg == "1"
+    }
 }

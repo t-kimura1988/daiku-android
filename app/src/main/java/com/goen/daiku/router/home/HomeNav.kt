@@ -18,6 +18,7 @@ import com.goen.goal.ui.GoalCreateCompose
 import com.goen.home.NavigationItem
 import com.goen.home.ui.HomeCompose
 import com.goen.home.ui.HomeMainCompose
+import com.goen.maki.ui.MakiCreateMainCompose
 
 @ExperimentalMaterialApi
 @ExperimentalComposeUiApi
@@ -53,6 +54,13 @@ fun NavGraphBuilder.homeNav(
             "goal/create"
         ) {
             GoalCreateCompose(
+                close = {navController.popBackStack()}
+            )
+        }
+        composable(
+            "maki/create"
+        ) {
+            MakiCreateMainCompose(
                 close = {navController.popBackStack()}
             )
         }
@@ -99,6 +107,7 @@ fun BottomNavigation(
         composable(NavigationItem.Home.route) {
             HomeMainCompose(
                 createGoalPage = homeNavAction.createGoal,
+                createMakiPage = homeNavAction.createMakiPage,
                 innerPadding = innerPadding,
                 gotoArchiveDetailPage = homeNavAction.gotoGoalArchiveDetail,
                 account = account
@@ -112,6 +121,9 @@ fun BottomNavigation(
         composable(NavigationItem.Profile.route) {
             AccountDetailMainCompose(
                 selectGoalDetail = action.selectedGoal,
+                selectGoalArchiveDetail = action.selectedGoalArchive,
+                selectIdeaDetail = action.selectedIdea,
+                selectMakiDetail = action.selectedMaki,
                 gotoEditAccountInfo = action.updateAccount,
                 innerPadding = innerPadding
             )

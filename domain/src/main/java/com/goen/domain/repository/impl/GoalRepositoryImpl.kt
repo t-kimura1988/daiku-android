@@ -71,6 +71,17 @@ class GoalRepositoryImpl @Inject constructor(
         }.setEvent(onStart, onError, onComplate).flowOn(Dispatchers.IO)
     }
 
+    override fun getMyGoalArchiveList(
+        param: MyGoalArchiveSearchParameter,
+        onStart: () -> Unit,
+        onComplate: () -> Unit,
+        onError: (e: ApiException) -> Unit
+    ): Flow<List<GoalArchiveSearchResult>> {
+        return flow {
+            emit(goalDatasource.searchMyGoalArchive(parameter = param))
+        }.setEvent(onStart, onError, onComplate).flowOn(Dispatchers.IO)
+    }
+
     override fun getGoalDetail(
         param: GoalDetailParameter,
         onStart: () -> Unit,
@@ -108,6 +119,21 @@ class GoalRepositoryImpl @Inject constructor(
                 emit(goalDatasource.updateGoalArchive(param))
             } catch (e: Exception) {
                 Timber.e("update goal archive error: $e")
+            }
+        }.setEvent(onStart, onError, onComplate).flowOn(Dispatchers.IO)
+    }
+
+    override fun getMyGoalArchiveDetail(
+        param: GoalArchiveDetailParameter,
+        onStart: () -> Unit,
+        onComplate: () -> Unit,
+        onError: (e: ApiException) -> Unit
+    ): Flow<GoalArchiveDetailResult> {
+        return flow {
+            try {
+                emit(goalDatasource.getMyGoalArchiveDetail(param))
+            } catch (e: Exception) {
+                Timber.e("get goal archive detail error: $e")
             }
         }.setEvent(onStart, onError, onComplate).flowOn(Dispatchers.IO)
     }

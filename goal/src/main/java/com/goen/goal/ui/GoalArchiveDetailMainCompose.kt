@@ -49,9 +49,11 @@ fun GoalArchiveDetailMainCompose(
                 TopBar(
                     navController = navController)
             }
-        ) {
+        ) {padding ->
             LazyColumn(
-                modifier = Modifier.fillMaxSize(),
+                modifier = Modifier
+                    .padding(padding)
+                    .fillMaxSize(),
             ) {
                 item {
                     if(vm.isGoalIdEqLoginAccount(loginAccountId)) {

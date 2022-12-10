@@ -47,6 +47,26 @@ object ApiModule {
 
     @Singleton
     @Provides
+    fun providerIdeaService(retrofit: Retrofit): IdeaService =
+        retrofit.create(IdeaService::class.java)
+
+    @Singleton
+    @Provides
+    fun providerStoryCharacterService(retrofit: Retrofit): StoryCharacterService =
+        retrofit.create(StoryCharacterService::class.java)
+
+    @Singleton
+    @Provides
+    fun providerStoryService(retrofit: Retrofit): StoryService =
+        retrofit.create(StoryService::class.java)
+
+    @Singleton
+    @Provides
+    fun providerMakiService(retrofit: Retrofit): MakiService =
+        retrofit.create(MakiService::class.java)
+
+    @Singleton
+    @Provides
     fun provideOkHttp(): OkHttpClient {
         val builder = OkHttpClient.Builder()
         val logging = HttpLoggingInterceptor()
