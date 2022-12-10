@@ -1,6 +1,5 @@
 package com.goen.utils.extentions
 
-import android.util.Log
 import com.goen.utils.exception.ApiException
 import com.goen.utils.exception.NotFoundException
 import kotlinx.coroutines.flow.Flow
@@ -18,17 +17,14 @@ fun <T> Flow<T>.setEvent(
     }.catch {
         when (it) {
             is NotFoundException -> {
-                Log.println(Log.ERROR, "ERROR", it.errorBody)
                 error(it)
             }
 
             is ApiException -> {
-                Log.println(Log.ERROR, "ERROR", it.errorBody)
                 error(it)
             }
 
             else -> {
-                Log.println(Log.ERROR, "ERROR", "")
                 throw it
             }
         }

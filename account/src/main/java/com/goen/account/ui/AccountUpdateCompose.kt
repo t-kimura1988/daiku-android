@@ -20,7 +20,7 @@ fun AccountUpdateCompose(
     navController: NavHostController
 ) {
 
-    var viewModel: AccountCreateViewModel = hiltViewModel()
+    val viewModel: AccountCreateViewModel = hiltViewModel()
 
     val keyboardController = LocalSoftwareKeyboardController.current
     val focusManager = LocalFocusManager.current
@@ -29,11 +29,11 @@ fun AccountUpdateCompose(
         viewModel.accountDetail()
     })
 
-    DaikuAppTheme() {
+    DaikuAppTheme {
         Scaffold(
-            topBar = { updateTopBar(viewModel = viewModel) }
-        ) {
-            AccountEditForm(viewModel = viewModel)
+            topBar = { UpdateTopBar(viewModel = viewModel) }
+        ) { padding ->
+            AccountEditForm(viewModel = viewModel, padding = padding)
             if(!viewModel.loading.value) {
 
                 if(viewModel.success.value) {
@@ -77,7 +77,7 @@ fun AccountUpdateCompose(
 
 
 @Composable
-fun updateTopBar(viewModel: AccountCreateViewModel) {
+fun UpdateTopBar(viewModel: AccountCreateViewModel) {
     TopAppBar(
         title = {
             Text(

@@ -1,0 +1,7 @@
+<resources>
+    <string name="maki_save_button">保存</string>
+    <string name="maki_failure_message_text">処理に失敗しました。もう一度入力してください。</string>
+    <string name="maki_failure_retry_button">処理に失敗しました。もう一度入力してください。</string>
+    <string name="maki_success_message_text">処理が成功しました。</string>
+    <string name="maki_goal_list_dialog_open">追加目標一覧</string>
+</resources>

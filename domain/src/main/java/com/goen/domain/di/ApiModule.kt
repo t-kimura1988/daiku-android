@@ -1,21 +1,19 @@
 package com.goen.domain.di
 
-import android.util.Log
+import com.goen.domain.BuildConfig
 import com.goen.domain.interceptor.AuthorizationInterceptor
 import com.goen.domain.service.*
-import com.goen.domain.BuildConfig
-import com.google.gson.FieldNamingPolicy
-import com.google.gson.Gson
-import com.google.gson.GsonBuilder
+import com.squareup.moshi.Moshi
+import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
-import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
-import retrofit2.converter.gson.GsonConverterFactory
+import retrofit2.converter.moshi.MoshiConverterFactory
+import java.util.concurrent.TimeUnit
 import javax.inject.Singleton
 
 @Module
@@ -49,21 +47,45 @@ object ApiModule {
 
     @Singleton
     @Provides
+    fun providerIdeaService(retrofit: Retrofit): IdeaService =
+        retrofit.create(IdeaService::class.java)
+
+    @Singleton
+    @Provides
+    fun providerStoryCharacterService(retrofit: Retrofit): StoryCharacterService =
+        retrofit.create(StoryCharacterService::class.java)
+
+    @Singleton
+    @Provides
+    fun providerStoryService(retrofit: Retrofit): StoryService =
+        retrofit.create(StoryService::class.java)
+
+    @Singleton
+    @Provides
+    fun providerMakiService(retrofit: Retrofit): MakiService =
+        retrofit.create(MakiService::class.java)
+
+    @Singleton
+    @Provides
     fun provideOkHttp(): OkHttpClient {
         val builder = OkHttpClient.Builder()
         val logging = HttpLoggingInterceptor()
         val authorization = AuthorizationInterceptor()
 
-        logging.level = if (true) HttpLoggingInterceptor.Level.BODY else HttpLoggingInterceptor.Level.NONE
+        logging.level = if (BuildConfig.IS_DEV) HttpLoggingInterceptor.Level.BODY else HttpLoggingInterceptor.Level.NONE
         builder.addInterceptor(logging)
         builder.addInterceptor(authorization)
+
+        builder.readTimeout(0, TimeUnit.MILLISECONDS)
+        builder.writeTimeout(0, TimeUnit.MILLISECONDS)
+        builder.connectTimeout(0, TimeUnit.MILLISECONDS)
 
         return builder.build()
     }
 
-    private val gson: Gson = GsonBuilder()
-        .setFieldNamingPolicy(FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES)
-        .create()
+    private val moshi: Moshi = Moshi.Builder()
+        .add(KotlinJsonAdapterFactory())
+        .build()
 
     @Singleton
     @Provides
@@ -71,6 +93,6 @@ object ApiModule {
         Retrofit.Builder()
             .client(okHttpClient)
             .baseUrl(BuildConfig.BASE_URL)
-            .addConverterFactory(GsonConverterFactory.create(gson))
+            .addConverterFactory(MoshiConverterFactory.create(moshi))
             .build()
 }

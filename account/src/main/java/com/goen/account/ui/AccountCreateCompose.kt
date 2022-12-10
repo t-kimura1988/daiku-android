@@ -1,44 +1,34 @@
 package com.goen.account.ui
 
-import android.util.Log
-import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.ExperimentalComposeUiApi
-import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.navigation.NavHostController
 import com.goen.account.R
 import com.goen.account.ui.comp.form.AccountEditForm
 import com.goen.account.view_model.AccountCreateViewModel
 import com.goen.auth.presentation.view_model.AccountExistViewModel
 import com.goen.utils.compose.DaikuAppTheme
-import com.google.accompanist.insets.navigationBarsWithImePadding
-import com.google.accompanist.insets.statusBarsPadding
 
 @OptIn(ExperimentalComposeUiApi::class)
 @Composable
 fun AccountCreateCompose(
     accountVM: AccountExistViewModel
 ) {
-    var viewModel: AccountCreateViewModel = hiltViewModel()
+    val viewModel: AccountCreateViewModel = hiltViewModel()
 
     val keyboardController = LocalSoftwareKeyboardController.current
     val focusManager = LocalFocusManager.current
 
-    DaikuAppTheme() {
+    DaikuAppTheme {
 
         Scaffold(
-            topBar = { topBar(viewModel = viewModel, accountVM = accountVM) }
-        ) {
-            AccountEditForm(viewModel = viewModel)
+            topBar = { TopBar(viewModel = viewModel, accountVM = accountVM) }
+        ) { padding ->
+            AccountEditForm(viewModel = viewModel, padding = padding)
             if(!viewModel.loading.value) {
 
                 if(viewModel.errorDialog.value){
@@ -64,7 +54,7 @@ fun AccountCreateCompose(
 }
 
 @Composable
-private fun topBar(viewModel: AccountCreateViewModel, accountVM: AccountExistViewModel) {
+private fun TopBar(viewModel: AccountCreateViewModel, accountVM: AccountExistViewModel) {
     TopAppBar(
         title = {
             Text(

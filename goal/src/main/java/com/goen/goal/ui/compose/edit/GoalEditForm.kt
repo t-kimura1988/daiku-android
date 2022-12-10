@@ -15,9 +15,10 @@ import com.google.accompanist.insets.navigationBarsWithImePadding
 import com.google.accompanist.insets.statusBarsPadding
 
 @Composable
-internal fun GoalEditForm(viewModel: GoalCreateViewModel) {
+internal fun GoalEditForm(viewModel: GoalCreateViewModel, paddingValues: PaddingValues) {
     val scrollState = rememberScrollState()
     Box(modifier = Modifier
+        .padding(paddingValues)
         .fillMaxSize()
         .width(100.dp)) {
         Column(
@@ -86,7 +87,7 @@ internal fun GoalEditForm(viewModel: GoalCreateViewModel) {
                 )
             }
             GoalTermDialog(
-                date = viewModel.input.dueDateM.value,
+                date = viewModel.input.dueDateM.value.date!!,
                 changeDialog = {flg ->
                     viewModel.changeTermDialog(flg)
                 },

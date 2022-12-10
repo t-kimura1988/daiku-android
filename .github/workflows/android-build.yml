@@ -24,24 +24,35 @@ jobs:
       id: android_env_pro
       if: contains(toJSON(github.ref), 'master')
       run: |
-        echo BASE_URL='https://daiku-app.goenway.com/' >> $GITHUB_ENV
+        echo BASE_URL=${{ secrets.BASE_URL_PRD }} >> $GITHUB_ENV
+        echo APP_BASE_URL=${{ secrets.APP_BASE_URL_PRD }} >> $GITHUB_ENV
+        echo GOOGLE_SIGN_IN_ID_TOKEN=${{ secrets.GOOGLE_SIGN_IN_ID_TOKEN_PRD }} >> $GITHUB_ENV
         echo KEYSTORE_BASE64=${{ secrets.KEYSTORE_BASE64_PRD }} >> $GITHUB_ENV
         echo KEY_ALIAS=${{ secrets.KEY_ALIAS_PRD }} >> $GITHUB_ENV
         echo KEYSTORE_PASSWORD=${{ secrets.KEYSTORE_PASSWORD_PRD }} >> $GITHUB_ENV
         echo KEY_PASSWORD=${{ secrets.KEY_PASSWORD_PRD }} >> $GITHUB_ENV
         echo TF_VAR_ENV=prd >> $GITHUB_ENV
+        echo FIREBASE_API_KEY=${{ secrets.FIREBASE_API_KEY_PRD}} >> $GITHUB_ENV
+        echo FIREBASE_APPLICATION_ID=${{ secrets.FIREBASE_APPLICATION_ID_PRD}} >> $GITHUB_ENV
+        echo FIREBASE_PROJECT_ID=${{ secrets.FIREBASE_PROJECT_ID_PRD}} >> $GITHUB_ENV
+        echo IS_DEV=false >> $GITHUB_ENV
 
     - name: Android ENV Develop
       id: android_env_dev
       if: contains(toJSON(github.ref), 'develop') || contains(toJSON(github.ref), 'feature') || github.event_name == 'pull_request'
       run: |
-        echo BASE_URL='https://daiku-app.dev.goenway.com/' >> $GITHUB_ENV
+        echo BASE_URL=${{ secrets.BASE_URL_DEV }} >> $GITHUB_ENV
+        echo APP_BASE_URL=${{ secrets.APP_BASE_URL_DEV }}  >> $GITHUB_ENV
+        echo GOOGLE_SIGN_IN_ID_TOKEN=${{ secrets.GOOGLE_SIGN_IN_ID_TOKEN_DEV }} >> $GITHUB_ENV
         echo KEYSTORE_BASE64=${{ secrets.KEYSTORE_BASE64_DEV }} >> $GITHUB_ENV
         echo KEY_ALIAS=${{ secrets.KEY_ALIAS_DEV }} >> $GITHUB_ENV
         echo KEYSTORE_PASSWORD=${{ secrets.KEYSTORE_PASSWORD_DEV }} >> $GITHUB_ENV
         echo KEY_PASSWORD=${{ secrets.KEY_PASSWORD_DEV }} >> $GITHUB_ENV
-        echo ENV=${{ secrets.KEY_PASSWORD_DEV }} >> $GITHUB_ENV
         echo TF_VAR_ENV=dev >> $GITHUB_ENV
+        echo FIREBASE_API_KEY=${{ secrets.FIREBASE_API_KEY_DEV}} >> $GITHUB_ENV
+        echo FIREBASE_APPLICATION_ID=${{ secrets.FIREBASE_APPLICATION_ID_DEV}} >> $GITHUB_ENV
+        echo FIREBASE_PROJECT_ID=${{ secrets.FIREBASE_PROJECT_ID_DEV}} >> $GITHUB_ENV
+        echo IS_DEV=false >> $GITHUB_ENV
 
     - name: Grant execute permission for gradlew
       run: chmod +x gradlew
@@ -55,9 +66,7 @@ jobs:
           export KEY_ALIAS="${{ env.KEY_ALIAS }}"
           export KEY_PASSWORD="${{ env.KEY_PASSWORD }}"
         fi
-        ./gradlew build
-      env:
-        BASE_URL: ${{ env.BASE_URL }}
+        ./gradlew build :app:assembleDevRelease  -Dlint.baselines.continue=true
 
     - name: APK Download
       if: (contains(toJSON(github.ref), 'develop') || contains(toJSON(github.ref), 'master')) && github.event_name == 'push'
@@ -65,3 +74,11 @@ jobs:
       with:
         name: outputs
         path: app/build/outputs/
+
+
+    - name: APK Download Lint Result
+      if: always()
+      uses: actions/upload-artifact@v3
+      with:
+        name: lint-result
+        path: /home/runner/work/daiku-android/daiku-android/auth/lint-baseline.xml

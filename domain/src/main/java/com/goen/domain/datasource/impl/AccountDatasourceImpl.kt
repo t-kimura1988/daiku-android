@@ -1,31 +1,37 @@
 package com.goen.domain.datasource.impl
 
-import android.util.Log
 import com.goen.domain.datasource.AccountDatasource
-import com.goen.domain.entity.Account
-import com.goen.domain.entity.ErrorResponse
+import com.goen.domain.model.entity.Account
+import com.goen.domain.model.entity.ErrorResponse
 import com.goen.domain.model.param.account.AccountCreateParameter
 import com.goen.domain.service.AccountService
 import com.goen.utils.exception.NotFoundException
-import com.google.gson.Gson
+import com.squareup.moshi.JsonAdapter
+import com.squareup.moshi.Moshi
+import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
+import timber.log.Timber
 import javax.inject.Inject
+
 
 class AccountDatasourceImpl @Inject constructor(
     private val accountService: AccountService
 ): AccountDatasource {
+
+    var moshi: Moshi = Moshi.Builder()
+        .add(KotlinJsonAdapterFactory())
+        .build()
     override suspend fun isExistAccount(): Account? {
+        Timber.i("Account is EXISTING")
         var result = accountService.getAccount()
 
         if(result.isSuccessful) {
             return result.body()
         }
 
+        var jsonAdapter: JsonAdapter<ErrorResponse> = moshi.adapter(ErrorResponse::class.java)
+        var errRes = jsonAdapter.fromJson(result.errorBody()?.string())
 
-        var errRes = Gson().fromJson<ErrorResponse>(result.errorBody()?.string(), ErrorResponse::class.java)
-
-        Log.println(Log.INFO, "bbbb", errRes.toString())
-
-        throw NotFoundException(result.code(), "NotFoundAccount", errRes.errorCd)
+        throw NotFoundException(result.code(), "NotFoundAccount", errRes!!.errorCd)
     }
 
     override suspend fun createAccount(parameter: AccountCreateParameter): Account? {
@@ -35,9 +41,11 @@ class AccountDatasourceImpl @Inject constructor(
         if(result.isSuccessful) {
             return result.body()
         }
-        var errRes = Gson().fromJson<ErrorResponse>(result.errorBody()?.string(), ErrorResponse::class.java)
 
-        throw NotFoundException(result.code(), "not found", errRes.errorCd)
+        var jsonAdapter: JsonAdapter<ErrorResponse> = moshi.adapter(ErrorResponse::class.java)
+        var errRes = jsonAdapter.fromJson(result.errorBody()?.string())
+
+        throw NotFoundException(result.code(), "not found", errRes!!.errorCd)
     }
 
     override suspend fun updateAccount(parameter: AccountCreateParameter): Account? {
@@ -46,9 +54,11 @@ class AccountDatasourceImpl @Inject constructor(
         if(result.isSuccessful) {
             return result.body()
         }
-        var errRes = Gson().fromJson<ErrorResponse>(result.errorBody()?.string(), ErrorResponse::class.java)
 
-        throw NotFoundException(result.code(), "update account exception" , errRes.errorCd)
+        var jsonAdapter: JsonAdapter<ErrorResponse> = moshi.adapter(ErrorResponse::class.java)
+        var errRes = jsonAdapter.fromJson(result.errorBody()?.string())
+
+        throw NotFoundException(result.code(), "update account exception" , errRes!!.errorCd)
     }
 
     override suspend fun getAccount(): Account? {
@@ -58,9 +68,11 @@ class AccountDatasourceImpl @Inject constructor(
         if(result.isSuccessful) {
             return result.body()
         }
-        var errRes = Gson().fromJson<ErrorResponse>(result.errorBody()?.string(), ErrorResponse::class.java)
 
-        throw NotFoundException(result.code(), "NotFoundAccount", errRes.errorCd)
+        var jsonAdapter: JsonAdapter<ErrorResponse> = moshi.adapter(ErrorResponse::class.java)
+        var errRes = jsonAdapter.fromJson(result.errorBody()?.string())
+
+        throw NotFoundException(result.code(), "NotFoundAccount", errRes!!.errorCd)
     }
 
     override suspend fun deleteAccount(): Account? {
@@ -70,9 +82,11 @@ class AccountDatasourceImpl @Inject constructor(
         if(result.isSuccessful) {
             return result.body()
         }
-        var errRes = Gson().fromJson<ErrorResponse>(result.errorBody()?.string(), ErrorResponse::class.java)
 
-        throw NotFoundException(result.code(), "NotFoundAccount", errRes.errorCd)
+        val jsonAdapter: JsonAdapter<ErrorResponse> = moshi.adapter(ErrorResponse::class.java)
+        val errRes = jsonAdapter.fromJson(result.errorBody()?.string())
+
+        throw NotFoundException(result.code(), "NotFoundAccount", errRes!!.errorCd)
     }
 
     override suspend fun reUpdate(): Account? {
@@ -83,8 +97,10 @@ class AccountDatasourceImpl @Inject constructor(
             return result.body()
         }
 
-        var errRes = Gson().fromJson<ErrorResponse>(result.errorBody()?.string(), ErrorResponse::class.java)
 
-        throw NotFoundException(result.code(), "NotFoundAccount", errRes.errorCd)
+        var jsonAdapter: JsonAdapter<ErrorResponse> = moshi.adapter(ErrorResponse::class.java)
+        var errRes = jsonAdapter.fromJson(result.errorBody()?.string())
+
+        throw NotFoundException(result.code(), "NotFoundAccount", errRes!!.errorCd)
     }
 }

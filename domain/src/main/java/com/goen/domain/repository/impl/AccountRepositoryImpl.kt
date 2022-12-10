@@ -1,24 +1,18 @@
 package com.goen.domain.repository.impl
 
-import android.content.Context
-import android.util.Log
 import com.goen.domain.datasource.AccountDatasource
-import com.goen.domain.entity.Account
+import com.goen.domain.model.entity.Account
 import com.goen.domain.model.param.account.AccountCreateParameter
 import com.goen.domain.repository.AccountRepository
 import com.goen.utils.exception.ApiException
 import com.goen.utils.extentions.setEvent
-import com.google.android.gms.auth.api.signin.GoogleSignIn
-import com.google.android.gms.auth.api.signin.GoogleSignInAccount
-import com.google.android.gms.auth.api.signin.GoogleSignInResult
-import com.google.firebase.auth.GoogleAuthCredential
-import com.google.firebase.auth.GoogleAuthProvider
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOn
-import kotlinx.coroutines.flow.Flow
+import timber.log.Timber
 import javax.inject.Inject
 
 class AccountRepositoryImpl @Inject constructor(
@@ -33,22 +27,22 @@ class AccountRepositoryImpl @Inject constructor(
             try {
                 emit(accountDatasource.isExistAccount())
             } catch (e: Exception) {
-                Log.e("UserRepository", "getUser error", e)
+                Timber.e("is account error!!! $e.message")
             }
         }.setEvent(onStart, onError, onComplate).flowOn(Dispatchers.IO)
     }
 
     override fun createAccount(
-        parameter: AccountCreateParameter,
+        param: AccountCreateParameter,
         onStart: () -> Unit,
         onComplate: () -> Unit,
         onError: (e: ApiException) -> Unit
     ): Flow<Account?> {
         return flow {
             try {
-                emit(accountDatasource.createAccount(parameter = parameter))
+                emit(accountDatasource.createAccount(parameter = param))
             } catch (e: Exception) {
-                Log.e("UserRepository", "getUser error", e)
+                Timber.e("create account error: $e")
             }
         }.setEvent(onStart, onError, onComplate).flowOn(Dispatchers.IO)
     }
@@ -63,7 +57,7 @@ class AccountRepositoryImpl @Inject constructor(
             try {
                 emit(accountDatasource.updateAccount(parameter = param))
             } catch (e: Exception) {
-                Log.e("UserRepository", "getUser error", e)
+                Timber.e("update account error: $e")
             }
         }.setEvent(onStart, onError, onComplate).flowOn(Dispatchers.IO)
     }
@@ -77,7 +71,7 @@ class AccountRepositoryImpl @Inject constructor(
             try {
                 emit(accountDatasource.getAccount())
             } catch (e: Exception) {
-                Log.e("UserRepository", "getUser error", e)
+                Timber.e("get account info error: $e")
             }
         }.setEvent(onStart, onError, onComplate).flowOn(Dispatchers.IO)
     }
@@ -109,7 +103,7 @@ class AccountRepositoryImpl @Inject constructor(
             try {
                 emit(accountDatasource.deleteAccount())
             } catch (e: Exception) {
-                Log.e("UserRepository", "getUser error", e)
+                Timber.e("delete account error: $e")
             }
         }.setEvent(onStart, onError, onComplate).flowOn(Dispatchers.IO)
 

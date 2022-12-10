@@ -1,10 +1,8 @@
 package com.goen.home.ui.comp
 
-import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
-import androidx.compose.material.Colors
 import androidx.compose.material.Divider
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
@@ -47,7 +45,7 @@ fun GoalArchiveListItemCompose(
                     gotoArchiveDetailPage(
                         goalArchive.id,
                         goalArchive.archiveCreateDate,
-                        accountId
+                        accountId,
                     )
                 }
                 .fillMaxSize()

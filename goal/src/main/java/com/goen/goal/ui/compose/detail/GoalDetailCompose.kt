@@ -15,15 +15,16 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil.compose.rememberImagePainter
 import coil.transform.CircleCropTransformation
-import com.goen.domain.model.param.goal.GoalDetailResult
+import com.goen.domain.model.result.goal.GoalDetailResult
 import com.goen.goal.R
+import com.goen.utils.extentions.userImage
 
 @Composable
-fun goalDetailCompose(
+fun GoalDetailCompose(
     goalInfo: GoalDetailResult
 ) {
 
-    var data = goalInfo.createdAccountImg ?: R.drawable.samurai
+    var data = goalInfo.createdAccountImg.userImage()
     Column(
         modifier = Modifier.padding(8.dp)
     ) {

@@ -1,8 +1,5 @@
 package com.goen.process.ui
 
-import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.selection.selectable
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.ExperimentalComposeUiApi
@@ -18,7 +15,7 @@ import com.goen.utils.compose.DaikuAppTheme
 
 @OptIn(ExperimentalComposeUiApi::class)
 @Composable
-fun processCreateCompose(
+fun ProcessCreateCompose(
     goalId: Int,
     goalCreateDate: String,
     navController: NavHostController
@@ -35,9 +32,9 @@ fun processCreateCompose(
     DaikuAppTheme() {
 
         Scaffold(
-            topBar = { topBar(viewModel = viewModel, createProcess =  createProcess) },
-            content = {
-                ProcessEditForm(viewModel = viewModel)
+            topBar = { TopBar(viewModel = viewModel, createProcess =  createProcess) },
+            content = { padding ->
+                ProcessEditForm(viewModel = viewModel, paddingValues = padding)
                 if(viewModel.failureFlg.value) {
                     AlertDialog(
                         onDismissRequest = {
@@ -78,7 +75,7 @@ fun processCreateCompose(
 }
 
 @Composable
-private fun topBar(viewModel: ProcessCreateViewModel, createProcess: () -> Unit) {
+private fun TopBar(viewModel: ProcessCreateViewModel, createProcess: () -> Unit) {
 
     TopAppBar(
         title = { Text(

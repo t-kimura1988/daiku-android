@@ -19,10 +19,10 @@ import com.goen.domain.enums.ProcessStatus
 import com.goen.domain.model.result.process.ProcessResult
 
 @Composable
-fun goalDetailProcessItem(
+fun GoalDetailProcessItem(
     processItem: ProcessResult,
-    onClickItem: (processId: Int, goalId: Int, goalCreateDate: String) -> Unit,
-    line: Int = 3
+    onClickItem: (processId: Int, goalId: Int, goalCreateDate: String) -> Unit ,
+    line: Int = 3,
 ) {
 
     Column(
@@ -30,13 +30,11 @@ fun goalDetailProcessItem(
             .padding(8.dp)
             .clickable(onClick = { onClickItem(processItem.id, processItem.goalId, processItem.createDateString) })
     ) {
-        var processStatus: ProcessStatus = ProcessStatus.of(processItem.processStatus)
-        Row(
-        ) {
+        val processStatus: ProcessStatus = ProcessStatus.of(processItem.processStatus)
+        Row {
             if(processItem.processStatus != "") {
                 Surface(
                     color = processStatus.backgroundColor,
-                    contentColor = processStatus.backgroundColor,
                     shape = RoundedCornerShape(16.dp),
                     border = BorderStroke(
                         width = 1.dp,
@@ -58,7 +56,7 @@ fun goalDetailProcessItem(
                     )
                 }
             }
-            Column() {
+            Column {
                 Text(
                     text = processItem.title,
                     fontWeight = FontWeight.Bold,

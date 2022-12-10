@@ -3,15 +3,13 @@ package com.goen.daiku.router.goal
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.navigation.*
 import androidx.navigation.compose.composable
-import com.goen.daiku.router.nav.GoalNavAction
 import com.goen.goal.ui.GoalArchiveCreateCompose
 import com.goen.goal.ui.GoalArchiveUpdateCompose
 import com.goen.goal.ui.GoalUpdateCompose
-import com.goen.process.ui.processCreateCompose
+import com.goen.process.ui.ProcessCreateCompose
 
 @OptIn(ExperimentalComposeUiApi::class)
 fun NavGraphBuilder.goalNav(
-    action: GoalNavAction,
     navController: NavHostController
 ) {
     navigation(
@@ -30,7 +28,7 @@ fun NavGraphBuilder.goalNav(
             )
         ) {backStackEntry ->
             var args = requireNotNull(backStackEntry)
-            processCreateCompose(
+            ProcessCreateCompose(
                 goalId = args.arguments!!.getInt("goalId"),
                 goalCreateDate = args.arguments!!.getString("goalCreateDate")!!,
                 navController = navController)

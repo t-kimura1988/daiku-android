@@ -1,6 +1,5 @@
 package com.goen.goal.view_model
 
-import android.util.Log
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
@@ -8,12 +7,11 @@ import androidx.lifecycle.viewModelScope
 import com.goen.domain.model.param.goal.GoalCreateParameter
 import com.goen.domain.model.param.goal.GoalDetailParameter
 import com.goen.domain.repository.GoalRepository
+import com.goen.utils.entity.FormLocalDateObj
 import com.goen.utils.entity.FormObj
 import com.goen.utils.extentions.toLocalDateParse
 import com.goen.utils.validate.BaseValidate
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.InternalCoroutinesApi
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import org.threeten.bp.LocalDate
 import org.threeten.bp.format.DateTimeFormatter
@@ -84,7 +82,15 @@ class GoalCreateViewModel @Inject constructor(
                 input.titleM.value = input.titleM.value.copy(error = "", value = it.title, isError = false)
                 input.purposeM.value = input.purposeM.value.copy(error = "", value = it.purpose, isError = false)
                 input.aimM.value = input.aimM.value.copy(error = "", value = it.aim, isError = false)
-                input.dueDateM.value = it.dueDate.toLocalDateParse()
+                if(it.dueDate.toLocalDateParse().isBefore(LocalDate.now())) {
+                    input.dueDateM.value =
+                        input.dueDateM.value.copy(error = "", date = it.dueDate.toLocalDateParse(), isError = true)
+
+                } else {
+                    input.dueDateM.value =
+                        input.dueDateM.value.copy(error = "", date = it.dueDate.toLocalDateParse(), isError = false)
+
+                }
             }
         }
     }
@@ -127,7 +133,6 @@ class GoalCreateViewModel @Inject constructor(
     }
 
     fun init() {
-        Log.println(Log.INFO, "c", "init!!!!!")
         input.titleM.value = FormObj(value = "", error = "")
         input.purposeM.value = FormObj(value = "", error = "")
         input.aimM.value = FormObj(value = "", error = "")
@@ -137,11 +142,18 @@ class GoalCreateViewModel @Inject constructor(
     }
 
     fun chkEnableButton(): Boolean {
-        return !input.titleM.value.isError!! && !input.purposeM.value.isError!! && !input.aimM.value.isError!!
+        return !input.titleM.value.isError!!
+                && !input.purposeM.value.isError!!
+                && !input.aimM.value.isError!!
+                && !input.dueDateM.value.isError!!
     }
 
     fun changeDueDate(it: LocalDate) {
-        input.dueDateM.value = it
+        if (it.isBefore(LocalDate.now())) {
+            input.dueDateM.value = input.dueDateM.value.copy(date = it, error = "今日より前の日付は設定できません。", isError = true)
+            return
+        }
+        input.dueDateM.value = input.dueDateM.value.copy(date = it, error = "", isError = false)
     }
 }
 
@@ -149,12 +161,12 @@ data class GoalCreateInput (
     var titleM: MutableState<FormObj> = mutableStateOf(FormObj()),
     var purposeM: MutableState<FormObj> = mutableStateOf(FormObj()),
     var aimM: MutableState<FormObj> = mutableStateOf(FormObj()),
-    var dueDateM: MutableState<LocalDate> = mutableStateOf(LocalDate.now())
+    var dueDateM: MutableState<FormLocalDateObj> = mutableStateOf(FormLocalDateObj())
 ){
     val title: String get() = titleM.value.value!!
     val purpose: String get() = purposeM.value.value!!
     val aim: String get() = aimM.value.value!!
-    val dueDate: LocalDate get() = dueDateM.value
+    val dueDate: LocalDate get() = dueDateM.value.date!!
 
     val titleError: String? get() = titleM.value.error
     val purposeError: String? get() = purposeM.value.error

@@ -1,38 +1,27 @@
 package com.goen.home.ui
 
-import android.util.Log
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.height
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.*
+import androidx.compose.material.icons.filled.Add
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.rememberCoroutineScope
-import androidx.compose.runtime.remember
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.geometry.Offset
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.input.nestedscroll.NestedScrollConnection
-import androidx.compose.ui.input.nestedscroll.NestedScrollSource
-import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.window.Dialog
+import androidx.compose.ui.window.DialogProperties
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import androidx.navigation.NavHostController
-import androidx.navigation.compose.NavHost
-import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.goen.home.NavigationItem
-import com.goen.home.view_model.HomeIndexViewModel
+import com.goen.home.ui.comp.IdeaCreateView
+import com.goen.home.view_model.HomeViewModel
 import com.goen.utils.compose.DaikuAppTheme
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.launch
 
 @ExperimentalComposeUiApi
 @ExperimentalMaterialApi
@@ -43,6 +32,9 @@ fun HomeCompose(
 ) {
 
     val navController = rememberNavController()
+
+    val homeViewModel: HomeViewModel = hiltViewModel()
+
     DaikuAppTheme {
         Scaffold(
             drawerGesturesEnabled = false,
@@ -50,9 +42,43 @@ fun HomeCompose(
                 BottomBar(
                     navController = navController
                 )
+            },
+            floatingActionButton = {
+                FloatingActionButton(onClick = {
+                    homeViewModel.openIdeaCreateAlert()
+                }) {
+                    Icon(
+                        imageVector = Icons.Filled.Add,
+                        contentDescription = null
+                    )
+                }
             }
         ) {
             tab(navController2 = navController, innerPadding = it)
+        }
+
+        IdeaCreateAlert(viewModel = homeViewModel)
+    }
+}
+
+@OptIn(ExperimentalComposeUiApi::class)
+@Composable
+fun IdeaCreateAlert(viewModel: HomeViewModel) {
+
+    val saveIdea: () -> Unit = {
+        viewModel.createIdea()
+    }
+
+    if(viewModel.ideaCreateAlert.value) {
+        Dialog(
+            onDismissRequest = {
+                viewModel.closeIdeaCreateAlert()
+            },
+            properties = DialogProperties(usePlatformDefaultWidth = false)
+        ) {
+            Surface(modifier = Modifier.fillMaxSize()) {
+                IdeaCreateView(viewModel = viewModel, save = saveIdea)
+            }
         }
     }
 }

@@ -1,18 +1,20 @@
 package com.goen.daiku.router.account
 
-import android.util.Log
 import androidx.navigation.*
 import androidx.navigation.compose.composable
-import com.goen.account.ui.AccountDetailMainCompose
 import com.goen.account.ui.AccountUpdateCompose
 import com.goen.daiku.router.nav.AccountNavAction
 import com.goen.daiku.router.nav.GoalNavAction
-import com.goen.goal.ui.goalDetailMainCompose
+import com.goen.daiku.router.nav.StoryNavAction
+import com.goen.goal.ui.GoalDetailMainCompose
+import com.goen.idea.ui.IdeaDetailMainCompose
+import com.goen.maki.ui.MakiDetailMainCompose
 
 fun NavGraphBuilder.accountDetailNav(
-    accountAction: AccountNavAction,
     goalAction: GoalNavAction,
-    navController: NavHostController
+    navController: NavHostController,
+    accountAction: AccountNavAction,
+    storyAction: StoryNavAction
 ) {
     navigation(
         startDestination = "account_detail",
@@ -31,7 +33,7 @@ fun NavGraphBuilder.accountDetailNav(
             )
         ) { backStackEntry ->
 
-            goalDetailMainCompose(
+            GoalDetailMainCompose(
                 goalId = backStackEntry.arguments!!.getInt("goalId"),
                 createDate = backStackEntry.arguments!!.getString("createDate")!!,
                 navController = navController,
@@ -45,8 +47,47 @@ fun NavGraphBuilder.accountDetailNav(
         }
 
         composable(
-            "account/update"
+            "story/detail/{ideaId}/{storyId}",
+            arguments = listOf(
+                navArgument("storyId") {
+                    type = NavType.IntType
+                },
+                navArgument("ideaId") {
+                    type = NavType.IntType
+                }
+            )
         ) { backStackEntry ->
+
+            IdeaDetailMainCompose(
+                storyId = backStackEntry.arguments!!.getInt("storyId"),
+                ideaId = backStackEntry.arguments!!.getInt("ideaId"),
+                navController = navController,
+                gotoCharaCreate = storyAction.gotoStoryCharacterCreatePage,
+                gotoStoryBodyUpdate = storyAction.gotoStoryBodyUpdatePage
+            )
+
+        }
+
+        composable(
+            "maki/detail/{makiId}",
+            arguments = listOf(
+                navArgument("makiId") {
+                    type = NavType.IntType
+                }
+            )
+        ) { backStackEntry ->
+
+            MakiDetailMainCompose(
+                makiId = backStackEntry.arguments!!.getInt("makiId"),
+                navController = navController,
+                onClickItem = accountAction.selectedGoal
+            )
+
+        }
+
+        composable(
+            "account/update"
+        ) {
 
             AccountUpdateCompose(
                 navController = navController

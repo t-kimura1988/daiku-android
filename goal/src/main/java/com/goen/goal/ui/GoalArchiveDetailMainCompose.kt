@@ -6,7 +6,8 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
-import androidx.compose.runtime.*
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
@@ -15,10 +16,11 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import com.goen.goal.R
 import com.goen.goal.ui.compose.archive.GoalArchiveDetailCompose
-import com.goen.goal.ui.compose.detail.goalDetailCompose
-import com.goen.goal.ui.compose.detail.goalDetailProcessItem
+import com.goen.goal.ui.compose.detail.GoalDetailCompose
+import com.goen.goal.ui.compose.detail.GoalDetailProcessItem
 import com.goen.goal.view_model.GoalArchiveDetailViewModel
 import com.goen.utils.compose.DaikuAppTheme
+import timber.log.Timber
 
 @Composable
 fun GoalArchiveDetailMainCompose(
@@ -29,29 +31,29 @@ fun GoalArchiveDetailMainCompose(
     loginAccountId: Int
 ) {
 
-    var vm: GoalArchiveDetailViewModel = hiltViewModel()
-
-    var moreText: MutableState<Boolean> = remember{ mutableStateOf(false) }
-    var line: Int = if(moreText.value)  Int.MAX_VALUE else 3
+    val vm: GoalArchiveDetailViewModel = hiltViewModel()
 
     LaunchedEffect(key1 = vm.goalArchiveDetail, block = {
         vm.callGoalArchiveDetail(archiveId = archiveId, archiveCreateDate = archiveCreateDate)
     })
 
-    val selectProcessItem: (Int, Int, String) -> Unit = {it1: Int, it2: Int, it3: String ->
-        moreText.value = !moreText.value
+    val selectProcessItem: (Int, Int, String) -> Unit = {processId: Int, goalId: Int, goalCreateDate: String ->
+        Timber.i("processId: $processId")
+        Timber.i("goalId: $goalId")
+        Timber.i("goalCreateDate: $goalCreateDate")
     }
 
-    DaikuAppTheme() {
+    DaikuAppTheme {
         Scaffold(
             topBar = {
-                topBar(
-                    navController = navController,
-                    onClickItem = {  })
+                TopBar(
+                    navController = navController)
             }
-        ) {
+        ) {padding ->
             LazyColumn(
-                modifier = Modifier.fillMaxSize(),
+                modifier = Modifier
+                    .padding(padding)
+                    .fillMaxSize(),
             ) {
                 item {
                     if(vm.isGoalIdEqLoginAccount(loginAccountId)) {
@@ -69,13 +71,13 @@ fun GoalArchiveDetailMainCompose(
                     GoalArchiveDetailCompose(goalArchive = vm.goalArchiveDetail.value.goalArchiveInfo)
                 }
                 item {
-                    Column() {
+                    Column {
                         Text(
                             text = "やり遂げたいこと",
                             fontSize = 18.sp,
                             fontWeight = FontWeight.Bold
                         )
-                        goalDetailCompose(
+                        GoalDetailCompose(
                             goalInfo = vm.goalArchiveDetail.value.goalInfo
                         )
                     }
@@ -89,10 +91,10 @@ fun GoalArchiveDetailMainCompose(
                         )
                     }
                     items(vm.goalArchiveDetail.value.processInfo!!) {item ->
-                        goalDetailProcessItem(
+                        GoalDetailProcessItem(
                             processItem = item,
                             onClickItem = selectProcessItem,
-                            line = line
+                            line = Int.MAX_VALUE
                         )
                     }
                 } else {
@@ -110,9 +112,8 @@ fun GoalArchiveDetailMainCompose(
 }
 
 @Composable
-private fun topBar(
-    navController: NavHostController,
-    onClickItem: () -> Unit
+private fun TopBar(
+    navController: NavHostController
 ) {
     TopAppBar(
         title = {

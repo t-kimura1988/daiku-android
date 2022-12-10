@@ -1,7 +1,6 @@
 package com.goen.domain.repository
 
-import android.content.Context
-import com.goen.domain.entity.Account
+import com.goen.domain.model.entity.Account
 import com.goen.domain.model.param.account.AccountCreateParameter
 import com.goen.utils.exception.ApiException
 import kotlinx.coroutines.flow.Flow

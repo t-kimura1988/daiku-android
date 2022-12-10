@@ -1,6 +1,5 @@
 package com.goen.process.ui.comp
 
-import android.util.Log
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.Divider
 import androidx.compose.material.Text
@@ -16,9 +15,10 @@ import com.goen.domain.model.result.process.ProcessHistoryResult
 @Composable
 fun ProcessHistoryListItem(
     item: ProcessHistoryResult,
-    commentAddPage: (processHistory: Int, goalCreateDate: String) -> Unit) {
+    commentAddPage: (processHistory: Int, goalCreateDate: String) -> Unit,
+    goalCreatedDate: String
+) {
 
-    Log.println(Log.INFO, "processDetailId", item.id.toString())
     Column(
         modifier = Modifier
             .padding(8.dp)
@@ -52,9 +52,9 @@ fun ProcessHistoryListItem(
                         color = Color.Gray
                     )
                 }
-                if(item.beforeTitle != "") {
+                if(item.beforeTitle != null) {
                     Text(
-                        text = "タイトル変更",
+                        text = "タイトル変更: ${item.beforeTitle}",
                         color = Color.Gray
                     )
                 }
@@ -70,7 +70,7 @@ fun ProcessHistoryListItem(
                 TextButton(
                     modifier = Modifier.weight(1f),
                     onClick = {
-                        commentAddPage(item.id, item.createDateString)
+                        commentAddPage(item.id, goalCreatedDate)
                     }
                 ) {
                     Text("コメント編集")
@@ -79,7 +79,7 @@ fun ProcessHistoryListItem(
         }
         if(item.comment != null) {
             Text(
-                text = item.comment,
+                text = item.getComment,
                 modifier = Modifier.padding(top = 8.dp)
             )
         }

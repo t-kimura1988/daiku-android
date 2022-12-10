@@ -1,27 +1,18 @@
 package com.goen.daiku.router
 
-import android.util.Log
 import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.rememberUpdatedState
 import androidx.compose.ui.ExperimentalComposeUiApi
-import androidx.navigation.NavController
 import androidx.navigation.NavHostController
-import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
-import androidx.navigation.compose.composable
-import androidx.navigation.compose.rememberNavController
-import androidx.navigation.navArgument
 import com.goen.daiku.router.account.accountDetailNav
 import com.goen.daiku.router.goal.goalNav
 import com.goen.daiku.router.home.homeNav
 import com.goen.daiku.router.nav.*
 import com.goen.daiku.router.process.processNav
 import com.goen.daiku.router.processHistory.processHistoryNav
-import com.goen.domain.entity.Account
-import com.goen.goal.ui.goalDetailMainCompose
+import com.goen.daiku.router.story.storyNav
+import com.goen.domain.model.entity.Account
 
 @ExperimentalComposeUiApi
 @ExperimentalMaterialApi
@@ -35,9 +26,10 @@ fun NavigationSetUp(
         startDestination = "home"
     ){
         accountDetailNav(
-            accountAction = AccountNavAction(navController),
             navController = navController,
-            goalAction = GoalNavAction(navController)
+            goalAction = GoalNavAction(navController),
+            accountAction = AccountNavAction(navController),
+            storyAction = StoryNavAction(navController)
         )
 
         homeNav(
@@ -49,8 +41,7 @@ fun NavigationSetUp(
         )
 
         goalNav(
-            navController = navController,
-            action = GoalNavAction(navController)
+            navController = navController
         )
 
         processNav(
@@ -64,6 +55,9 @@ fun NavigationSetUp(
             action = ProcessHistoryNavAction(navController)
         )
 
+        storyNav(
+            navController = navController
+        )
 
     }
 }

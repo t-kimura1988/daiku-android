@@ -4,6 +4,7 @@ import com.goen.domain.model.param.goal.*
 import com.goen.domain.model.result.GoalSearchResult
 import com.goen.domain.model.result.goal.GoalArchiveDetailResult
 import com.goen.domain.model.result.goal.GoalArchiveSearchResult
+import com.goen.domain.model.result.goal.GoalDetailResult
 import com.goen.utils.exception.ApiException
 import kotlinx.coroutines.flow.Flow
 
@@ -35,6 +36,12 @@ interface GoalRepository {
         onComplate: () -> Unit,
         onError: (e: ApiException) ->Unit): Flow<List<GoalArchiveSearchResult>>
 
+    fun getMyGoalArchiveList(
+        param: MyGoalArchiveSearchParameter,
+        onStart: () -> Unit,
+        onComplate: () -> Unit,
+        onError: (e: ApiException) ->Unit): Flow<List<GoalArchiveSearchResult>>
+
     fun getGoalDetail(
         param: GoalDetailParameter,
         onStart: () -> Unit,
@@ -54,6 +61,12 @@ interface GoalRepository {
         onComplate: () -> Unit,
         onError: (e: ApiException) ->Unit
     ):Flow<Unit>
+
+    fun getMyGoalArchiveDetail(
+        param: GoalArchiveDetailParameter,
+        onStart: () -> Unit,
+        onComplate: () -> Unit,
+        onError: (e: ApiException) ->Unit): Flow<GoalArchiveDetailResult>
 
     fun getGoalArchiveDetail(
         param: GoalArchiveDetailParameter,

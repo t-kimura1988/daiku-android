@@ -71,8 +71,8 @@ fun GoalArchiveUpdateCompose(
 
                 )
             },
-        ) {
-            GoalArchiveForm(viewModel = viewModel)
+        ) { padding ->
+            GoalArchiveForm(viewModel = viewModel, paddingValues = padding)
             if(!viewModel.loading.value) {
                 if(viewModel.success.value) {
                     AlertDialog(

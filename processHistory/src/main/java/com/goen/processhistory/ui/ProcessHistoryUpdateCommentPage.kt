@@ -1,10 +1,7 @@
 package com.goen.processhistory.ui
 
-import android.util.Log
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.selection.selectable
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
@@ -16,13 +13,9 @@ import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.platform.SoftwareKeyboardController
-import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
-import com.goen.processhistory.param.ProcessHistoryCreateDisplayParam
 import com.goen.processhistory.param.ProcessHistoryUpdateCommentDisplayParam
-import com.goen.processhistory.view_model.ProcessHistoryCreateInput
-import com.goen.processhistory.view_model.ProcessHistoryCreateViewModel
 import com.goen.processhistory.view_model.ProcessHistoryUpdateCommentViewModel
 import com.goen.utils.compose.DaikuAppTheme
 import com.google.accompanist.insets.navigationBarsWithImePadding
@@ -36,32 +29,32 @@ fun ProcessHistoryUpdateCommentPage(
 ) {
 
     val keyboardController: SoftwareKeyboardController? = LocalSoftwareKeyboardController.current
-    var viewModel: ProcessHistoryUpdateCommentViewModel = hiltViewModel()
+    val viewModel: ProcessHistoryUpdateCommentViewModel = hiltViewModel()
 
     LaunchedEffect(key1 = viewModel.input, block =  {
         viewModel.getDetail(param = input)
     })
 
-    DaikuAppTheme() {
+    DaikuAppTheme {
 
         Scaffold(
             topBar = {
-                _updateCommentTopbar(
+                UpdateCommentTopBar(
                     viewModel = viewModel,
                     keyboardController = keyboardController,
                     close = close,
                     processHistoryId = input.processHistoryId
                 )
             },
-        ) {
-            _updateCommentForm(viewModel = viewModel)
+        ) { padding ->
+            UpdateCommentForm(viewModel = viewModel, paddingValues = padding)
         }
     }
 }
 
 @OptIn(ExperimentalComposeUiApi::class)
 @Composable
-private fun _updateCommentTopbar(
+private fun UpdateCommentTopBar(
     viewModel: ProcessHistoryUpdateCommentViewModel,
     keyboardController: SoftwareKeyboardController?,
     close: () -> Unit,
@@ -77,12 +70,12 @@ private fun _updateCommentTopbar(
             TextButton(
                 onClick = {
                     viewModel.updateComment(processHistoryId = processHistoryId)
-                    if(!viewModel.loading.value) {
-
-                        if(viewModel.success.value) {
-                        } else {
-                        }
-                    }
+//                    if(!viewModel.loading.value) {
+////
+////                        if(viewModel.success.value) {
+////                        } else {
+////                        }
+//                    }
                 },
                 enabled = viewModel.chkEnableButton()
             ) {
@@ -107,11 +100,13 @@ private fun _updateCommentTopbar(
 }
 
 @Composable
-fun _updateCommentForm(
-    viewModel: ProcessHistoryUpdateCommentViewModel
+fun UpdateCommentForm(
+    viewModel: ProcessHistoryUpdateCommentViewModel,
+    paddingValues: PaddingValues
 ) {
     val scrollState = rememberScrollState()
     Box(modifier = Modifier
+        .padding(paddingValues)
         .fillMaxSize()
         .width(100.dp)) {
         Column(

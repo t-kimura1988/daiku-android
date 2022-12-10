@@ -1,26 +1,38 @@
 package com.goen.domain.model.result.goal_favorite
 
-import com.google.gson.annotations.SerializedName
+import com.squareup.moshi.Json
+import com.squareup.moshi.JsonClass
 import org.threeten.bp.LocalDate
 import org.threeten.bp.format.DateTimeFormatter
-import java.util.*
 
+@JsonClass(generateAdapter = true)
 data class GoalFavoriteSearchResult(
+    @Json(name = "id")
     var id: Int = 0,
+    @Json(name = "goal_id")
     var goalId: Int = 0,
+    @Json(name = "account_id")
     var accountId: Int = 0,
+    @Json(name = "favorite_add_date")
     var favoriteAddDate: String = "",
+    @Json(name = "goal_create_date")
     var goalCreateDate: String = "",
+    @Json(name = "goal_created_account_family_name")
     var goalCreatedAccountFamilyName: String = "",
+    @Json(name = "goal_created_account_given_name")
     var goalCreatedAccountGivenName: String = "",
-    var goalCreatedAccountImg: String = "",
+    @Json(name = "goal_created_account_img")
+    var goalCreatedAccountImg: String? = "",
+    @Json(name = "favorite_add_account_family_name")
     var favoriteAddAccountFamilyName: String = "",
+    @Json(name = "favorite_add_account_given_name")
     var favoriteAddAccountGivenName: String = "",
-    var favoriteAddAccountImg: String = "",
+    @Json(name = "favorite_add_account_img")
+    var favoriteAddAccountImg: String? = "",
+    @Json(name = "title")
     var title: String = "",
+    @Json(name = "purpose")
     var purpose: String = "",
-    var gStartDate: Date? = null,
-    var gEndDate: Date? = null
 ) {
     val goalCreatedAccountName: String get() = this.goalCreatedAccountFamilyName + " " + this.goalCreatedAccountGivenName
 

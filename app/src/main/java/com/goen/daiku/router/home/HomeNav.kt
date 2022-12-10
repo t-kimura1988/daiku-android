@@ -11,13 +11,14 @@ import com.goen.account.ui.AccountDetailMainCompose
 import com.goen.daiku.router.nav.AccountNavAction
 import com.goen.daiku.router.nav.GoalNavAction
 import com.goen.daiku.router.nav.HomeNavAction
-import com.goen.domain.entity.Account
+import com.goen.domain.model.entity.Account
 import com.goen.favorite.ui.FavoriteMainPage
 import com.goen.goal.ui.GoalArchiveDetailMainCompose
-import com.goen.goal.ui.goalCreateCompose
+import com.goen.goal.ui.GoalCreateCompose
 import com.goen.home.NavigationItem
 import com.goen.home.ui.HomeCompose
-import com.goen.home.ui.homeMainCompose
+import com.goen.home.ui.HomeMainCompose
+import com.goen.maki.ui.MakiCreateMainCompose
 
 @ExperimentalMaterialApi
 @ExperimentalComposeUiApi
@@ -52,7 +53,14 @@ fun NavGraphBuilder.homeNav(
         composable(
             "goal/create"
         ) {
-            goalCreateCompose(
+            GoalCreateCompose(
+                close = {navController.popBackStack()}
+            )
+        }
+        composable(
+            "maki/create"
+        ) {
+            MakiCreateMainCompose(
                 close = {navController.popBackStack()}
             )
         }
@@ -97,8 +105,9 @@ fun BottomNavigation(
 ) {
     NavHost(navController = navController, startDestination = NavigationItem.Home.route) {
         composable(NavigationItem.Home.route) {
-            homeMainCompose(
+            HomeMainCompose(
                 createGoalPage = homeNavAction.createGoal,
+                createMakiPage = homeNavAction.createMakiPage,
                 innerPadding = innerPadding,
                 gotoArchiveDetailPage = homeNavAction.gotoGoalArchiveDetail,
                 account = account
@@ -112,6 +121,9 @@ fun BottomNavigation(
         composable(NavigationItem.Profile.route) {
             AccountDetailMainCompose(
                 selectGoalDetail = action.selectedGoal,
+                selectGoalArchiveDetail = action.selectedGoalArchive,
+                selectIdeaDetail = action.selectedIdea,
+                selectMakiDetail = action.selectedMaki,
                 gotoEditAccountInfo = action.updateAccount,
                 innerPadding = innerPadding
             )

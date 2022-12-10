@@ -1,29 +1,26 @@
 package com.goen.goal.ui
 
-import android.util.Log
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Modifier
-import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.navigation.NavHostController
-import com.goen.goal.ui.compose.detail.goalDetailCompose
-import com.goen.goal.ui.compose.detail.goalDetailProcessItem
-import com.goen.goal.view_model.GoalDetailViewModel
-import androidx.compose.foundation.lazy.items
-import androidx.compose.material.icons.filled.Add
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.navigation.NavHostController
 import com.goen.goal.R
+import com.goen.goal.ui.compose.detail.GoalDetailCompose
+import com.goen.goal.ui.compose.detail.GoalDetailProcessItem
+import com.goen.goal.view_model.GoalDetailViewModel
 import com.goen.utils.compose.DaikuAppTheme
 
 @Composable
-fun goalDetailMainCompose(
+fun GoalDetailMainCompose(
     goalId: Int,
     createDate: String,
     navController: NavHostController,
@@ -34,7 +31,7 @@ fun goalDetailMainCompose(
     goalArchiveUpdatePage: (Int, String) -> Unit,
 ) {
 
-    var goalDetailViewModel: GoalDetailViewModel = hiltViewModel()
+    val goalDetailViewModel: GoalDetailViewModel = hiltViewModel()
 
     LaunchedEffect(key1 = goalDetailViewModel.goalDetailResult, block = {
         load(viewModel = goalDetailViewModel, goalId = goalId, createDate = createDate)
@@ -43,21 +40,23 @@ fun goalDetailMainCompose(
     DaikuAppTheme {
         Scaffold(
             topBar = {
-                topbar(
+                TopBar(
                     navController = navController,
                     onClickItem = { gotoProcessCreate(goalId, createDate) },
                     isUpdating = goalDetailViewModel.goalDetailResult.value.goalDetail.isUpdating)
             }
-        ) {
+        ) { padding ->
             LazyColumn(
-                modifier = Modifier.fillMaxSize(),
+                modifier = Modifier
+                    .fillMaxSize()
+                    .padding(padding),
             ) {
                 item {
                     Row(
                         modifier = Modifier.fillMaxWidth(),
                         horizontalArrangement = Arrangement.SpaceAround
                     ) {
-                        if(goalDetailViewModel.goalDetailResult.value.goalDetail.archiveId == 0) {
+                        if(goalDetailViewModel.goalDetailResult.value.goalDetail.editable()) {
                             Box(
                                 modifier = Modifier.padding(8.dp)
                             ) {
@@ -73,25 +72,12 @@ fun goalDetailMainCompose(
                                 }
                             }
                         } else {
-                            if(goalDetailViewModel.goalDetailResult.value.goalDetail.isUpdating) {
-                                Box(
-                                    modifier = Modifier.padding(8.dp)
-                                ) {
-                                    OutlinedButton(onClick = {
-                                        goalArchiveUpdatePage(
-                                            goalDetailViewModel.goalDetailResult.value.goalDetail.archiveId,
-                                            goalDetailViewModel.goalDetailResult.value.goalDetail.archivesCreateDate)
-                                    }) {
-                                        Text(stringResource(id = R.string.goal_archive_update_button_name))
-                                    }
-                                }
-                            }else {
-                                Box(
-                                    modifier = Modifier.padding(8.dp)
-                                ) {
-                                    OutlinedButton(onClick = { goalDetailViewModel.updatingFlg(goalId, createDate) }) {
-                                        Text(stringResource(id = R.string.goal_archive_updating_button_name))
-                                    }
+
+                            Box(
+                                modifier = Modifier.padding(8.dp)
+                            ) {
+                                OutlinedButton(onClick = { goalDetailViewModel.updatingFlg(goalId, createDate) }) {
+                                    Text(stringResource(id = R.string.goal_archive_updating_button_name))
                                 }
                             }
 
@@ -99,12 +85,12 @@ fun goalDetailMainCompose(
                     }
                 }
                 item {
-                    goalDetailCompose(
+                    GoalDetailCompose(
                         goalInfo = goalDetailViewModel.goalDetailResult.value.goalDetail
                     )
                 }
                 items(goalDetailViewModel.processListResultList.value.list) {item ->
-                    goalDetailProcessItem(
+                    GoalDetailProcessItem(
                         processItem = item,
                         onClickItem = selectProcessDetail
                     )
@@ -121,7 +107,7 @@ fun load(viewModel : GoalDetailViewModel, goalId: Int, createDate: String) {
 }
 
 @Composable
-private fun topbar(
+private fun TopBar(
     navController: NavHostController,
     onClickItem: () -> Unit,
     isUpdating: Boolean

@@ -1,10 +1,7 @@
 package com.goen.processhistory.ui
 
-import android.util.Log
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.selection.selectable
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
@@ -15,12 +12,11 @@ import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.platform.SoftwareKeyboardController
-import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import com.goen.processhistory.param.ProcessHistoryCreateDisplayParam
-import com.goen.processhistory.view_model.ProcessHistoryCreateInput
+import com.goen.processhistory.ui.comp.ProcessDialog
 import com.goen.processhistory.view_model.ProcessHistoryCreateViewModel
 import com.goen.utils.compose.DaikuAppTheme
 import com.google.accompanist.insets.navigationBarsWithImePadding
@@ -34,24 +30,24 @@ fun ProcessHistoryCreatePage(
 ) {
 
     val keyboardController: SoftwareKeyboardController? = LocalSoftwareKeyboardController.current
-    var viewModel: ProcessHistoryCreateViewModel = hiltViewModel()
+    val viewModel: ProcessHistoryCreateViewModel = hiltViewModel()
 
     viewModel.changeStatus(input.status)
     viewModel.changePriority(input.priority)
 
-    DaikuAppTheme() {
+    DaikuAppTheme {
 
         Scaffold(
             topBar = {
-                _topbar(
+                TopBar(
                     viewModel = viewModel,
                     keyboardController = keyboardController,
                     navHostController = navHostController,
                     processId = input.processId
                 )
             },
-        ) {
-            _form(viewModel = viewModel)
+        ) {padding ->
+            Form(viewModel = viewModel, paddingValues = padding)
             if(viewModel.errorDialog.value) {
                 AlertDialog(
                     onDismissRequest = {
@@ -93,7 +89,7 @@ fun ProcessHistoryCreatePage(
 
 @OptIn(ExperimentalComposeUiApi::class)
 @Composable
-private fun _topbar(
+private fun TopBar(
     viewModel: ProcessHistoryCreateViewModel,
     keyboardController: SoftwareKeyboardController?,
     navHostController: NavHostController,
@@ -140,8 +136,9 @@ private fun _topbar(
 }
 
 @Composable
-fun _form(
-    viewModel: ProcessHistoryCreateViewModel
+private fun Form(
+    viewModel: ProcessHistoryCreateViewModel,
+    paddingValues: PaddingValues
 ) {
     val scrollState = rememberScrollState()
     Box(modifier = Modifier
@@ -177,7 +174,7 @@ fun _form(
                 )
             }
             // ステータス
-            processDialog(
+            ProcessDialog(
                 changeDialog = {flg ->
                     viewModel.changeStatusAlert(flg)
                 },
@@ -189,7 +186,7 @@ fun _form(
                 }
             )
             // 優先度
-            processDialog(
+            ProcessDialog(
                 changeDialog = {flg ->
                     viewModel.changePriorityAlert(flg)
                 },
@@ -202,75 +199,5 @@ fun _form(
             )
 
         }
-    }
-}
-
-
-@Composable
-fun processDialog(
-    options: Map<Int, String>,
-    key: Int,
-    dialogFlg: Boolean,
-    changeDialog: (flg: Boolean) -> Unit,
-    changeKey: (key: Int) -> Unit
-) {
-    TextField(
-        value = options[key]!!,
-        onValueChange = {},
-        modifier = Modifier
-            .padding(8.dp)
-            .fillMaxWidth()
-            .clickable { changeDialog(true) },
-        enabled = false
-    )
-    if(dialogFlg) {
-        AlertDialog(
-            onDismissRequest = { /*TODO*/ },
-            text = {
-                Column(
-                    modifier = Modifier.padding(8.dp)
-                ) {
-                    options.forEach{option ->
-                        Row(
-                            modifier = Modifier
-                                .fillMaxWidth()
-                                .selectable(
-                                    selected = option.key == key,
-                                    onClick = {
-                                        changeKey(option.key)
-                                    }
-                                )
-                        ) {
-                            RadioButton(
-                                // inside this method we are
-                                // adding selected with a option.
-                                selected = (option.key == key),
-                                modifier = Modifier.padding(all = Dp(value = 8F)),
-                                onClick = {
-                                    // inide on click method we are setting a
-                                    // selected option of our radio buttons.
-                                    changeKey(option.key)
-
-                                }
-                            )
-                            // below line is use to add
-                            // text to our radio buttons.
-                            Text(
-                                text = option.value,
-                                modifier = Modifier.padding(start = 16.dp)
-                            )
-                        }
-                    }
-                }
-
-            },
-            confirmButton = {
-                TextButton(onClick = {
-                    changeDialog(false)
-                }) {
-                    Text("閉じる")
-                }
-            }
-        )
     }
 }

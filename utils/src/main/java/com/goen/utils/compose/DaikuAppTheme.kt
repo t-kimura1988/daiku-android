@@ -2,14 +2,12 @@ package com.goen.utils.compose
 
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material.MaterialTheme
-import androidx.compose.material.darkColors
-import androidx.compose.material.lightColors
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.ReadOnlyComposable
 import androidx.compose.runtime.staticCompositionLocalOf
-import androidx.compose.ui.graphics.Color
-import com.goen.utils.entity.*
+import com.goen.utils.entity.DaikuDarkAppColor
+import com.goen.utils.entity.DaikuLightAppColor
 import com.goen.utils.entity.color.DaikuColorPalette
 import com.goen.utils.entity.color.DaikuDarkColorPalette
 import com.goen.utils.entity.color.DaikuLightColorPalette
@@ -24,11 +22,11 @@ fun DaikuAppTheme(
     val systemUiController = rememberSystemUiController()
     if(darkTheme){
         systemUiController.setSystemBarsColor(
-            color = Color.Transparent
+            color = DaikuDarkAppColor.background
         )
     }else{
         systemUiController.setSystemBarsColor(
-            color = Color.White
+            color = DaikuLightAppColor.background
         )
     }
     CompositionLocalProvider(

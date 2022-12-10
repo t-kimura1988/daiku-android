@@ -11,15 +11,15 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.goen.goal.view_model.GoalArchiveViewModel
-import com.goen.goal.view_model.GoalCreateViewModel
 import com.goen.utils.compose.DaikuRadioDialog
 import com.google.accompanist.insets.navigationBarsWithImePadding
 import com.google.accompanist.insets.statusBarsPadding
 
 @Composable
-internal fun GoalArchiveForm(viewModel: GoalArchiveViewModel) {
+internal fun GoalArchiveForm(viewModel: GoalArchiveViewModel, paddingValues: PaddingValues) {
     val scrollState = rememberScrollState()
     Box(modifier = Modifier
+        .padding(paddingValues)
         .fillMaxSize()
         .width(100.dp)) {
         Column(
