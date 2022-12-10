@@ -65,8 +65,8 @@ fun GoalCreateCompose(
                     backgroundColor = DaikuAppTheme.colors.topAppBarColor
                 )
             },
-        ) {
-            GoalEditForm(viewModel = viewModel)
+        ) { padding ->
+            GoalEditForm(viewModel = viewModel, paddingValues = padding)
 
             if(!viewModel.loading.value) {
 

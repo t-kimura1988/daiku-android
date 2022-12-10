@@ -47,8 +47,11 @@ fun ProcessDetailPage(
                     navController = navController,
                     onClickItem = { gotoProcessHistoryCreate(processId, processDetailVM.processDetailResult.value.processDetail.processStatus.toInt(), processDetailVM.processDetailResult.value.processDetail.priority.toInt()) })
             }
-        ) {
-            LazyColumn {
+        ) {padding ->
+            LazyColumn(
+                modifier = Modifier
+                    .padding(padding)
+            ) {
                 item {
                     Box(
                         modifier = Modifier.padding(8.dp)

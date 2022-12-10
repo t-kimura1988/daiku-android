@@ -1,17 +1,17 @@
 package com.goen.process.ui.comp
 
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.selection.selectable
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material.*
+import androidx.compose.material.ExperimentalMaterialApi
+import androidx.compose.material.MaterialTheme
+import androidx.compose.material.OutlinedTextField
+import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.input.KeyboardType
-import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import com.goen.process.view_model.ProcessCreateViewModel
 import com.goen.utils.compose.DaikuRadioDialog
@@ -22,7 +22,8 @@ import com.google.accompanist.insets.statusBarsPadding
 @OptIn(ExperimentalMaterialApi::class)
 @Composable
 internal fun ProcessEditForm(
-    viewModel: ProcessCreateViewModel
+    viewModel: ProcessCreateViewModel,
+    paddingValues: PaddingValues
 ) {
     val scrollState = rememberScrollState()
     Column(

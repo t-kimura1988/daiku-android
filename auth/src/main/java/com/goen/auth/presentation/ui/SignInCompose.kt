@@ -67,8 +67,10 @@ fun SignInCompose(
                     clickMenu = clickMenuItem
                 )
             })
-        {
+        { padding ->
             AndroidView(
+                modifier = Modifier
+                    .padding(padding),
                 factory = ::WebView,
                 update = { webView ->
                     webView.webViewClient = WebViewClient()

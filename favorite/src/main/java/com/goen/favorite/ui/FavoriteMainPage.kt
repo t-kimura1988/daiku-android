@@ -40,8 +40,11 @@ fun FavoriteMainPage(
             topBar = {
                 FavoriteTopBar()
             }
-        ) {
-            Box(modifier = Modifier.padding(innerPadding)) {
+        ) { padding ->
+            Box(modifier = Modifier
+                .padding(innerPadding)
+                .padding(padding)
+            ) {
                 LazyColumn(
                     modifier = Modifier.fillMaxSize(),
 

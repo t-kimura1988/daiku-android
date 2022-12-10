@@ -41,8 +41,8 @@ fun ProcessUpdateCompose(
     DaikuAppTheme() {
         Scaffold(
             topBar = { TopBar(viewModel = viewModel, createProcess =  updateProcess) },
-            content = {
-                ProcessEditForm(viewModel = viewModel)
+            content = { padding ->
+                ProcessEditForm(viewModel = viewModel, paddingValues = padding)
                 if(viewModel.failureFlg.value) {
                     AlertDialog(
                         onDismissRequest = {

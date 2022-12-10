@@ -46,8 +46,8 @@ fun ProcessHistoryUpdateCommentPage(
                     processHistoryId = input.processHistoryId
                 )
             },
-        ) {
-            UpdateCommentForm(viewModel = viewModel)
+        ) { padding ->
+            UpdateCommentForm(viewModel = viewModel, paddingValues = padding)
         }
     }
 }
@@ -101,10 +101,12 @@ private fun UpdateCommentTopBar(
 
 @Composable
 fun UpdateCommentForm(
-    viewModel: ProcessHistoryUpdateCommentViewModel
+    viewModel: ProcessHistoryUpdateCommentViewModel,
+    paddingValues: PaddingValues
 ) {
     val scrollState = rememberScrollState()
     Box(modifier = Modifier
+        .padding(paddingValues)
         .fillMaxSize()
         .width(100.dp)) {
         Column(

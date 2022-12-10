@@ -22,11 +22,13 @@ import com.google.accompanist.insets.statusBarsPadding
 @OptIn(ExperimentalMaterialApi::class)
 @Composable
 internal fun StoryCharacterEditForm(
-    viewModel: StoryCharacterCreateViewModel
+    viewModel: StoryCharacterCreateViewModel,
+    paddingValues: PaddingValues
 ) {
     val scrollState = rememberScrollState()
     Column(
         modifier = Modifier
+            .padding(paddingValues)
             .fillMaxSize()
             .verticalScroll(scrollState)
             .statusBarsPadding()

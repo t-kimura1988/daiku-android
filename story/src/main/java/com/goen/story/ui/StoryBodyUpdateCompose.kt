@@ -38,8 +38,8 @@ fun StoryBodyUpdateCompose(
 
         Scaffold(
             topBar = { TopBar(viewModel = viewModel, updateStoryBody =  updateStoryBody) },
-            content = {
-                StoryBodyEditForm(viewModel = viewModel)
+            content = { padding ->
+                StoryBodyEditForm(viewModel = viewModel, paddingValues = padding)
                 if(viewModel.failureFlg.value) {
                     AlertDialog(
                         onDismissRequest = {

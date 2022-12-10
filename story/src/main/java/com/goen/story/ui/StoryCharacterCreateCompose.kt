@@ -33,8 +33,8 @@ fun StoryCharacterCreateCompose(
 
         Scaffold(
             topBar = { TopBar(viewModel = viewModel, createProcess =  createProcess) },
-            content = {
-                StoryCharacterEditForm(viewModel = viewModel)
+            content = { padding ->
+                StoryCharacterEditForm(viewModel = viewModel, paddingValues = padding)
                 if(viewModel.failureFlg.value) {
                     AlertDialog(
                         onDismissRequest = {

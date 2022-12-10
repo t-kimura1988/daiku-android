@@ -46,8 +46,8 @@ fun ProcessHistoryCreatePage(
                     processId = input.processId
                 )
             },
-        ) {
-            Form(viewModel = viewModel)
+        ) {padding ->
+            Form(viewModel = viewModel, paddingValues = padding)
             if(viewModel.errorDialog.value) {
                 AlertDialog(
                     onDismissRequest = {
@@ -137,7 +137,8 @@ private fun TopBar(
 
 @Composable
 private fun Form(
-    viewModel: ProcessHistoryCreateViewModel
+    viewModel: ProcessHistoryCreateViewModel,
+    paddingValues: PaddingValues
 ) {
     val scrollState = rememberScrollState()
     Box(modifier = Modifier

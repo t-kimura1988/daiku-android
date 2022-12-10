@@ -15,9 +15,10 @@ import com.google.accompanist.insets.navigationBarsWithImePadding
 import com.google.accompanist.insets.statusBarsPadding
 
 @Composable
-internal fun GoalEditForm(viewModel: GoalCreateViewModel) {
+internal fun GoalEditForm(viewModel: GoalCreateViewModel, paddingValues: PaddingValues) {
     val scrollState = rememberScrollState()
     Box(modifier = Modifier
+        .padding(paddingValues)
         .fillMaxSize()
         .width(100.dp)) {
         Column(

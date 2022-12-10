@@ -45,8 +45,8 @@ fun ProcessHistoryUpdateStatusPage(
                     processId = input.processId
                 )
             },
-        ) {
-            Form(viewModel = viewModel)
+        ) { padding ->
+            Form(viewModel = viewModel, paddingValues = padding)
             if(viewModel.errorDialog.value) {
                 AlertDialog(
                     onDismissRequest = {
@@ -135,7 +135,8 @@ private fun TopBar(
 
 @Composable
 private fun Form(
-    viewModel: ProcessHistoryUpdateStatusViewModel
+    viewModel: ProcessHistoryUpdateStatusViewModel,
+    paddingValues: PaddingValues
 ) {
     val scrollState = rememberScrollState()
     Box(modifier = Modifier

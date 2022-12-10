@@ -33,8 +33,8 @@ fun ProcessCreateCompose(
 
         Scaffold(
             topBar = { TopBar(viewModel = viewModel, createProcess =  createProcess) },
-            content = {
-                ProcessEditForm(viewModel = viewModel)
+            content = { padding ->
+                ProcessEditForm(viewModel = viewModel, paddingValues = padding)
                 if(viewModel.failureFlg.value) {
                     AlertDialog(
                         onDismissRequest = {

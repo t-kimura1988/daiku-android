@@ -2,12 +2,14 @@ package com.goen.auth.presentation.ui
 
 import android.webkit.WebView
 import android.webkit.WebViewClient
+import androidx.compose.foundation.layout.padding
 import androidx.compose.material.Scaffold
 import androidx.compose.material.Text
 import androidx.compose.material.TopAppBar
 import androidx.compose.material.rememberScaffoldState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.ui.Modifier
 import androidx.compose.ui.viewinterop.AndroidView
 import androidx.navigation.NavHostController
 import com.goen.utils.compose.DaikuAppTheme
@@ -25,8 +27,10 @@ fun PrivacyPolicyCompose(
         Scaffold(
             scaffoldState = scaffoldState,
             topBar = { PrivacyPolicyTopBar() })
-        {
+        { padding ->
             AndroidView(
+                modifier = Modifier
+                    .padding(padding),
                 factory = ::WebView,
                 update = { webView ->
                     webView.webViewClient = WebViewClient()
