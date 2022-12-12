@@ -1,2 +1,6 @@
 /build
 google-services-local.json
+/prd
+/dev
+/debug
+/release
