@@ -57,8 +57,8 @@ jobs:
     - name: Grant execute permission for gradlew
       run: chmod +x gradlew
 
-    - name: Build with Gradle
-      if: (contains(toJSON(github.ref), 'develop') || contains(toJSON(github.ref), 'master')) && github.event_name == 'push'
+    - name: Build with Gradle DEV
+      if: contains(toJSON(github.ref), 'develop' && github.event_name == 'push'
       run: |
         if [[ -n "${{ env.KEYSTORE_BASE64 }}" ]]; then
           echo "${{ env.KEYSTORE_BASE64 }}" | base64 -d > ${{ env.TF_VAR_ENV }}-release.keystore
@@ -66,9 +66,20 @@ jobs:
           export KEY_ALIAS="${{ env.KEY_ALIAS }}"
           export KEY_PASSWORD="${{ env.KEY_PASSWORD }}"
         fi
-        ./gradlew build :app:assembleDevRelease  -Dlint.baselines.continue=true
+        ./gradlew build :app:bundleDevRelease -Dlint.baselines.continue=true
 
-    - name: APK Download
+    - name: Build with Gradle PRD
+      if: contains(toJSON(github.ref), 'master') && github.event_name == 'push'
+      run: |
+        if [[ -n "${{ env.KEYSTORE_BASE64 }}" ]]; then
+          echo "${{ env.KEYSTORE_BASE64 }}" | base64 -d > ${{ env.TF_VAR_ENV }}-release.keystore
+          export KEYSTORE_PASSWORD="${{ env.KEYSTORE_PASSWORD }}"
+          export KEY_ALIAS="${{ env.KEY_ALIAS }}"
+          export KEY_PASSWORD="${{ env.KEY_PASSWORD }}"
+        fi
+        ./gradlew build :app:bundlePrdRelease -Dlint.baselines.continue=true
+
+    - name: AAB Download
       if: (contains(toJSON(github.ref), 'develop') || contains(toJSON(github.ref), 'master')) && github.event_name == 'push'
       uses: actions/upload-artifact@v3
       with:
