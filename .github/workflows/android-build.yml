@@ -58,7 +58,7 @@ jobs:
       run: chmod +x gradlew
 
     - name: Build with Gradle DEV
-      if: contains(toJSON(github.ref), 'develop' && github.event_name == 'push'
+      if: contains(toJSON(github.ref), 'develop') && github.event_name == 'push'
       run: |
         if [[ -n "${{ env.KEYSTORE_BASE64 }}" ]]; then
           echo "${{ env.KEYSTORE_BASE64 }}" | base64 -d > ${{ env.TF_VAR_ENV }}-release.keystore
