@@ -1,7 +1,7 @@
 plugins {
     id 'com.android.application'
     id 'kotlin-android'
-//    id 'com.google.gms.google-services'
+    id 'com.google.gms.google-services'
     id 'dagger.hilt.android.plugin'
     id 'kotlin-kapt'
 }
@@ -15,14 +15,10 @@ android {
         applicationId "com.goen.daiku"
         minSdkVersion 21
         targetSdkVersion 33
-        versionCode 3
+        versionCode 4
         versionName "1.0.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
-
-        buildConfigField('String', 'FIREBASE_PROJECT_ID', '"' + System.getenv("FIREBASE_PROJECT_ID") + '"')
-        buildConfigField('String', 'FIREBASE_APPLICATION_ID', '"' + System.getenv("FIREBASE_APPLICATION_ID") + '"')
-        buildConfigField('String', 'FIREBASE_API_KEY', '"' + System.getenv("FIREBASE_API_KEY") + '"')
 
         buildConfigField('String', 'GOOGLE_SIGN_IN_ID_TOKEN', '"' + System.getenv("GOOGLE_SIGN_IN_ID_TOKEN") + '"')
         buildConfigField('String', 'APP_BASE_URL', '"' + System.getenv("APP_BASE_URL") + '"')
@@ -109,6 +105,7 @@ android {
         checkDependencies true
     }
 }
+
 
 dependencies {
     implementation project(":auth")
