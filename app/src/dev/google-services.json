@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "77378983566",
+    "firebase_url": "https://goen-dev-new.firebaseio.com",
+    "project_id": "goen-dev-new",
+    "storage_bucket": "goen-dev-new.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:77378983566:android:d08651c34b6b72afd8dbdf",
+        "android_client_info": {
+          "package_name": "com.goen.daiku"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "77378983566-d8r1ph7d7qjakb7ksbnh4jqgkr0mmgvr.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.goen.daiku",
+            "certificate_hash": "c6ecf01bb98f2848f7fbef4441782c3c34828d75"
+          }
+        },
+        {
+          "client_id": "77378983566-3dfkmr9g87sd8qro8e0oib5r8qkmd747.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAyu7VqPNROnnb-EHFXYptwgs751w6gZJA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "77378983566-3dfkmr9g87sd8qro8e0oib5r8qkmd747.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "77378983566-4979fn41q20kfpc5b8pi8s44blutgc1u.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.sekai-no-goen.kanji"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

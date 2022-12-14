@@ -18,7 +18,6 @@ import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.common.api.ApiException
 import com.google.firebase.FirebaseApp
-import com.google.firebase.FirebaseOptions
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.GoogleAuthProvider
 import com.google.firebase.auth.ktx.auth
@@ -49,12 +48,7 @@ class AuthActivity(
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         AndroidThreeTen.init(this)
-        var options = FirebaseOptions.Builder()
-            .setProjectId(BuildConfig.FIREBASE_PROJECT_ID)
-            .setApplicationId(BuildConfig.FIREBASE_APPLICATION_ID)
-            .setApiKey(BuildConfig.FIREBASE_API_KEY)
-            .build()
-        FirebaseApp.initializeApp(this, options)
+        FirebaseApp.initializeApp(this)
         mAuth = Firebase.auth
 
     }
