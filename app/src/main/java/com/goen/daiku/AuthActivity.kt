@@ -1,5 +1,6 @@
 package com.goen.daiku
 
+import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import androidx.activity.ComponentActivity
@@ -37,12 +38,15 @@ class AuthActivity(
     val appBaseUrl: String = com.goen.auth.BuildConfig.APP_BASE_URL
 
     private val authResultLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
-        val data: Intent? = result.data
-        val task = GoogleSignIn.getSignedInAccountFromIntent(data)
+        if (result.resultCode == Activity.RESULT_OK) {
+            val data: Intent? = result.data
+            val task = GoogleSignIn.getSignedInAccountFromIntent(data)
 
-        val account = task.getResult(ApiException::class.java)!!
+            val account = task.getResult(ApiException::class.java)!!
 
-        firebaseAuthWithGoogle(account.idToken!!)
+            firebaseAuthWithGoogle(account.idToken!!)
+
+        }
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
