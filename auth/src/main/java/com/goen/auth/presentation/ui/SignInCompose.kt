@@ -148,7 +148,9 @@ fun DrawerContent(
                 Text(
                     text = item.title,
                     fontSize = 16.sp,
-                    fontWeight = FontWeight.Bold
+                    fontWeight = FontWeight.Bold,
+                    modifier = Modifier
+                        .fillMaxWidth()
                 )
             }
         }
