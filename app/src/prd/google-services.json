@@ -15,6 +15,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "661878451793-gjq5snjfj5nr73vf2crcftlq4dpob0h6.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.goen.daiku",
+            "certificate_hash": "d59bd83ba5154c3e66e88e38f003d87592eab2c8"
+          }
+        },
+        {
           "client_id": "661878451793-m1fthaibckm0sudeboqttfudgo9eifof.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
